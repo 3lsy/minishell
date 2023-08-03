@@ -1,0 +1,47 @@
+name: Norme Tests
+
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'include/**'
+      - 'lib/libft/**'
+  workflow_dispatch:
+jobs:
+  norme-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.10", "3.9"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get -y install lsb-release
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install pypi dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools
+          python -m pip install norminette
+
+      - name: Norme test
+        run: |
+          norminette -v
+          norme=$(norminette src include lib/libft | grep -v OK || true)
+          if [ -z "$norme" ]; then
+            echo "Everything is on the norme! ✅🔥"
+            exit 0
+          else
+            echo "Errors:"
+            echo "$norme"
+            echo "Norme FAILURE! 😞❌"
+            exit 1
+          fi
