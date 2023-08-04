@@ -5,7 +5,7 @@ on:
     paths:
       - 'src/**'
       - 'include/**'
-      - 'lib/libft/**'
+      - 'libft/**'
   workflow_dispatch:
 jobs:
   norme-test:
