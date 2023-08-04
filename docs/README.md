@@ -70,8 +70,8 @@ The evaluator takes the **Evaluation Structure**, launch the appropriate executa
 title: Shell Command Processing Flow
 ---
 erDiagram
-    Shell_Command ||--o{ Syntax_Analyzer : "Analyze"
+    Shell_Command ||--o{ Analyzer : "Analyze"
     Shell_Command ||--|{ Evaluation_Structure : "Creates"
-    Syntax_Analyzer }o--|{ Evaluation_Structure : "Creates"
+    Analyzer }o--|{ Evaluation_Structure : "Creates"
     Evaluation_Structure }|--|| Command_Evaluator : "Evaluate"
 ```
