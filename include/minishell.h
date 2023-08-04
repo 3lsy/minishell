@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/04 01:56:55 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/08/04 02:14:11 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "analyzer.h"
-# include "exec.h"
+# include "eval.h"
 
 typedef struct s_shell
 {
