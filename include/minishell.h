@@ -16,6 +16,8 @@
 # include "analyzer.h"
 # include "exec.h"
 
+# define SH g_sh
+
 typedef struct s_shell
 {
 	//
