@@ -1,13 +1,36 @@
 <h1 align="center">
 	Minishell
-  <img src = "https://github.com/3lsy/minishell/assets/107457733/c2439028-cac0-4b1a-aad3-74a5e8d23f42" width = 50> 
+  <img src = "https://github.com/3lsy/minishell/assets/107457733/ab36bb69-86f6-4a46-ac1e-04b160dc9f9a" width = 50> 
 </h1>
 
 ## Design
-There are three *(2 are key)* main components on a shell:
-- Interface
+There are two main components on a shell:
 - **Analyzer**
 - **Evaluator**
+
+```mermaid
+---
+title: Analyzer
+---
+flowchart LR
+    input["INPUT: Raw CMD"]
+    analyzer["ANALYZER"]
+    output["OUTPUT: CMD struct list"]
+    input --> analyzer
+    analyzer --> output
+```
+
+```mermaid
+---
+title: Evaluator
+---
+flowchart LR
+    input["INPUT: CMD struct list"]
+    evaluator["EVALUATOR"]
+    output["OUTPUT: CMD execution"]
+    input --> evaluator
+    evaluator --> output
+```
 
 ### Interface
 In this *minishell*, the interface is very small and is mostly a tool for the **Analyzer** since it doesn't handle any pointer interaction.
@@ -21,8 +44,9 @@ However it does handle:
   | `ctrl-D`        | EOF (End of File) |
   | `ctrl-\`        | SIGQUIT         |
 
+
 ### Analyzer
-The analyzer takes the command, analyze the *lexic*, *syntax* and *semantic*, and process the data into an **Evaluation Structure**, that the **Evaluator** will take and use it to evaluate the command, redirection, pipe, etc.
+The analyzer takes the command, analyze the *lexic*, *syntax* and *semantic*, and process the data into an **Evaluation Structure List**, that the **Evaluator** will take and use it to evaluate the command, redirection, pipe, etc.
 It handles:
 - Lexic Analysis
 - Syntax Analysis
@@ -40,7 +64,7 @@ It handles:
   - $? *which the evaluator has to save*
 
 ### Evaluator
-The evaluator takes the **Evaluation Structure**, launch the appropriate executable on a child process, handling pipes, signal inheritance, **clean** process management, etc.
+The evaluator takes the **Evaluation Structure List**, launch the appropriate executable on a child process, handling pipes, signal inheritance, **clean** process management, etc.
 - Search and launch executables
   - Based on the `PATH` env variable.
   - Based on an aboslute path
@@ -71,7 +95,7 @@ title: Shell Command Processing Flow
 ---
 erDiagram
     Shell_Command }|--|{ Analyzer : "Analyze"
-    Shell_Command }|--|{ Evaluation_Structure : "Creates"
-    Analyzer }o--o{ Evaluation_Structure : "Creates"
-    Evaluation_Structure }o--|| Command_Evaluator : "Evaluate"
+    Shell_Command }|--|{ Evaluation_Structure_List : "Creates"
+    Analyzer }o--o{ Evaluation_Structure_List : "Creates"
+    Evaluation_Structure_List }o--|| Command_Evaluator : "Evaluate"
 ```
