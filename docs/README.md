@@ -95,7 +95,7 @@ title: Shell Command Processing Flow
 ---
 erDiagram
     Shell_Command }|--|{ Analyzer : "Analyze"
-    Shell_Command }|--|{ Evaluation_Structure_List : "Creates"
-    Analyzer }o--o{ Evaluation_Structure_List : "Creates"
-    Evaluation_Structure_List }o--|| Command_Evaluator : "Evaluate"
+    Shell_Command }|--|{ Command_Structure_List : "Creates"
+    Analyzer }o--o{ Command_Structure_List : "Creates"
+    Command_Structure_List }o--|| Evaluator : "Evaluate"
 ```
