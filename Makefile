@@ -6,7 +6,7 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/08/05 15:14:47 by echavez-         ###   ########.fr        #
+#    Updated: 2023/08/05 15:41:54 by echavez-         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -30,15 +30,21 @@ DIRSRC      =   ./src/
 DIRAN       :=  $(DIRSRC)/analyzer/
 DIREVAL		:=  $(DIRSRC)/evaluator/
 DIRINT		:=  $(DIRSRC)/interface/
+DIRBLT      :=  $(DIRSRC)/builtin/
+DIRSGL      :=  $(DIRSRC)/signal/
+DIRSTR      :=  $(DIRSRC)/structures/
 
-DIRS        :=  $(DIRSRC) $(DIRAN) $(DIREVAL) $(DIRINT)
+DIRS        :=  $(DIRSRC) $(DIRAN) $(DIREVAL) $(DIRINT) $(DIRBLT) $(DIRSGL) $(DIRSTR)
 
 SRC         =   main.c
-AN          =   analyzer.c
+ANZER       =   analyzer.c
 EVAL        =   evaluator.c
-INT         =   interface.c
+INTER       =   interface.c
+BUILT       =   echo.c
+SIGNL       =   signal.c
+STRCT       =   cmd_struct.c
 
-SRCS        :=  $(SRC) $(AN) $(EVAL) $(INT)
+SRCS        :=  $(SRC) $(ANZER) $(EVAL) $(INTER) $(BUILT) $(SIGNL) $(STRCT)
 
 #***************** DEPS ******************#
 
