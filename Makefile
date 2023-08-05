@@ -6,7 +6,7 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/08/04 01:40:13 by echavez-         ###   ########.fr        #
+#    Updated: 2023/08/05 15:09:50 by echavez-         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -27,14 +27,18 @@ LIB_INC     =   -L$(LIB_H) -lft             # Include library
 #****************** SRC *******************#
 
 DIRSRC      =   ./src/
-DIRFOO      :=  #$(DIRSRC)/foo/
+DIRAN       :=  $(DIRSRC)/analyzer/
+DIREVAL		:=  $(DIRSRC)/evaluator/
+DIRINT		:=  $(DIRSRC)/interface/
 
-DIRS        :=  $(DIRSRC) $(DIRFOO)
+DIRS        :=  $(DIRSRC) $(DIRAN) $(DIREVAL) $(DIRINT)
 
-SRC         =   # main.c
-FOO         =
+SRC         =   main.c
+AN          =   analyzer.c
+EVAL        =   evaluator.c
+INT         =   interface.c
 
-SRCS        :=  $(SRC) $(FOO)
+SRCS        :=  $(SRC) $(AN) $(EVAL) $(INT)
 
 #***************** DEPS ******************#
 
