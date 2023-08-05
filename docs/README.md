@@ -15,7 +15,7 @@ title: Analyzer
 flowchart LR
     input["INPUT: Raw CMD"]
     analyzer["ANALYZER"]
-    output["OUTPUT: CMD struct list"]
+    output["OUTPUT: CMD structure list"]
     input --> analyzer
     analyzer --> output
 ```
@@ -25,7 +25,7 @@ flowchart LR
 title: Evaluator
 ---
 flowchart LR
-    input["INPUT: CMD struct list"]
+    input["INPUT: CMD structure list"]
     evaluator["EVALUATOR"]
     output["OUTPUT: CMD execution"]
     input --> evaluator
@@ -46,7 +46,7 @@ However it does handle:
 
 
 ### Analyzer
-The analyzer takes the command, analyze the *lexic*, *syntax* and *semantic*, and process the data into an **Evaluation Structure List**, that the **Evaluator** will take and use it to evaluate the command, redirection, pipe, etc.
+The analyzer takes the command, analyze the *lexic*, *syntax* and *semantic*, and process the data into an **CMD Structure List**, that the **Evaluator** will take and use it to evaluate the command, redirection, pipe, etc.
 It handles:
 - Lexic Analysis
 - Syntax Analysis
@@ -64,7 +64,7 @@ It handles:
   - $? *which the evaluator has to save*
 
 ### Evaluator
-The evaluator takes the **Evaluation Structure List**, launch the appropriate executable on a child process, handling pipes, signal inheritance, **clean** process management, etc.
+The evaluator takes the **CMD Structure List**, launch the appropriate executable on a child process, handling pipes, signal inheritance, **clean** process management, etc.
 - Search and launch executables
   - Based on the `PATH` env variable.
   - Based on an aboslute path
@@ -95,7 +95,7 @@ title: Shell Command Processing Flow
 ---
 erDiagram
     Shell_Command }|--|{ Analyzer : "Analyze"
-    Shell_Command }|--|{ Evaluation_Structure_List : "Creates"
-    Analyzer }o--o{ Evaluation_Structure_List : "Creates"
-    Evaluation_Structure_List }o--|| Command_Evaluator : "Evaluate"
+    Shell_Command }|--|{ Command_Structure_List : "Creates"
+    Analyzer }o--o{ Command_Structure_List : "Creates"
+    Command_Structure_List }o--|| Evaluator : "Evaluate"
 ```

@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analyzer.h                                         :+:      :+:    :+:   */
+/*   libraries.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 01:46:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/05 16:03:12 by echavez-         ###   ########.fr       */
+/*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
+/*   Updated: 2023/08/05 16:01:49 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANALYZER_H
-# define ANALYZER_H
+#ifndef LIBRARIES_H
+# define LIBRARIES_H
 
-# include "libraries.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <sys/stat.h>
+# include <dirent.h>
+# include <string.h>
+# include <curses.h>
+# include <termios.h>
 
 #endif
