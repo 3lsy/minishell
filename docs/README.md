@@ -15,7 +15,7 @@ title: Analyzer
 flowchart LR
     input["INPUT: Raw CMD"]
     analyzer["ANALYZER"]
-    output["OUTPUT: CMD structure list"]
+    output["OUTPUT: Command AST"]
     input --> analyzer
     analyzer --> output
 ```
@@ -25,11 +25,49 @@ flowchart LR
 title: Evaluator
 ---
 flowchart LR
-    input["INPUT: CMD structure list"]
+    input["INPUT: Command AST"]
     evaluator["EVALUATOR"]
     output["OUTPUT: CMD execution"]
     input --> evaluator
     evaluator --> output
+```
+
+```mermaid
+---
+title: Command Abstract Syntax Tree (AST)
+---
+%%{ init: { 'flowchart': { 'curve': 'stepAfter' } } }%%
+graph TD
+    A((Pipe)):::pipe --> B((Redir)):::redir
+    A --> C((Pipe)):::pipe
+    B --> D((Arg)):::arg
+    B --> E((Redir)):::redir
+    E --> EL((Arg)):::arg
+    E --> ER((Redir)):::redir
+    ER --> EER((Arg)):::arg
+    ER --> EEL((CMD)):::cmd
+    C --> F((Redir)):::redir
+    F --> FL((Arg)):::arg
+    F --> FR((Redir)):::redir
+    FR --> FFR((Arg)):::arg
+    FR --> FFL(... Redirs ...):::redir
+    FFL --> FFFL((Redir)):::redir
+    FFFL --> FFFR((Arg)):::arg
+    FFFL --> FFFFL((CMD)):::cmd
+    C --> G(... Pipes ...):::pipe
+    G --> H((Pipe)):::pipe
+    H --> HL((Redir)):::redir
+    HL --> HR((Arg)):::arg
+    H --> I((Redir)):::redir
+    I --> IR((Arg)):::arg
+    I --> IL(... Redirs ...):::redir
+    IL --> IIL((CMD)):::cmd
+    HL --> HHL(... Redirs ...):::redir
+    HHL --> HHHL((CMD)):::cmd
+    classDef pipe stroke:#f00
+    classDef arg stroke:#0f0
+    classDef cmd stroke:#ff0
+    classDef redir stroke:#0ff
 ```
 
 ### Interface
@@ -46,7 +84,7 @@ However it does handle:
 
 
 ### Analyzer
-The analyzer takes the command, analyze the *lexic*, *syntax* and *semantic*, and process the data into an **CMD Structure List**, that the **Evaluator** will take and use it to evaluate the command, redirection, pipe, etc.
+The analyzer takes the command, analyze the *lexic*, *syntax* and *semantic*, and process the data into an **Command AST**, that the **Evaluator** will take and use it to evaluate the command, redirection, pipe, etc.
 It handles:
 - Lexic Analysis
 - Syntax Analysis
@@ -64,7 +102,7 @@ It handles:
   - $? *which the evaluator has to save*
 
 ### Evaluator
-The evaluator takes the **CMD Structure List**, launch the appropriate executable on a child process, handling pipes, signal inheritance, **clean** process management, etc.
+The evaluator takes the **Command AST**, launch the appropriate executable on a child process, handling pipes, signal inheritance, **clean** process management, etc.
 - Search and launch executables
   - Based on the `PATH` env variable.
   - Based on an aboslute path
@@ -95,7 +133,7 @@ title: Shell Command Processing Flow
 ---
 erDiagram
     Shell_Command }|--|{ Analyzer : "Analyze"
-    Shell_Command }|--|{ Command_Structure_List : "Creates"
-    Analyzer }o--o{ Command_Structure_List : "Creates"
-    Command_Structure_List }o--|| Evaluator : "Evaluate"
+    Shell_Command }|--|{ Command_AST : "Creates"
+    Analyzer }o--o{ Command_AST : "Creates"
+    Command_AST }o--|| Evaluator : "Evaluate"
 ```
