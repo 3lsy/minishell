@@ -6,13 +6,13 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:47:07 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/04 02:14:00 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:03:01 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EVAL_H
 # define EVAL_H
 
-
+# include "libraries.h"
 
 #endif
