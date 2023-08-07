@@ -6,7 +6,7 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/08/05 15:41:54 by echavez-         ###   ########.fr        #
+#    Updated: 2023/08/07 15:54:25 by echavez-         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -42,7 +42,7 @@ EVAL        =   evaluator.c
 INTER       =   interface.c
 BUILT       =   echo.c
 SIGNL       =   signal.c
-STRCT       =   cmd_struct.c
+STRCT       =   cmd_struct.c ast.c
 
 SRCS        :=  $(SRC) $(ANZER) $(EVAL) $(INTER) $(BUILT) $(SIGNL) $(STRCT)
 

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/05 16:09:04 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:12:12 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,27 @@
 # include "analyzer.h"
 # include "eval.h"
 
-# define SH g_sh
+# define TRUE 1
 
-typedef struct s_shell
-{
-}	t_shell;
+/*
+** main
+*/
 
-extern t_shell		*g_sh;
+t_cmd	*ft_cmd(void);
+void	exit_error(char *e);
+
+/*
+** structures
+*/
+
+t_ast	*new_cmd(char *bin, int ac, char **av);
+
+/*
+** signal
+*/
+
+void	ft_sigint(int sig);
+void	ft_sigquit(int sig);
+void	ft_sigtstp(int sig);
 
 #endif

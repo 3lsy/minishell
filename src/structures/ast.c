@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   evaluator.c                                        :+:      :+:    :+:   */
+/*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/07 16:14:54 by echavez-         ###   ########.fr       */
+/*   Created: 2023/08/07 13:49:59 by echavez-          #+#    #+#             */
+/*   Updated: 2023/08/07 15:53:34 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_evaluator(t_cmd *cmd)
+t_ast	*new_cmd(char *bin, int ac, char **av)
 {
-	static char	*av[] = {"/usr/bin/man", "malloc"};
+	t_ast	*new;
 
-	cmd->ast = new_cmd("/usr/bin/man", 2, av);
-	if (!cmd->ast)
-		exit_error(strerror(errno));
-	ft_putendl(cmd->ast->bin);
+	new = ft_calloc(sizeof(t_ast), 1);
+	if (!new)
+		return (NULL);
+	new->id = 0;
+	new->bin = bin;
+	new->ac = ac;
+	new->av = av;
+	new->left = NULL;
+	new->right = NULL;
+	new->file = NULL;
+	return (new);
 }

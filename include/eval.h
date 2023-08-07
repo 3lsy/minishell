@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:47:07 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/05 16:03:01 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/08/07 15:39:36 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 # define EVAL_H
 
 # include "libraries.h"
+
+void	ft_evaluator(t_cmd *cmd);
 
 #endif

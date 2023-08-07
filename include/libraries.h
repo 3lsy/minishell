@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/05 16:01:49 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:12:37 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,40 @@
 # include <string.h>
 # include <curses.h>
 # include <termios.h>
+# include <errno.h>
+
+# include "libft.h"
+
+/*
+*  AST
+** - id: {
+**     0 : CMD
+**     1 : |
+**     2 : <
+**     3 : >
+**     4 : <<
+**     5 : >>
+**   }
+*/
+
+typedef struct s_ast
+{
+	int				id;
+	struct s_ast	*left;
+	struct s_ast	*right;
+
+	char			*bin;
+	int				ac;
+	char			**av;
+
+	char			*file;
+}	t_ast;
+
+typedef struct s_cmd
+{
+	char	*line;
+	t_ast	*ast;
+	int		exit_status;
+}	t_cmd;
 
 #endif
