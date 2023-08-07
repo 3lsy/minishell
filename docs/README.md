@@ -40,26 +40,26 @@ title: Command Abstract Syntax Tree (AST)
 graph TD
     A((Pipe)):::pipe --> B((Redir)):::redir
     A --> C((Pipe)):::pipe
-    B --> D((Arg)):::arg
+    B --> D((Filename)):::arg
     B --> E((Redir)):::redir
-    E --> EL((Arg)):::arg
+    E --> EL((Filename)):::arg
     E --> ER((Redir)):::redir
-    ER --> EER((Arg)):::arg
+    ER --> EER((Filename)):::arg
     ER --> EEL((CMD)):::cmd
     C --> F((Redir)):::redir
-    F --> FL((Arg)):::arg
+    F --> FL((Filename)):::arg
     F --> FR((Redir)):::redir
-    FR --> FFR((Arg)):::arg
+    FR --> FFR((Filename)):::arg
     FR --> FFL(... Redirs ...):::redir
     FFL --> FFFL((Redir)):::redir
-    FFFL --> FFFR((Arg)):::arg
+    FFFL --> FFFR((Filename)):::arg
     FFFL --> FFFFL((CMD)):::cmd
     C --> G(... Pipes ...):::pipe
     G --> H((Pipe)):::pipe
     H --> HL((Redir)):::redir
-    HL --> HR((Arg)):::arg
+    HL --> HR((Filename)):::arg
     H --> I((Redir)):::redir
-    I --> IR((Arg)):::arg
+    I --> IR((Filename)):::arg
     I --> IL(... Redirs ...):::redir
     IL --> IIL((CMD)):::cmd
     HL --> HHL(... Redirs ...):::redir
