@@ -6,13 +6,13 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/07 16:14:54 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:36:11 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_evaluator(t_cmd *cmd)
+void	ft_evaluator(t_sh *cmd)
 {
 	static char	*av[] = {"/usr/bin/man", "malloc"};
 

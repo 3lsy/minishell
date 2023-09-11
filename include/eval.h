@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:47:07 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/07 15:39:36 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:39:35 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "libraries.h"
 
-void	ft_evaluator(t_cmd *cmd);
+void	ft_evaluator(t_sh *sh);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/07 16:12:37 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:16:45 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,29 @@ typedef struct s_ast
 	char			*file;
 }	t_ast;
 
-typedef struct s_cmd
+typedef struct s_prompt
+{
+	char	*username;
+	char	*hostname;
+	char	*pwd;
+	char	separator;
+	char	symbol;
+}	t_prompt;
+
+typedef struct s_cui
+{
+	struct termios	term;
+	struct termios	term_backup;
+	t_prompt	prompt;
+}	t_cui;
+
+typedef struct t_sh
 {
 	char	*line;
 	t_ast	*ast;
+	char	**ev;
+	t_cui	cui;
 	int		exit_status;
-}	t_cmd;
+}	t_sh;
 
 #endif
