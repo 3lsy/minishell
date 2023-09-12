@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:34:50 by echavez-          #+#    #+#             */
-/*   Updated: 2023/08/07 16:05:47 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:06:50 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,23 @@
 void	ft_sigint(int sig)
 {
 	(void)sig;
-	ft_putendl("sigint");
+	ft_printf("sigint");
 }
 
-void	ft_sigquit(int sig)
+static void	ft_empty(__attribute__((unused)) int sig)
 {
-	(void)sig;
-	ft_putendl("sigquit");
 }
 
-void	ft_sigtstp(int sig)
+/*
+** Signals
+** 1. CTRL + C
+** 2. CTRL + \
+** 3. CTRL + Z
+*/
+
+void	ft_signals(void)
 {
-	(void)sig;
-	ft_putendl("sigstp");
+	signal(SIGINT, ft_sigint);
+	signal(SIGQUIT, ft_empty);
+	signal(SIGTSTP, ft_empty);
 }

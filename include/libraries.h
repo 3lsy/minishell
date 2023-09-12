@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/11 18:16:45 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:56:46 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # include <errno.h>
 
 # include "libft.h"
+
+# define TRUE 1
+# define FALSE 0
 
 /*
 *  AST
@@ -68,7 +71,7 @@ typedef struct s_cui
 {
 	struct termios	term;
 	struct termios	term_backup;
-	t_prompt	prompt;
+	t_prompt		prompt;
 }	t_cui;
 
 typedef struct t_sh
