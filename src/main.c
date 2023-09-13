@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dell <dell@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/12 23:24:29 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:20:11 by dell             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ static void	ft_minishell(t_sh *sh)
 	ft_destructor(sh);
 }
 
-int	main(__attribute__((unused)) int ac,
-		__attribute__((unused)) char **av,
-		__attribute__((unused)) char **ev)
+int	main(int ac, __attribute__((unused)) char **av, char **ev)
 {
 	t_sh	*sh;
 
@@ -32,6 +30,8 @@ int	main(__attribute__((unused)) int ac,
 	{
 		sh = ft_sh();
 		init_env(sh, ev);
+		init_termcap(sh);
+		init_termios(sh);
 		ft_signals();
 		ft_minishell(sh);
 		return (0);
@@ -52,6 +52,6 @@ void	ft_destructor(t_sh *sh)
 		free(sh->ast);
 	if (sh->ev)
 		free(sh->ev);
-	if (sh->line)
-		free(sh->line);
+	if (sh->cui.line)
+		free(sh->cui.line);
 }
