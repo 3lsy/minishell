@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/12 21:56:46 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:30:04 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,15 @@ typedef struct s_cui
 	struct termios	term_backup;
 	t_prompt		prompt;
 }	t_cui;
+
+/*
+** SH
+** - line: user input
+** - ast: abstract syntax tree
+** - ev: environment variables
+** - cui: command user interface
+** - exit_status: exit status
+*/
 
 typedef struct t_sh
 {

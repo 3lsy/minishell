@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/12 21:56:54 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/12 23:21:20 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_destructor(t_sh *sh);
 
 t_ast	*new_cmd(char *bin, int ac, char **av);
 t_sh	*ft_sh(void);
+void	init_env(t_sh *sh, char **ev);
 
 /*
 ** signal
