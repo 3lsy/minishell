@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dell <dell@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/12 23:21:20 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:36:44 by dell             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@
 
 void	exit_error(char *e, t_sh *sh);
 void	ft_destructor(t_sh *sh);
+
+/*
+** interface
+*/
+
+void	term_set(char *event);
+void	init_termcap(t_sh *sh);
+void	init_termios(t_sh *sh);
 
 /*
 ** structures

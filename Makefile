@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
+#    By: dell <dell@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/09/12 21:08:30 by echavez-         ###   ########.fr        #
+#    Updated: 2023/09/13 16:07:16 by dell             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIB_H       =   ./libft/                    # Library header files directory
 
 INCLUDE     =   -O3 -I $(LIB_H) -I $(INC)   # Header files
 
-LIB_INC     =   -L$(LIB_H) -lft             # Include library
+LIB_INC     =   -L$(LIB_H) -lft -lcurses    # Include library
 
 #****************** SRC *******************#
 

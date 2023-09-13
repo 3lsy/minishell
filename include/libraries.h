@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libraries.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dell <dell@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/13 15:30:04 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:21:39 by dell             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <errno.h>
 
 # include "libft.h"
+# include <term.h> 
 
 # define TRUE 1
 # define FALSE 0
@@ -69,6 +70,10 @@ typedef struct s_prompt
 
 typedef struct s_cui
 {
+	char			*line;
+	size_t			line_size;
+	size_t			cursor;
+
 	struct termios	term;
 	struct termios	term_backup;
 	t_prompt		prompt;
@@ -85,10 +90,9 @@ typedef struct s_cui
 
 typedef struct t_sh
 {
-	char	*line;
+	t_cui	cui;
 	t_ast	*ast;
 	char	**ev;
-	t_cui	cui;
 	int		exit_status;
 }	t_sh;
 
