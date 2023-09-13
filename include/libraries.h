@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libraries.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dell <dell@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/13 16:21:39 by dell             ###   ########.fr       */
+/*   Updated: 2023/09/13 18:25:02 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@
 # include <curses.h>
 # include <termios.h>
 # include <errno.h>
+# include <limits.h>
 
 # include "libft.h"
 # include <term.h> 
 
 # define TRUE 1
 # define FALSE 0
+# define INVISIBLE_CURSOR "vi"
+# define VISIBLE_CURSOR "ve"
 
 /*
 *  AST
@@ -61,10 +64,9 @@ typedef struct s_ast
 
 typedef struct s_prompt
 {
-	char	*username;
-	char	*hostname;
-	char	*pwd;
-	char	separator;
+	char	username[NAME_MAX + 1];
+	char	hostname[HOST_NAME_MAX + 1];
+	char	cwd[PATH_MAX + 1];
 	char	symbol;
 }	t_prompt;
 

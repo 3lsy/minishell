@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:55:56 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/12 22:00:34 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:58:37 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	k24_insert(char **ev, char *str)
 	value = ft_strdup(tmp + 1);
 	ev[k24(key)] = value;
 	free(key);
-	free(value);
 }
 
 void	init_env(t_sh *sh, char **ev)

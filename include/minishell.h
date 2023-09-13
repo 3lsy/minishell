@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dell <dell@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/13 16:36:44 by dell             ###   ########.fr       */
+/*   Updated: 2023/09/13 18:28:01 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_destructor(t_sh *sh);
 void	term_set(char *event);
 void	init_termcap(t_sh *sh);
 void	init_termios(t_sh *sh);
+void	init_prompt(t_prompt *prompt, char **ev);
+void	ft_prompt(t_prompt prompt);
 
 /*
 ** structures
