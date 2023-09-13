@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/13 18:26:53 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/13 20:06:26 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	exit_error(char *e, t_sh *sh)
 
 void	ft_destructor(t_sh *sh)
 {
+	tcsetattr(STDIN_FILENO, TCSANOW, &sh->cui.term);
+	tgetent(NULL, getenv("TERM"));
 	if (sh->ast)
 		free(sh->ast);
 	if (sh->ev)
