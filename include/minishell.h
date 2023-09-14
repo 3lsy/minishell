@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/13 20:12:59 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:35:14 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_termios(t_sh *sh);
 void	unset_term(t_sh *sh);
 void	init_prompt(t_prompt *prompt, char **ev);
 void	ft_prompt(t_prompt prompt);
+int		ft_readline(t_cui *cui);
 
 /*
 ** structures

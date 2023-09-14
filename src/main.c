@@ -6,18 +6,24 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/13 20:13:17 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:36:09 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** if (ft_analyzer(sh) == EXIT_FAILURE)
+**   exit_error(strerror(errno), sh);
+** ft_evaluator(sh);
+*/
 static void	ft_minishell(t_sh *sh)
 {
 	while (TRUE)
 	{
 		ft_prompt(sh->cui.prompt);
-		ft_evaluator(sh);
+		if (ft_readline(&sh->cui) == EXIT_FAILURE)
+			exit_error(strerror(errno), sh);
 		break ;
 	}
 	ft_destructor(sh);

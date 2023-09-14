@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/13 18:25:02 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:53:28 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 # define TRUE 1
 # define FALSE 0
+# define MAX_CODE_SIZE 6
 # define INVISIBLE_CURSOR "vi"
 # define VISIBLE_CURSOR "ve"
 
