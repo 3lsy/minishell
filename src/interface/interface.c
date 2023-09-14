@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:10:23 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/13 20:14:09 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:47:05 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,12 @@ void	unset_term(t_sh *sh)
 	sh->cui.term.c_lflag |= (ICANON | ECHO);
 	if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term) == -1)
 		exit_error("Could not set the termios attributes.", sh);
+}
+
+void	reset_cmdline(t_cui *cui)
+{
+	free(cui->line);
+	cui->line = NULL;
+	cui->cursor = 0;
+	cui->line_size = 0;
 }
