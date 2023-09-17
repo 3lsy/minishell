@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/14 19:55:33 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:21:43 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,30 @@
 # define HISTORY_SIZE 100
 # define TRUE 1
 # define FALSE 0
+
+/*
+** Keycodes
+*/
 # define MAX_CODE_SIZE 6
+
+# define CTRL_D "\x4"
+# define DEL "\x7f"
+# define LEFT_ARROW "\x1b\x5b\x44"
+# define RIGHT_ARROW "\x1b\x5b\x43"
+# define UP_ARROW "\x1b\x5b\x41"
+# define DOWN_ARROW "\x1b\x5b\x42"
+
+/*
+** Terminal Capabilities
+*/
 # define INVISIBLE_CURSOR "vi"
 # define VISIBLE_CURSOR "ve"
+# define LEFT_CURSOR "le"
+# define RIGHT_CURSOR "nd"
+# define CLEAR_RIGHT "ce"
+# define STORE_CURSOR "sc"
+# define RESTORE_CURSOR "rc"
+# define DELETE_CHAR "dc"
 
 /*
 *  AST

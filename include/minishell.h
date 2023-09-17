@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 16:04:23 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:21:33 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@ void	term_set(char *event);
 void	init_termcap(t_sh *sh);
 void	init_termios(t_sh *sh);
 void	unset_term(t_sh *sh);
+void	reset_cmdline(t_cui *cui);
+
 void	init_prompt(t_prompt *prompt, char **ev);
 void	ft_prompt(t_prompt prompt);
-int		ft_readline(t_cui *cui);
+void	ft_readline(t_cui *cui, t_sh *sh);
+
+int		delete_key(t_cui *cui, t_sh *sh);
+int		left_key(t_cui *cui);
+int		right_key(t_cui *cui);
 
 /*
 ** structures

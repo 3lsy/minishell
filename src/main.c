@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/14 18:54:50 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:21:19 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 /*
 ** if (ft_analyzer(sh) == EXIT_FAILURE)
 **   exit_error(strerror(errno), sh);
-** ft_evaluator(sh);
+** if (ft_parser(sh) == EXIT_FAILURE)
+**   exit_error(strerror(errno), sh);
 */
 static void	ft_minishell(t_sh *sh)
 {
 	while (TRUE)
 	{
+		reset_cmdline(&sh->cui);
 		ft_prompt(sh->cui.prompt);
-		if (ft_readline(&sh->cui) == EXIT_FAILURE)
-			exit_error(strerror(errno), sh);
-		//save_line_history(sh);
-		break ;
+		ft_readline(&sh->cui, sh);
+		ft_printf("{%s}\n", sh->cui.line);
 	}
 	ft_destructor(sh);
 }
