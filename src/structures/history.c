@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:35:37 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 18:58:31 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 19:29:16 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_history	*create_history_node(void)
 ** save line history: append line to history double linked list
 */
 
-void	save_line_history(t_history **history, t_sh *sh, char *line)
+void	save_line_history(t_sh *sh, char *line)
 {
 	t_history	*history_node;
 
@@ -43,17 +43,17 @@ void	save_line_history(t_history **history, t_sh *sh, char *line)
 	history_node->line = ft_strdup(line);
 	if (!history_node->line)
 		exit_error(strerror(errno), sh);
-	history_node->next = (*history);
-	if (*history)
-		(*history)->prev = history_node;
-	(*history) = history_node;
+	history_node->next = sh->history;
+	if (sh->history)
+		sh->history->prev = history_node;
+	sh->history = history_node;
 }
 
 /*
 ** load history: read history file and load it to a double linked list
 */
 
-void	load_history(t_history **history, t_sh *sh, int fd)
+void	load_history(t_sh *sh, int fd)
 {
 	char	*line;
 	int		i;
@@ -63,7 +63,7 @@ void	load_history(t_history **history, t_sh *sh, int fd)
 	while (line && i--)
 	{
 		if (ft_isprintable(line))
-			save_line_history(history, sh, line);
+			save_line_history(sh, line);
 		else
 		{
 			free(line);
@@ -97,10 +97,11 @@ void	init_history(t_sh *sh, char **ev)
 		ft_strcpy(&sh->history_path[len_home], HISTORY_FILE);
 		sh->history_path[len_home + ft_strlen(HISTORY_FILE)] = '\0';
 		fd = open(sh->history_path, O_RDONLY);
-		if (fd == -1)
-			exit_error(strerror(errno), sh);
-		load_history(&sh->history, sh, fd);
-		close(fd);
+		if (fd != -1)
+		{
+			load_history(sh, fd);
+			close(fd);
+		}
 	}
 	else
 		exit_error("HOME environmental variable is not set", sh);
@@ -110,15 +111,15 @@ void	init_history(t_sh *sh, char **ev)
 ** write_history: write line to history file
 */
 
-t_history	write_history(t_history *history, int fd)
+char	*ft_write_history(t_history *history, int fd)
 {
 	char		*line;
 
 	if (!history)
 		return (NULL);
-	line = write_history(history->next, fd);
+	line = ft_write_history(history->next, fd);
 	if (line)
-		ft_printf_fd(line, fd);
+		ft_fprintf(fd, "%s", line);
 	return (history->line);
 }
 
@@ -135,8 +136,8 @@ void	save_history(t_sh *sh)
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		exit_error(strerror(errno), sh);
-	line = write_history(sh->history, fd);
+	line = ft_write_history(sh->history, fd);
 	if (line)
-		ft_printf_fd(line, fd);
+		ft_fprintf(fd, "%s", line);
 	close(fd);
 }

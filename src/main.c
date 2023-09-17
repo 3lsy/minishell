@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 16:21:19 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 18:30:22 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static void	ft_minishell(t_sh *sh)
 		reset_cmdline(&sh->cui);
 		ft_prompt(sh->cui.prompt);
 		ft_readline(&sh->cui, sh);
+		if (sh->cui.line && (!sh->history
+				|| ft_strcmp(sh->cui.line, sh->history->line)))
+			save_line_history(sh, sh->cui.line);
 		ft_printf("{%s}\n", sh->cui.line);
 	}
 	ft_destructor(sh);

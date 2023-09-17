@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 17:49:21 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 19:06:14 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ typedef struct s_cui
 	char			*line;
 	size_t			line_size;
 	size_t			cursor;
+	t_history		*history_cursor;
+	char			*tmp_line;
 
 	struct termios	term;
 	struct termios	term_backup;
