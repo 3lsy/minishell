@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:10:23 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/14 22:47:05 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:26:19 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,6 @@ void	reset_cmdline(t_cui *cui)
 	cui->line = NULL;
 	cui->cursor = 0;
 	cui->line_size = 0;
+	cui->history_cursor = NULL;
+	cui->tmp_line = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 16:06:26 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 18:47:36 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	key_event(char *e, t_cui *cui, t_sh *sh)
 	else if (ft_strcmp(e, RIGHT_ARROW) == 0)
 		right_key(cui);
 	else if (ft_strcmp(e, UP_ARROW) == 0)
-		ft_printf("up");
+		up_key(cui, sh);
 	else if (ft_strcmp(e, DOWN_ARROW) == 0)
-		ft_printf("down");
+		down_key(cui, sh);
 }
 
 void	write_input(char c, t_cui *cui, t_sh *sh)
@@ -70,4 +70,23 @@ void	ft_readline(t_cui *cui, t_sh *sh)
 			write_input(buf[0], cui, sh);
 	}
 	ft_printf("\n");
+}
+
+void	change_line(t_cui *cui, t_sh *sh, char *line)
+{
+	while (cui->cursor > 0)
+		left_key(cui);
+	term_set(CLEAR_RIGHT);
+	free(cui->line);
+	cui->line = NULL;
+	cui->line_size = 0;
+	if (line)
+	{
+		ft_printf("%s", line);
+		cui->line = ft_strdup(line);
+		if (!cui->line)
+			exit_error(strerror(errno), sh);
+		cui->line_size = ft_strlen(line);
+	}
+	cui->cursor = cui->line_size;
 }
