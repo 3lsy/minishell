@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/14 22:05:26 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:06:26 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	write_input(char c, t_cui *cui, t_sh *sh)
 }
 
 /*
-** len = # of chars/bytes read
+** len = # of chars/bytes read per read()
 */
 void	ft_readline(t_cui *cui, t_sh *sh)
 {
