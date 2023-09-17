@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:11:08 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/13 20:11:26 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:45:00 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	reduce_path(char *path, char **ev)
 	int		len_home;
 	int		len_path;
 
-	if (ev[k24("HOME")])
+	home = ev[k24("HOME")];
+	if (home)
 	{
-		home = ev[k24("HOME")];
 		len_home = ft_strlen(home);
 		if (ft_strncmp(path, home, len_home) == 0)
 		{

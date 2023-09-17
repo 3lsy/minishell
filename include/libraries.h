@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/14 16:53:28 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/14 19:55:33 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # include "libft.h"
 # include <term.h> 
 
+# define HISTORY_FILE "/.minishell_history"
+# define HISTORY_SIZE 100
 # define TRUE 1
 # define FALSE 0
 # define MAX_CODE_SIZE 6
@@ -63,6 +65,13 @@ typedef struct s_ast
 	char			*file;
 }	t_ast;
 
+typedef struct s_history
+{
+	char				*line;
+	struct s_history	*next;
+	struct s_history	*prev;
+}	t_history;
+
 typedef struct s_prompt
 {
 	char	username[NAME_MAX + 1];
@@ -93,10 +102,12 @@ typedef struct s_cui
 
 typedef struct t_sh
 {
-	t_cui	cui;
-	t_ast	*ast;
-	char	**ev;
-	int		exit_status;
+	t_cui		cui;
+	t_ast		*ast;
+	t_history	*history;
+	char		history_path[PATH_MAX + 1];
+	char		**ev;
+	int			exit_status;
 }	t_sh;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/14 16:35:14 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:04:23 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int		ft_readline(t_cui *cui);
 t_ast	*new_cmd(char *bin, int ac, char **av);
 t_sh	*ft_sh(void);
 void	init_env(t_sh *sh, char **ev);
+void	init_history(t_sh *sh, char **ev);
+void	save_line_history(t_history **history, t_sh *sh, char *line);
 
 /*
 ** signal

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/14 17:36:09 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:54:50 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	ft_minishell(t_sh *sh)
 		ft_prompt(sh->cui.prompt);
 		if (ft_readline(&sh->cui) == EXIT_FAILURE)
 			exit_error(strerror(errno), sh);
+		//save_line_history(sh);
 		break ;
 	}
 	ft_destructor(sh);
@@ -37,6 +38,7 @@ int	main(int ac, __attribute__((unused)) char **av, char **ev)
 	{
 		sh = ft_sh();
 		init_env(sh, ev);
+		init_history(sh, sh->ev);
 		init_prompt(&sh->cui.prompt, sh->ev);
 		init_termcap(sh);
 		init_termios(sh);
