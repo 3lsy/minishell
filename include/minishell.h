@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 16:21:33 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:16:45 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_sh	*ft_sh(void);
 void	init_env(t_sh *sh, char **ev);
 void	init_history(t_sh *sh, char **ev);
 void	save_line_history(t_history **history, t_sh *sh, char *line);
+void	free_history(t_history **history);
 
 /*
 ** signal

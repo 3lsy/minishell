@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 16:21:43 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:49:21 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # include <term.h> 
 
 # define HISTORY_FILE "/.minishell_history"
-# define HISTORY_SIZE 100
+# define HISTSIZE 1000
 # define TRUE 1
 # define FALSE 0
 
