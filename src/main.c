@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 18:30:22 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 19:43:35 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,4 @@ void	exit_error(char *e, t_sh *sh)
 	ft_destructor(sh);
 	ft_fprintf(STDERR_FILENO, "minishell: %s\n", e);
 	exit(EXIT_FAILURE);
-}
-
-void	ft_destructor(t_sh *sh)
-{
-	unset_term(sh);
-	if (sh->ast)
-		free(sh->ast);
-	if (sh->ev)
-		free(sh->ev);
-	if (sh->cui.line)
-		free(sh->cui.line);
 }

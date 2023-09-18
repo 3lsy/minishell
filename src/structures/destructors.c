@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:49:31 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 17:14:19 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 20:33:53 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,18 @@ void	free_history(t_history **history)
 		free(tmp);
 		tmp = NULL;
 	}
+}
+
+void	ft_destructor(t_sh *sh)
+{
+	unset_term(sh);
+	save_history(sh);
+	if (sh->history)
+		free_history(&sh->history);
+	if (sh->ast)
+		free(sh->ast);
+	if (sh->ev)
+		free(sh->ev);
+	if (sh->cui.line)
+		free(sh->cui.line);
 }

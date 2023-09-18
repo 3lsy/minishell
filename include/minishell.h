@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 19:07:06 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/17 20:33:42 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 */
 
 void	exit_error(char *e, t_sh *sh);
-void	ft_destructor(t_sh *sh);
 
 /*
 ** interface
@@ -54,6 +53,8 @@ void	init_env(t_sh *sh, char **ev);
 void	init_history(t_sh *sh, char **ev);
 void	free_history(t_history **history);
 void	save_line_history(t_sh *sh, char *line);
+void	ft_destructor(t_sh *sh);
+void	save_history(t_sh *sh);
 
 /*
 ** signal
