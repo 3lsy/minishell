@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:10:23 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 01:05:17 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 01:29:58 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	init_termcap(t_sh *sh)
 		exit_error("Terminal type is not defined.", sh);
 }
 
-// TODO
-// Handle the case where stdin is not a terminal (e.g., when used in a pipeline)
 void	init_termios(t_sh *sh)
 {
 	if (isatty(STDIN_FILENO))
@@ -46,8 +44,6 @@ void	init_termios(t_sh *sh)
 		if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term) == -1)
 			exit_error("Could not set the termios attributes.", sh);
 	}
-	//else
-		// exit_error("Standard input is not a terminal.", sh);
 }
 
 void	unset_term(t_sh *sh)
