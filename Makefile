@@ -6,7 +6,7 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/09/18 17:30:01 by echavez-         ###   ########.fr        #
+#    Updated: 2023/09/21 01:15:15 by echavez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ DIRS        :=  $(DIRSRC) $(DIRAN) $(DIREVAL) $(DIRINT) $(DIRBLT) $(DIRSGL) $(DI
 SRC         =   main.c
 ANZER       =   analyzer.c
 EVAL        =   evaluator.c
-INTER       =   interface.c prompt.c readline.c events.c
-BUILT       =   echo.c
+INTER       =   interface.c prompt.c readline.c events.c notatty.c
+BUILT       =   echo.c exit.c
 SIGNL       =   signal.c
 STRCT       =   sh.c ast.c env.c history.c history_file.c destructors.c
 

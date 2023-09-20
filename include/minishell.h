@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 20:33:42 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 01:15:26 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	exit_error(char *e, t_sh *sh);
 ** interface
 */
 
+void	notatty(t_sh *sh);
+
 void	term_set(char *event);
 void	init_termcap(t_sh *sh);
 void	init_termios(t_sh *sh);
@@ -42,6 +44,18 @@ int		right_key(t_cui *cui);
 int		up_key(t_cui *cui, t_sh *sh);
 int		down_key(t_cui *cui, t_sh *sh);
 void	change_line(t_cui *cui, t_sh *sh, char *line);
+
+/*
+** Analyzer
+*/
+
+void	ft_analyzer(t_sh *sh);
+
+/*
+** Evaluator
+*/
+
+void	ft_exit(t_sh *sh);
 
 /*
 ** structures

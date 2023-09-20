@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/18 17:05:48 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 00:08:20 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ typedef struct s_cui
 ** - cui: command user interface
 ** - exit_status: exit status
 */
-
 typedef struct t_sh
 {
 	t_cui		cui;
@@ -130,7 +129,7 @@ typedef struct t_sh
 	t_history	*history;
 	char		history_path[PATH_MAX + 1];
 	char		**ev;
-	int			exit_status;
+	t_byte		exit_status;
 }	t_sh;
 
 #endif

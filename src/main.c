@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 19:43:35 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 01:18:56 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_minishell(t_sh *sh)
 		if (sh->cui.line && (!sh->history
 				|| ft_strcmp(sh->cui.line, sh->history->line)))
 			save_line_history(sh, sh->cui.line);
-		ft_printf("{%s}\n", sh->cui.line);
+		ft_analyzer(sh);
 	}
 	ft_destructor(sh);
 }
@@ -43,6 +43,8 @@ int	main(int ac, __attribute__((unused)) char **av, char **ev)
 		init_env(sh, ev);
 		init_history(sh, sh->ev);
 		init_prompt(&sh->cui.prompt, sh->ev);
+		if (!isatty(STDIN_FILENO))
+			notatty(sh);
 		init_termcap(sh);
 		init_termios(sh);
 		ft_signals();
@@ -50,11 +52,4 @@ int	main(int ac, __attribute__((unused)) char **av, char **ev)
 		return (0);
 	}
 	return (1);
-}
-
-void	exit_error(char *e, t_sh *sh)
-{
-	ft_destructor(sh);
-	ft_fprintf(STDERR_FILENO, "minishell: %s\n", e);
-	exit(EXIT_FAILURE);
 }

@@ -1,44 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destructors.c                                      :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/17 16:49:31 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 00:51:38 by echavez-         ###   ########.fr       */
+/*   Created: 2023/09/21 00:07:24 by echavez-          #+#    #+#             */
+/*   Updated: 2023/09/21 00:16:26 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_history(t_history **history)
+void	ft_exit(t_sh *sh)
 {
-	t_history	*tmp;
+	t_byte	status;
 
-	if (!*history)
-		return ;
-	while (*history)
-	{
-		tmp = *history;
-		*history = tmp->next;
-		free(tmp->line);
-		tmp->line = NULL;
-		free(tmp);
-		tmp = NULL;
-	}
+	status = sh->exit_status;
+	ft_destructor(sh);
+	ft_printf("\nexit\n");
+	exit(status);
 }
 
-void	ft_destructor(t_sh *sh)
+void	exit_error(char *e, t_sh *sh)
 {
-	unset_term(sh);
-	save_history(sh);
-	if (sh->history)
-		free_history(&sh->history);
-	if (sh->ast)
-		free(sh->ast);
-	if (sh->ev)
-		free(sh->ev);
-	if (sh->cui.line)
-		free(sh->cui.line);
+	ft_destructor(sh);
+	ft_fprintf(STDERR_FILENO, "minishell: %s\n", e);
+	exit(EXIT_FAILURE);
 }
