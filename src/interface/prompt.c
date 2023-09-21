@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:11:08 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 20:32:20 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:40:26 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ void	init_prompt(t_prompt *prompt, char **ev)
 //TODO:
 // 1. Add colors
 // 2. Simplify CWD
-void	ft_prompt(t_prompt prompt)
+void	ft_prompt(t_cui *cui)
 {
-	term_set(INVISIBLE_CURSOR);
+	t_prompt	prompt;
+
+	prompt = cui->prompt;
+	term_set(INVISIBLE_CURSOR, cui->term_buffer);
 	ft_printf("%s", prompt.username);
 	if (prompt.hostname[0] && prompt.username[0])
 		ft_printf("@");
@@ -68,5 +71,5 @@ void	ft_prompt(t_prompt prompt)
 		ft_printf(":");
 	ft_printf("%s", prompt.cwd);
 	ft_printf("%c ", prompt.symbol);
-	term_set(VISIBLE_CURSOR);
+	term_set(VISIBLE_CURSOR, cui->term_buffer);
 }

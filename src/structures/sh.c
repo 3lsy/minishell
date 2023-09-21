@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 21:07:46 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 17:24:26 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:32:52 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ t_sh	*ft_sh(void)
 		.exit_status = 0,
 		.ast = NULL,
 		.ev = NULL,
+		.keys = {-1},
 		.cui = {
 		.line = NULL,
 		.line_size = 0,
 		.cursor = 0,
 		.history_cursor = NULL,
 		.tmp_line = NULL,
+		.term_buffer = {0},
 		.prompt = {
 		.username = {0},
 		.hostname = {0},

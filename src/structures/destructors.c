@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:49:31 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 00:51:38 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:11:22 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,32 @@ void	free_history(t_history **history)
 	}
 }
 
+void	free_env(t_sh *sh)
+{
+	int	i;
+
+	i = 0;
+	while (sh->keys[i] != -1)
+	{
+		free(sh->ev[sh->keys[i]]);
+		sh->ev[sh->keys[i]] = NULL;
+		i++;
+	}
+	free(sh->ev);
+}
+
 void	ft_destructor(t_sh *sh)
 {
 	unset_term(sh);
 	save_history(sh);
+	if (sh->ev)
+		free_env(sh);
 	if (sh->history)
 		free_history(&sh->history);
 	if (sh->ast)
 		free(sh->ast);
-	if (sh->ev)
-		free(sh->ev);
 	if (sh->cui.line)
 		free(sh->cui.line);
+	if (sh->cui.tmp_line)
+		free(sh->cui.tmp_line);
 }

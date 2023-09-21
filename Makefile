@@ -6,7 +6,7 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/09/21 01:15:15 by echavez-         ###   ########.fr        #
+#    Updated: 2023/09/21 22:27:39 by echavez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ DIRSTR      :=  $(DIRSRC)/structures/
 DIRS        :=  $(DIRSRC) $(DIRAN) $(DIREVAL) $(DIRINT) $(DIRBLT) $(DIRSGL) $(DIRSTR)
 
 SRC         =   main.c
-ANZER       =   analyzer.c
+ANZER       =   analyzer.c lexer.c
 EVAL        =   evaluator.c
 INTER       =   interface.c prompt.c readline.c events.c notatty.c
 BUILT       =   echo.c exit.c

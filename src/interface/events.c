@@ -6,29 +6,29 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:01:29 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/17 18:13:21 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:46:08 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	left_key(t_cui *cui)
+int	left_key(t_cui *cui, t_sh *sh)
 {
 	if (cui->cursor > 0)
 		cui->cursor--;
 	else
 		return (0);
-	term_set(LEFT_CURSOR);
+	term_set(LEFT_CURSOR, sh->cui.term_buffer);
 	return (1);
 }
 
-int	right_key(t_cui *cui)
+int	right_key(t_cui *cui, t_sh *sh)
 {
 	if (cui->cursor < cui->line_size)
 		cui->cursor++;
 	else
 		return (0);
-	term_set(RIGHT_CURSOR);
+	term_set(RIGHT_CURSOR, sh->cui.term_buffer);
 	return (1);
 }
 
@@ -36,9 +36,9 @@ int	delete_key(t_cui *cui, t_sh *sh)
 {
 	char	*tmp;
 
-	if (!left_key(cui))
+	if (!left_key(cui, sh))
 		return (0);
-	term_set(DELETE_CHAR);
+	term_set(DELETE_CHAR, sh->cui.term_buffer);
 	cui->line[cui->cursor] = '\0';
 	tmp = ft_strjoin(cui->line, cui->line + cui->cursor + 1, 0);
 	if (!tmp)

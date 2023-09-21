@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 01:15:26 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:44:22 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ void	exit_error(char *e, t_sh *sh);
 
 void	notatty(t_sh *sh);
 
-void	term_set(char *event);
+void	term_set(char *event, char term_buffer[2048]);
 void	init_termcap(t_sh *sh);
 void	init_termios(t_sh *sh);
 void	unset_term(t_sh *sh);
 void	reset_cmdline(t_cui *cui);
 
 void	init_prompt(t_prompt *prompt, char **ev);
-void	ft_prompt(t_prompt prompt);
+void	ft_prompt(t_cui *cui);
 void	ft_readline(t_cui *cui, t_sh *sh);
 
 int		delete_key(t_cui *cui, t_sh *sh);
-int		left_key(t_cui *cui);
-int		right_key(t_cui *cui);
+int		left_key(t_cui *cui, t_sh *sh);
+int		right_key(t_cui *cui, t_sh *sh);
 int		up_key(t_cui *cui, t_sh *sh);
 int		down_key(t_cui *cui, t_sh *sh);
 void	change_line(t_cui *cui, t_sh *sh, char *line);
@@ -50,6 +50,8 @@ void	change_line(t_cui *cui, t_sh *sh, char *line);
 */
 
 void	ft_analyzer(t_sh *sh);
+t_byte	is_token(char *str, int i);
+char	*insert_spaces(char *str);
 
 /*
 ** Evaluator

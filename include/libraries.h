@@ -6,15 +6,13 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 00:08:20 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:03:00 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBRARIES_H
 # define LIBRARIES_H
 
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -61,6 +59,13 @@
 # define RESTORE_CURSOR "rc"
 # define DELETE_CHAR "dc"
 
+# define CMD 0
+# define PIPE 1
+# define SGL_L 2
+# define SGL_R 3
+# define DBL_L 4
+# define DBL_R 5
+
 /*
 *  AST
 ** - id: {
@@ -75,7 +80,7 @@
 
 typedef struct s_ast
 {
-	int				id;
+	t_byte			id;
 	struct s_ast	*left;
 	struct s_ast	*right;
 
@@ -109,6 +114,7 @@ typedef struct s_cui
 	t_history		*history_cursor;
 	char			*tmp_line;
 
+	char			term_buffer[2048];
 	struct termios	term;
 	struct termios	term_backup;
 	t_prompt		prompt;
@@ -129,6 +135,7 @@ typedef struct t_sh
 	t_history	*history;
 	char		history_path[PATH_MAX + 1];
 	char		**ev;
+	int			keys[K24_SIZE];
 	t_byte		exit_status;
 }	t_sh;
 

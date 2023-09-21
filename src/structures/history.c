@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:35:37 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/18 17:27:43 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:49:55 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	load_history(t_sh *sh, int fd)
 		{
 			free(line);
 			ft_get_next_line(-503);
-			exit_error("Line is not printable", sh);
+			exit_error("History: Line is not printable", sh);
 		}
 		free(line);
 		line = ft_get_next_line(fd);

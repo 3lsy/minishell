@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 00:17:15 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:50:29 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@
 void	key_event(char *e, t_cui *cui, t_sh *sh)
 {
 	if (ft_strcmp(e, CTRL_D) == 0 && !cui->line_size)
+	{
+		ft_printf("\n");
 		ft_exit(sh);
+	}
 	else if (ft_strcmp(e, DEL) == 0)
 		delete_key(cui, sh);
 	else if (ft_strcmp(e, LEFT_ARROW) == 0)
-		left_key(cui);
+		left_key(cui, sh);
 	else if (ft_strcmp(e, RIGHT_ARROW) == 0)
-		right_key(cui);
+		right_key(cui, sh);
 	else if (ft_strcmp(e, UP_ARROW) == 0)
 		up_key(cui, sh);
 	else if (ft_strcmp(e, DOWN_ARROW) == 0)
@@ -38,10 +41,10 @@ void	write_input(char c, t_cui *cui, t_sh *sh)
 	ft_strinsert(&cui->line, c, cui->cursor);
 	if (!cui->line)
 		exit_error("Could not allocate memory.", sh);
-	term_set(CLEAR_RIGHT);
-	term_set(STORE_CURSOR);
+	term_set(CLEAR_RIGHT, sh->cui.term_buffer);
+	term_set(STORE_CURSOR, sh->cui.term_buffer);
 	ft_printf("%s", cui->line + cui->cursor + 1);
-	term_set(RESTORE_CURSOR);
+	term_set(RESTORE_CURSOR, sh->cui.term_buffer);
 	cui->cursor++;
 	cui->line_size++;
 }
@@ -72,8 +75,8 @@ void	ft_readline(t_cui *cui, t_sh *sh)
 void	change_line(t_cui *cui, t_sh *sh, char *line)
 {
 	while (cui->cursor > 0)
-		left_key(cui);
-	term_set(CLEAR_RIGHT);
+		left_key(cui, sh);
+	term_set(CLEAR_RIGHT, sh->cui.term_buffer);
 	free(cui->line);
 	cui->line = NULL;
 	cui->line_size = 0;

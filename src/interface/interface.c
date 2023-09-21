@@ -6,15 +6,15 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:10:23 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 01:29:58 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:19:08 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	term_set(char *event)
+void	term_set(char *event, char term_buffer[2048])
 {
-	ft_printf("%s", tgetstr(event, NULL));
+	ft_printf("%s", tgetstr(event, &term_buffer));
 }
 
 void	init_termcap(t_sh *sh)
@@ -25,7 +25,7 @@ void	init_termcap(t_sh *sh)
 	termtype = getenv("TERM");
 	if (termtype == NULL)
 		exit_error("Specify a terminal type with 'setenv TERM <term>'.", sh);
-	connect = tgetent(NULL, termtype);
+	connect = tgetent(sh->cui.term_buffer, termtype);
 	if (connect < 0)
 		exit_error("Could not access the termcap data base.", sh);
 	if (connect == 0)
@@ -48,13 +48,14 @@ void	init_termios(t_sh *sh)
 
 void	unset_term(t_sh *sh)
 {
-	if (!isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO))
 	{
 		if (tcgetattr(STDIN_FILENO, &sh->cui.term) == -1)
 			return ;
 		sh->cui.term.c_lflag |= (ICANON | ECHO);
 		if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term) == -1)
 			ft_fprintf(2, "minishell: Could not set the termios attributes.\n");
+		tgetent(NULL, "");
 	}
 }
 
