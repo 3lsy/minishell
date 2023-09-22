@@ -6,11 +6,34 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 16:50:29 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:10:12 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	write_input(char c, t_cui *cui, t_sh *sh)
+{
+	ft_printf("%c", c);
+	ft_strinsert(&cui->line, c, cui->cursor);
+	if (!cui->line)
+		exit_error("Could not allocate memory.", sh);
+	term_set(CLEAR_RIGHT, sh->cui.term_buffer);
+	term_set(STORE_CURSOR, sh->cui.term_buffer);
+	ft_printf("%s", cui->line + cui->cursor + 1);
+	term_set(RESTORE_CURSOR, sh->cui.term_buffer);
+	cui->cursor++;
+	cui->line_size++;
+}
+
+void	paste_str(char *str, t_cui *cui, t_sh *sh)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		write_input(str[i++], cui, sh);
+}
 
 /*
 ** Print is for debug when e == 4 (ctrl + d)
@@ -33,20 +56,8 @@ void	key_event(char *e, t_cui *cui, t_sh *sh)
 		up_key(cui, sh);
 	else if (ft_strcmp(e, DOWN_ARROW) == 0)
 		down_key(cui, sh);
-}
-
-void	write_input(char c, t_cui *cui, t_sh *sh)
-{
-	ft_printf("%c", c);
-	ft_strinsert(&cui->line, c, cui->cursor);
-	if (!cui->line)
-		exit_error("Could not allocate memory.", sh);
-	term_set(CLEAR_RIGHT, sh->cui.term_buffer);
-	term_set(STORE_CURSOR, sh->cui.term_buffer);
-	ft_printf("%s", cui->line + cui->cursor + 1);
-	term_set(RESTORE_CURSOR, sh->cui.term_buffer);
-	cui->cursor++;
-	cui->line_size++;
+	else if (ft_isprintable(e))
+		paste_str(e, cui, sh);
 }
 
 /*

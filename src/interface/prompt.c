@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:11:08 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 16:40:26 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:43:45 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,17 @@ void	ft_prompt(t_cui *cui)
 
 	prompt = cui->prompt;
 	term_set(INVISIBLE_CURSOR, cui->term_buffer);
+	ft_printf(PCOLOR1);
 	ft_printf("%s", prompt.username);
 	if (prompt.hostname[0] && prompt.username[0])
 		ft_printf("@");
 	ft_printf("%s", prompt.hostname);
+	ft_printf(PEND);
 	if (prompt.cwd[0] && (prompt.hostname[0] || prompt.username[0]))
 		ft_printf(":");
+	ft_printf(PCOLOR2);
 	ft_printf("%s", prompt.cwd);
+	ft_printf(PEND);
 	ft_printf("%c ", prompt.symbol);
 	term_set(VISIBLE_CURSOR, cui->term_buffer);
 }
