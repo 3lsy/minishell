@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:49:31 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 19:27:47 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/23 19:52:19 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ void	free_env(t_sh *sh)
 	int	i;
 
 	i = 0;
-	while (sh->keys[i] != -1)
+	while (sh->keys[i])
 	{
-		free(sh->ev[sh->keys[i]]);
-		sh->ev[sh->keys[i]] = NULL;
+		free(sh->ev[k24(sh->keys[i])]);
+		sh->ev[k24(sh->keys[i])] = NULL;
+		free(sh->keys[i]);
+		sh->keys[i] = NULL;
 		i++;
 	}
 	free(sh->ev);
@@ -59,4 +61,17 @@ void	ft_destructor(t_sh *sh)
 		free(sh->cui.line);
 	if (sh->cui.tmp_line)
 		free(sh->cui.tmp_line);
+}
+
+void	free_ev(char **ev)
+{
+	int	i;
+
+	i = 0;
+	while (ev[i])
+	{
+		free(ev[i]);
+		i++;
+	}
+	free(ev);
 }

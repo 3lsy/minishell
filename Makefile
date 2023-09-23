@@ -6,7 +6,7 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/09/23 15:17:09 by echavez-         ###   ########.fr        #
+#    Updated: 2023/09/23 19:52:37 by echavez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,9 +40,9 @@ SRC         =   main.c
 ANZER       =   analyzer.c lexer.c parser.c
 EVAL        =   evaluator.c
 INTER       =   interface.c prompt.c readline.c events.c notatty.c
-BUILT       =   echo.c exit.c pwd.c
+BUILT       =   echo.c exit.c pwd.c env.c
 SIGNL       =   signal.c
-STRCT       =   sh.c ast.c env.c history.c history_file.c destructors.c
+STRCT       =   sh.c ast.c ev.c history.c history_file.c destructors.c
 
 SRCS        :=  $(SRC) $(ANZER) $(EVAL) $(INTER) $(BUILT) $(SIGNL) $(STRCT)
 
