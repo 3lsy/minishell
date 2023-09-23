@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/22 19:53:55 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:55:43 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <sys/ioctl.h>
 # include <signal.h>
 # include <sys/stat.h>
 # include <dirent.h>
@@ -62,12 +63,18 @@
 # define RESTORE_CURSOR "rc"
 # define DELETE_CHAR "dc"
 
+/*
+** Token types
+*/
+
 # define CMD 0
 # define PIPE 1
 # define SGL_L 2
 # define SGL_R 3
 # define DBL_L 4
 # define DBL_R 5
+
+extern t_byte	g_sigint;
 
 /*
 *  AST
@@ -79,6 +86,12 @@
 **     4 : <<
 **     5 : >>
 **   }
+** - left: left node
+** - right: right node
+** - bin: binary
+** - ac: argument count
+** - av: argument vector
+** - file: file
 */
 
 typedef struct s_ast
@@ -108,6 +121,19 @@ typedef struct s_prompt
 	char	cwd[PATH_MAX + 1];
 	char	symbol;
 }	t_prompt;
+
+/*
+** CUI
+** - line: user input
+** - line_size: size of user input
+** - cursor: position of cursor
+** - history_cursor: position of history
+** - tmp_line: temporary line
+** - term_buffer: terminal buffer for tgetent()
+** - term: terminal
+** - term_backup: backup of terminal
+** - prompt: prompt
+*/
 
 typedef struct s_cui
 {

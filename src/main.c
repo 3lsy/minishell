@@ -6,17 +6,15 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 16:40:38 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:18:29 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** if (ft_analyzer(sh) == EXIT_FAILURE)
-**   exit_error(strerror(errno), sh);
-** if (ft_parser(sh) == EXIT_FAILURE)
-**   exit_error(strerror(errno), sh);
+** if (ft_analyzer(sh) != EXIT_FAILURE)
+**    ft_parser(sh);
 */
 static void	ft_minishell(t_sh *sh)
 {
@@ -25,7 +23,7 @@ static void	ft_minishell(t_sh *sh)
 		reset_cmdline(&sh->cui);
 		ft_prompt(&sh->cui);
 		ft_readline(&sh->cui, sh);
-		if (!sh->cui.line)
+		if (!sh->cui.line || g_sigint)
 			continue ;
 		if (!sh->history || ft_strcmp(sh->cui.line, sh->history->line))
 			save_line_history(sh, sh->cui.line);

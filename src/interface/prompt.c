@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:11:08 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/22 19:43:45 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:47:13 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ void	init_prompt(t_prompt *prompt, char **ev)
 		prompt->symbol = '#';
 }
 
-//TODO:
-// 1. Add colors
-// 2. Simplify CWD
 void	ft_prompt(t_cui *cui)
 {
 	t_prompt	prompt;

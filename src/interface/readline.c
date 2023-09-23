@@ -6,12 +6,15 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/22 20:10:12 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:20:16 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Prints the character and inserts it in the line at the cursor position
+*/
 void	write_input(char c, t_cui *cui, t_sh *sh)
 {
 	ft_printf("%c", c);
@@ -36,8 +39,8 @@ void	paste_str(char *str, t_cui *cui, t_sh *sh)
 }
 
 /*
-** Print is for debug when e == 4 (ctrl + d)
-** Replace exit() with our builtin exit (status?)
+** Manges events triggered by the user
+** (e.g. pressing the arrow keys, deleting a character, pasting, etc.)
 */
 void	key_event(char *e, t_cui *cui, t_sh *sh)
 {
