@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:49:31 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 16:11:22 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/23 19:27:47 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	ft_destructor(t_sh *sh)
 		free_history(&sh->history);
 	if (sh->ast)
 		free(sh->ast);
+	if (sh->tokens)
+		ft_free_split(&sh->tokens);
 	if (sh->cui.line)
 		free(sh->cui.line);
 	if (sh->cui.tmp_line)

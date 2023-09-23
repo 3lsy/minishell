@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:10:23 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/22 22:17:14 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/23 19:38:57 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	unset_term(t_sh *sh)
 			return ;
 		sh->cui.term.c_lflag |= (ICANON | ECHO);
 		if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term) == -1)
-			ft_fprintf(2, "minishell: Could not set the termios attributes.\n");
+			ft_fprintf(STDERR_FILENO, ERR_TERMIOS);
 		tgetent(NULL, "");
 	}
 }
