@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 16:44:22 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/23 17:55:12 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	free_history(t_history **history);
 void	save_line_history(t_sh *sh, char *line);
 void	ft_destructor(t_sh *sh);
 void	save_history(t_sh *sh);
+void	free_ev(char **ev);
+void	insert_key(char *key, t_sh *sh);
 
 /*
 ** signal
