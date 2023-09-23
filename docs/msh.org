@@ -1,0 +1,53 @@
+#+TITLE: Minishell
+#+DESCRIPTION: A simple shell
+
+* TODO Interface
+** Prompt
+*** [X] Display prompt
+*** [ ] Display prompt in color
+*** [X] Display prompt with user name
+*** [X] Display prompt with current directory
+*** [ ] Update prompt when directory changes
+* TODO Shell
+** History
+*** [X] Linked list of commands
+*** [X] Add command to history
+*** [X] Save history to file
+*** [X] Load history from file
+*** [X] Handle signals Ctrl + C, Ctrl + D, Ctrl + \
+* TODO Analyzer
+** Tokenizer
+*** [ ] Split input into tokens
+**** [ ] Handle spaces
+**** [ ] Handle tabs
+**** [ ] Pipes as command separators
+**** [ ] Redirections with it's filenames
+**** [ ] Command arguments!
+*** [ ] Handle quotes
+*** [ ] Handle expansions of environment variables
+*** [ ] Handle expansions of $?
+* TODO Evaluator
+** Command execution
+*** [ ] Handle pipes
+*** [ ] Handle redirection <
+*** [ ] Handle redirection >
+*** [ ] Handle redirection >>
+*** [ ] Handle redirection <<
+*** [ ] Handle builtin echo (with option -n)
+*** [ ] Handle builtin cd
+*** [ ] Handle builtin pwd
+*** [ ] Handle builtin export
+*** [ ] Handle builtin unset
+*** [ ] Handle builtin env
+*** [ ] Handle builtin exit
+*** [ ] Use fork to execute command in child process
+*** [ ] Use execve to execute command
+*** [ ] Use PATH environment variable to find command
+*** [ ] Inherit environment variables
+*** [ ] Inherit signal handlers
+*** [ ] Execute command in parent process if it is a builtin
+*** [ ] Execute command in child process if it is not a builtin
+*** [ ] Wait for child process to finish
+*** [ ] Save exit status of child process
+*** [ ] Display error message if command does not exist or is not executable
+*** [ ] Display error message if command is a directory or a file

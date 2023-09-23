@@ -1,0 +1,24 @@
+{
+   minishell/tgetent
+   Memcheck:Leak
+   ...
+   fun:tgetent
+}
+{
+   minishell/tgetent_sp
+   Memcheck:Leak
+   ...
+   fun:tgetent_sp
+}
+{
+   minishell/tgetstr
+   Memcheck:Leak
+   ...
+   fun:tgetstr
+}
+{
+   minishell/tgetstr_sp
+   Memcheck:Leak
+   ...
+   fun:tgetstr_sp
+}

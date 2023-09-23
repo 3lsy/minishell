@@ -6,18 +6,28 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/13 16:45:33 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:18:29 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** if (ft_analyzer(sh) != EXIT_FAILURE)
+**    ft_parser(sh);
+*/
 static void	ft_minishell(t_sh *sh)
 {
 	while (TRUE)
 	{
-		ft_evaluator(sh);
-		break ;
+		reset_cmdline(&sh->cui);
+		ft_prompt(&sh->cui);
+		ft_readline(&sh->cui, sh);
+		if (!sh->cui.line || g_sigint)
+			continue ;
+		if (!sh->history || ft_strcmp(sh->cui.line, sh->history->line))
+			save_line_history(sh, sh->cui.line);
+		ft_analyzer(sh);
 	}
 	ft_destructor(sh);
 }
@@ -30,6 +40,10 @@ int	main(int ac, __attribute__((unused)) char **av, char **ev)
 	{
 		sh = ft_sh();
 		init_env(sh, ev);
+		init_history(sh, sh->ev);
+		init_prompt(&sh->cui.prompt, sh->ev);
+		if (!isatty(STDIN_FILENO))
+			notatty(sh);
 		init_termcap(sh);
 		init_termios(sh);
 		ft_signals();
@@ -37,21 +51,4 @@ int	main(int ac, __attribute__((unused)) char **av, char **ev)
 		return (0);
 	}
 	return (1);
-}
-
-void	exit_error(char *e, t_sh *sh)
-{
-	ft_destructor(sh);
-	ft_fprintf(STDERR_FILENO, "minishell: %s\n", e);
-	exit(EXIT_FAILURE);
-}
-
-void	ft_destructor(t_sh *sh)
-{
-	if (sh->ast)
-		free(sh->ast);
-	if (sh->ev)
-		free(sh->ev);
-	if (sh->cui.line)
-		free(sh->cui.line);
 }
