@@ -1,41 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh.c                                               :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 21:07:46 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 19:52:28 by echavez-         ###   ########.fr       */
+/*   Created: 2023/09/23 15:09:26 by echavez-          #+#    #+#             */
+/*   Updated: 2023/09/23 15:17:20 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_sh	*ft_sh(void)
+int	ft_env(__attribute__((unused)) int ac,
+			__attribute__((unused)) char **av, char **ev)
 {
-	static t_sh	x = {
-		.exit_status = 0,
-		.tokens = NULL,
-		.ast = NULL,
-		.ev = NULL,
-		.ec = 0,
-		.keys = {NULL},
-		.cui = {
-		.line = NULL,
-		.line_size = 0,
-		.cursor = 0,
-		.history_cursor = NULL,
-		.tmp_line = NULL,
-		.term_buffer = {0},
-		.prompt = {
-		.username = {0},
-		.hostname = {0},
-		.cwd = {0},
-		.symbol = '$',
-	},
-	},
-	};
-
-	return (&x);
+	while (*ev)
+		ft_printf("%s\n", (*ev)++);
+	return (EXIT_SUCCESS);
 }
