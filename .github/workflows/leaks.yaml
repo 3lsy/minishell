@@ -35,7 +35,7 @@ jobs:
               --leak-check=full \
               --show-leak-kinds=all \
               --suppressions=valgrind.supp ./minishell 2>&1 || true)
-            echo "$valmessage"
+            # echo "$valmessage"
             leaks=$(echo "$valmessage" | grep 'lost in loss' || true)
             if [ -z "$leaks" ]; then
               echo "There are no leaks for $cmd! ✅🔥"
