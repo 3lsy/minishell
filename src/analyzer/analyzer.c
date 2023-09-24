@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 19:49:21 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:49:54 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void	ft_analyzer(t_sh *sh)
 		ft_free_split(&sh->tokens);
 		return ;
 	}
+	ft_free_split(&sh->tokens);
 }

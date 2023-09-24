@@ -34,10 +34,10 @@ jobs:
             valmessage=$(cat $cmd | valgrind \
               --leak-check=full \
               --show-leak-kinds=all \
-              --suppressions=valgrind.supp ./minishell 2>&1 || true)
+              ./minishell 2>&1 || true)
             echo "$valmessage"
-            leaks=$(echo "$valmessage" | grep 'lost in loss' || true)
-            if [ -z "$leaks" ]; then
+            leaks=$(echo "$valmessage" | grep 'no leaks are possible' || true)
+            if [ ! -z "$leaks" ]; then
               echo "There are no leaks for $cmd! ✅🔥"
             else
               echo "Leaks FAILURE for $cmd! 😞❌"
