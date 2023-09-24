@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:34:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 18:29:07 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:17:05 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_echo(int ac, char **av, __attribute__((unused)) char **ev)
 
 	i = 1;
 	n_flag = 0;
-	if (ac > 1 && !ft_strcmp(av[1], "-n"))
+	while (ac > 1 && !ft_strcmp(av[1], "-n"))
 	{
 		n_flag = 1;
 		i++;
