@@ -1,6 +1,7 @@
 name: Leak Tests
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'src/**'
@@ -8,7 +9,6 @@ on:
       - 'libft/**'
       - 'libft'
       - 'Makefile'
-  workflow_dispatch:
 jobs:
   leak-test:
     runs-on: ubuntu-latest
