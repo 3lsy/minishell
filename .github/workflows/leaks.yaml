@@ -9,6 +9,7 @@ on:
       - 'libft/**'
       - 'libft'
       - 'Makefile'
+      - '.github/workflows/leaks.yaml'
 jobs:
   leak-test:
     runs-on: ubuntu-latest
@@ -30,7 +31,10 @@ jobs:
         run: |
           for cmd in tests/cmds/*/*.sh; do
             echo "Testing $cmd..."
-            valmessage=$(cat $cmd | valgrind ./minishell 2>&1 || true)
+            valmessage=$(cat $cmd | valgrind 
+              --leak-check=full 
+              --show-leak-kinds=all 
+              --suppressions=valgrind.supp ./minishell 2>&1 || true)
             echo "$valmessage"
             leaks=$(echo "$valmessage" | grep 'lost in loss' || true)
             if [ -z "$leaks" ]; then
