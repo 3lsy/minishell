@@ -31,6 +31,7 @@ jobs:
           for cmd in tests/cmds/*/*.sh; do
             echo "Testing $cmd..."
             valmessage=$(cat $cmd | valgrind ./minishell 2>&1 || true)
+            echo "$valmessage"
             leaks=$(echo "$valmessage" | grep 'lost in loss' || true)
             if [ -z "$leaks" ]; then
               echo "There are no leaks for $cmd! ✅🔥"
