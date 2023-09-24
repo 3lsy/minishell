@@ -1,0 +1,46 @@
+name: Leak Tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/**'
+      - 'include/**'
+      - 'libft/**'
+      - 'libft'
+      - 'Makefile'
+      - '.github/workflows/leaks.yaml'
+jobs:
+  leak-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get -y install valgrind libreadline-dev
+
+      - name: Build minishell
+        run: make
+
+      - name: Leak test
+        run: |
+          for cmd in tests/cmds/*/*.sh; do
+            echo "Testing $cmd..."
+            valmessage=$(cat $cmd | valgrind \
+              --leak-check=full \
+              --show-leak-kinds=all \
+              ./minishell 2>&1 || true)
+            echo "$valmessage"
+            leaks=$(echo "$valmessage" | grep 'no leaks are possible' || true)
+            if [ ! -z "$leaks" ]; then
+              echo "There are no leaks for $cmd! ✅🔥"
+            else
+              echo "Leaks FAILURE for $cmd! 😞❌"
+              exit 1
+            fi
+          done

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:34:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 19:33:22 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/23 20:09:08 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ char	*insert_spaces(char *str)
 	return (str);
 }
 
+// TODO:
+// After inserting spaces, expand env variables and $?
+// Then, split the line into tokens
 char	**ft_lexer(t_sh *sh)
 {
 	char	**line;
