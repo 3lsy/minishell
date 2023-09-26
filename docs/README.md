@@ -99,71 +99,55 @@ graph TD
     classDef cmd stroke:#ff0
     classDef redir stroke:#0ff
 ```
+We can reduce the AST into a linked list if we include the redirections' linked list as an attribute of a command
 
-### Node structures
-#### Base
-```c
-typedef struct s_ast
-{
-	t_byte		id;
-	struct s_ast	*left;
-	struct s_ast	*right;
-	char		*bin;
-	int		ac;
-	char		**av;
-	char		*file;
-}	t_ast;
+```mermaid
+---
+title: Reduced AST
+---
+%%{ init: { 'flowchart': { 'curve': 'stepAfter' } } }%%
+graph LR
+    a((CMD)):::cmd --> b((CMD)):::cmd --> c((...)):::cmd --> d((CMD)):::cmd
+    classDef cmd stroke:#ff0
 ```
 
-#### Pipe
-```c
-typedef struct s_ast
-{
-	// Required attributes
-	t_byte		id = 1;
-	struct s_ast	*left = NULL; // [CMD, Redir]
-	struct s_ast	*right = NULL; // [CMD, Redir, pipe]
+```mermaid
+%%{ init: { 'flowchart': { 'curve': 'stepAfter' } } }%%
+graph TB
+    subgraph CMD node
+    direction TB
+    aa((CMD)):::cmd --> bb((Redir)):::redir -->bbb((Filename)):::arg
+    cc-->cccc((...)):::arg
+    bb-->cc((Redir)):::redir --> ccc((...)):::redir
+    aa-->aaa((arg)):::arg-->arg2((arg)):::arg-->arg3((...)):::arg
+    aa-->next((next)):::cmd-->next2((next)):::cmd-->next3((...)):::cmd
 
-	// Unused attributes
-	char		*bin = NULL;
-	int		ac = 0;
-	char		**av = NULL;
-	char		*file = NULL;
-}	t_ast;
+    
+    classDef arg stroke:#0f0
+    classDef cmd stroke:#ff0
+    classDef redir stroke:#0ff
+    end
 ```
 
-#### Redirection
-```c
-typedef struct s_ast
-{
-	// Required attributes
-	t_byte		id = REDIRECTION_ID;
-	char		*file = NULL;
-	struct s_ast	*right = NULL; // [Redir, CMD]
-
-	// Unused attributes
-	struct s_ast	*left = NULL;
-	char		*bin = NULL;
-	int		ac = 0;
-	char		**av = NULL;
-}	t_ast;
-```
-
+### Node structure
 #### Command
 ```c
 typedef struct s_ast
 {
-	// Required attributes
-	t_byte		id = 0;
-	char		*bin = NULL;
-	int		ac = 0;
-	char		**av = NULL;
-
-	// Unused attributes
-	char		*file = NULL;
-	struct s_ast	*left = NULL;
-	struct s_ast	*right = NULL;
+	char		*bin;
+	int		ac;
+	char		**av;
+	t_redir		*redir;
+	struct s_ast	*next;
 }	t_ast;
+```
+#### Redirections
+```c
+typedef struct s_redir
+{
+	t_byte	id;
+	char	*file;
+}	t_redir;
 ```
 
 ### Interface
