@@ -100,6 +100,72 @@ graph TD
     classDef redir stroke:#0ff
 ```
 
+### Node structures
+#### Base
+```c
+typedef struct s_ast
+{
+	t_byte		id;
+	struct s_ast	*left;
+	struct s_ast	*right;
+	char		*bin;
+	int		ac;
+	char		**av;
+	char		*file;
+}	t_ast;
+```
+
+#### Pipe
+```c
+typedef struct s_ast
+{
+	// Required attributes
+	t_byte		id = 1;
+	struct s_ast	*left = NULL; // [CMD, Redir]
+	struct s_ast	*right = NULL; // [CMD, Redir, pipe]
+
+	// Unused attributes
+	char		*bin = NULL;
+	int		ac = 0;
+	char		**av = NULL;
+	char		*file = NULL;
+}	t_ast;
+```
+
+#### Redirection
+```c
+typedef struct s_ast
+{
+	// Required attributes
+	t_byte		id = REDIRECTION_ID;
+	char		*file = NULL;
+	struct s_ast	*right = NULL; // [Redir, CMD]
+
+	// Unused attributes
+	struct s_ast	*left = NULL;
+	char		*bin = NULL;
+	int		ac = 0;
+	char		**av = NULL;
+}	t_ast;
+```
+
+#### Command
+```c
+typedef struct s_ast
+{
+	// Required attributes
+	t_byte		id = 0;
+	char		*bin = NULL;
+	int		ac = 0;
+	char		**av = NULL;
+
+	// Unused attributes
+	char		*file = NULL;
+	struct s_ast	*left = NULL;
+	struct s_ast	*right = NULL;
+}	t_ast;
+```
+
 ### Interface
 In this *minishell*, the interface is very small and is mostly a tool for the **Analyzer** since it doesn't handle any pointer interaction.
 However it does handle:
