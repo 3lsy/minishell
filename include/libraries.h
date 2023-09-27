@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 19:53:02 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:21:43 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,14 @@
 
 /*
 ** Token types
+**
+**     0 : CMD
+**     1 : |
+**     2 : <
+**     3 : >
+**     4 : <<
+**     5 : >>
+**
 */
 
 # define CMD 0
@@ -86,34 +94,37 @@
 extern t_byte	g_sigint;
 
 /*
+** Redirection
+** - id: redirection id
+**   SGL_L: <
+**   SGL_R: >
+**   DBL_L: <<
+**   DBL_R: >>
+** - file: file to redirect
+*/
+
+typedef struct s_redir
+{
+	t_byte	id;
+	char	*file;
+}	t_redir;
+
+/*
 *  AST
-** - id: {
-**     0 : CMD
-**     1 : |
-**     2 : <
-**     3 : >
-**     4 : <<
-**     5 : >>
-**   }
-** - left: left node
-** - right: right node
 ** - bin: binary
 ** - ac: argument count
 ** - av: argument vector
-** - file: file
+** - redir: redirections
+** - next: next node
 */
-
 typedef struct s_ast
 {
-	t_byte			id;
-	struct s_ast	*left;
-	struct s_ast	*right;
-
 	char			*bin;
 	int				ac;
 	char			**av;
+	t_redir			*redir;
 
-	char			*file;
+	struct s_ast	*next;
 }	t_ast;
 
 typedef struct s_history
@@ -171,6 +182,7 @@ typedef struct t_sh
 	t_cui		cui;
 	t_ast		*ast;
 	char		**tokens;
+	char		***cmds;
 	t_history	*history;
 	char		history_path[PATH_MAX + 1];
 	char		**ev;
