@@ -70,6 +70,86 @@ graph TD
     classDef redir stroke:#0ff
 ```
 
+```mermaid
+---
+title: Simplified Abstract Syntax Tree (AST)
+---
+%%{ init: { 'flowchart': { 'curve': 'stepAfter' } } }%%
+graph TD
+    A((Pipe)):::pipe --> B((Redir\nFilename)):::redir
+    A --> C((Pipe)):::pipe
+    B --> E((Redir\nFilename)):::redir
+    E --> ER((Redir\nFilename)):::redir
+    ER --> EEL((CMD)):::cmd
+    C --> F((Redir\nFilename)):::redir
+    F --> FR((Redir\nFilename)):::redir
+    FR --> FFL(... Redirs ...):::redir
+    FFL --> FFFL((Redir\nFilename)):::redir
+    FFFL --> FFFFL((CMD)):::cmd
+    C --> G(... Pipes ...):::pipe
+    G --> H((Pipe)):::pipe
+    H --> HL((Redir\nFilename)):::redir
+    H --> I((Redir\nFilename)):::redir
+    I --> IL(... Redirs ...):::redir
+    IL --> IIL((CMD)):::cmd
+    HL --> HHL(... Redirs ...):::redir
+    HHL --> HHHL((CMD)):::cmd
+    classDef pipe stroke:#f00
+    classDef arg stroke:#0f0
+    classDef cmd stroke:#ff0
+    classDef redir stroke:#0ff
+```
+We can reduce the AST into a linked list if we include the redirections' linked list as an attribute of a command
+
+```mermaid
+---
+title: Reduced AST
+---
+%%{ init: { 'flowchart': { 'curve': 'stepAfter' } } }%%
+graph LR
+    a((CMD)):::cmd --> b((CMD)):::cmd --> c((...)):::cmd --> d((CMD)):::cmd
+    classDef cmd stroke:#ff0
+```
+
+```mermaid
+%%{ init: { 'flowchart': { 'curve': 'stepAfter' } } }%%
+graph TB
+    subgraph CMD node
+    direction TB
+    aa((CMD)):::cmd --> bb((Redir)):::redir -->bbb((Filename)):::arg
+    cc-->cccc((...)):::arg
+    bb-->cc((Redir)):::redir --> ccc((...)):::redir
+    aa-->aaa((arg)):::arg-->arg2((arg)):::arg-->arg3((...)):::arg
+    aa-->next((next)):::cmd-->next2((next)):::cmd-->next3((...)):::cmd
+
+    
+    classDef arg stroke:#0f0
+    classDef cmd stroke:#ff0
+    classDef redir stroke:#0ff
+    end
+```
+
+### Node structure
+#### Command
+```c
+typedef struct s_ast
+{
+	char		*bin;
+	int		ac;
+	char		**av;
+	t_redir		*redir;
+	struct s_ast	*next;
+}	t_ast;
+```
+#### Redirections
+```c
+typedef struct s_redir
+{
+	t_byte	id;
+	char	*file;
+}	t_redir;
+```
+
 ### Interface
 In this *minishell*, the interface is very small and is mostly a tool for the **Analyzer** since it doesn't handle any pointer interaction.
 However it does handle:
