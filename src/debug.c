@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 21:42:28 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 11:25:20 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/27 20:27:28 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ void	print_ast_content(t_ast *ast)
 {
 	int	j;
 
-	ft_printf("CMD: %s\n\t[", ast->av[0]);
+	if (ast->bin)
+		ft_printf("CMD: %s\n\t[", ast->bin);
+	else
+		ft_printf("CMD: \n\t[NULL");
 	j = 0;
 	while (j < ast->ac)
 	{
@@ -79,7 +82,6 @@ void	print_ast_content(t_ast *ast)
 
 void	print_ast(t_ast *ast)
 {
-	ft_printf("\t[");
 	while (ast)
 	{
 		print_ast_content(ast);

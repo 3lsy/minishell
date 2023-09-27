@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 01:09:52 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:57:27 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,17 @@ void	change_line(t_cui *cui, t_sh *sh, char *line);
 ** Analyzer
 */
 
-void	ft_analyzer(t_sh *sh);
+int		ft_analyzer(t_sh *sh);
 char	**ft_lexer(t_sh *sh);
 t_bool	ft_parser(char **tokens);
 void	ft_syntax_tree(t_sh *sh);
-char	***ft_split_cmds(char **tokens);
+void	analyzer_destructor(t_sh *sh);
 
+char	***ft_split_cmds(char **tokens);
+char	*insert_spaces(char *str);
 t_byte	is_operator(char *str, int i);
 int		is_redirection(char *token);
+t_bool	valid_position(char **tokens, int i);
 
 /*
 ** Evaluator

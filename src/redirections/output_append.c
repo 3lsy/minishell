@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   evaluator.c                                        :+:      :+:    :+:   */
+/*   output_append.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 20:02:56 by echavez-         ###   ########.fr       */
+/*   Created: 2023/09/27 19:32:12 by echavez-          #+#    #+#             */
+/*   Updated: 2023/09/27 19:33:23 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_debug(void);
-
-void	ft_evaluator(t_sh *sh)
-{
-	(void)sh;
-	ft_debug();
-}
+/*
+** Output redirection: >>
+** Takes the content of a command's STDOUT and appends it to a file.
+** If the file doesn't exist, it is created.
+*/
