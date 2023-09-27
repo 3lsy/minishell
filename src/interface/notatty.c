@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 01:14:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 16:41:16 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/27 20:34:54 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	notatty(t_sh *sh)
 		if (sh->cui.line && (!sh->history
 				|| ft_strcmp(sh->cui.line, sh->history->line)))
 			save_line_history(sh, sh->cui.line);
-		ft_analyzer(sh);
+		if (ft_analyzer(sh) != EXIT_FAILURE)
+			ft_evaluator(sh);
+		analyzer_destructor(sh);
 		free(line);
 		line = ft_get_next_line(STDIN_FILENO);
 	}
