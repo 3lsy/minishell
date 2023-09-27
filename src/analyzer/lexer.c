@@ -6,11 +6,32 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:34:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 20:09:08 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:55:29 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TODO:
+// After inserting spaces, expand env variables and $?
+// Then, split the line into tokens
+char	**ft_lexer(t_sh *sh)
+{
+	char	**line;
+
+	sh->cui.line = insert_spaces(sh->cui.line);
+	if (!sh->cui.line)
+		exit_error(strerror(errno), sh);
+	line = ft_split_args(sh->cui.line);
+	if (!line && errno != EINVAL)
+		exit_error(strerror(errno), sh);
+	else if (!line)
+	{
+		ft_fprintf(STDERR_FILENO, ERR_UNC_QUOTE);
+		return (NULL);
+	}
+	return (line);
+}
 
 t_byte	is_operator(char *str, int i)
 {
@@ -55,25 +76,4 @@ char	*insert_spaces(char *str)
 		i++;
 	}
 	return (str);
-}
-
-// TODO:
-// After inserting spaces, expand env variables and $?
-// Then, split the line into tokens
-char	**ft_lexer(t_sh *sh)
-{
-	char	**line;
-
-	sh->cui.line = insert_spaces(sh->cui.line);
-	if (!sh->cui.line)
-		exit_error(strerror(errno), sh);
-	line = ft_split_args(sh->cui.line);
-	if (!line && errno != EINVAL)
-		exit_error(strerror(errno), sh);
-	else if (!line)
-	{
-		ft_fprintf(STDERR_FILENO, ERR_UNC_QUOTE);
-		return (NULL);
-	}
-	return (line);
 }

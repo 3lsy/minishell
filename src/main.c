@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 19:40:07 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:53:40 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ static void	ft_minishell(t_sh *sh)
 			continue ;
 		if (!sh->history || ft_strcmp(sh->cui.line, sh->history->line))
 			save_line_history(sh, sh->cui.line);
-		ft_analyzer(sh);
+		if (ft_analyzer(sh) != EXIT_FAILURE)
+			ft_evaluator(sh);
+		analyzer_destructor(sh);
 	}
 	ft_destructor(sh);
 }

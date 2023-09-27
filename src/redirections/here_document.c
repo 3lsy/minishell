@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   evaluator.c                                        :+:      :+:    :+:   */
+/*   here_document.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 20:02:56 by echavez-         ###   ########.fr       */
+/*   Created: 2023/09/27 19:33:32 by echavez-          #+#    #+#             */
+/*   Updated: 2023/09/27 19:35:12 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_debug(void);
-
-void	ft_evaluator(t_sh *sh)
-{
-	(void)sh;
-	ft_debug();
-}
+/*
+** Here document redirection: <<
+** Opens a simple prompt to take input from the user, until the user types
+** the delimiter. The input is then redirected to the command's STDIN.
+*/

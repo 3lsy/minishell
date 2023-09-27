@@ -6,11 +6,31 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:30:40 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 19:42:54 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:56:49 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_bool	ft_parser(char **tokens)
+{
+	int	i;
+
+	i = 0;
+	while (tokens && tokens[i])
+	{
+		if (is_operator(tokens[i], 0) != 127 && !valid_position(tokens, i))
+		{
+			if (is_operator(tokens[i], 0) == PIPE)
+				ft_fprintf(STDERR_FILENO, ERR_SYNTAX, "|");
+			else
+				ft_fprintf(STDERR_FILENO, ERR_SYNTAX, tokens[i]);
+			return (FALSE);
+		}
+		i++;
+	}
+	return (TRUE);
+}
 
 int	is_redirection(char *token)
 {
@@ -37,25 +57,5 @@ t_bool	valid_position(char **tokens, int i)
 	else if (is_redirection(tokens[i]) && i != 0
 		&& is_redirection(tokens[i - 1]))
 		return (FALSE);
-	return (TRUE);
-}
-
-t_bool	ft_parser(char **tokens)
-{
-	int	i;
-
-	i = 0;
-	while (tokens && tokens[i])
-	{
-		if (is_operator(tokens[i], 0) != 127 && !valid_position(tokens, i))
-		{
-			if (is_operator(tokens[i], 0) == PIPE)
-				ft_fprintf(STDERR_FILENO, ERR_SYNTAX, "|");
-			else
-				ft_fprintf(STDERR_FILENO, ERR_SYNTAX, tokens[i]);
-			return (FALSE);
-		}
-		i++;
-	}
 	return (TRUE);
 }
