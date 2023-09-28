@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 15:29:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 19:58:44 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/28 16:29:25 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,27 @@ void	extract_cmd_arrays(char **tokens, t_ast *cmd, int r, int a)
 	}
 }
 
+static void	append_cmd(t_ast **start, t_ast **last, t_ast *new)
+{
+	if (!*start)
+	{
+		*start = new;
+		*last = new;
+	}
+	else
+	{
+		(*last)->next = new;
+		*last = new;
+	}
+}
+
 void	ft_syntax_tree(t_sh *sh)
 {
 	int		i;
 	t_ast	*tmp;
+	t_ast	*last;
 
+	last = NULL;
 	i = 0;
 	while (sh->cmds[i])
 	{
@@ -79,8 +95,7 @@ void	ft_syntax_tree(t_sh *sh)
 			exit_error(strerror(errno), sh);
 		extract_cmd_arrays(sh->cmds[i], tmp, 0, 0);
 		tmp->bin = tmp->av[0];
-		tmp->next = sh->ast;
-		sh->ast = tmp;
+		append_cmd(&sh->ast, &last, tmp);
 		i++;
 	}
 }
