@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 19:57:27 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:42:49 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,6 @@ int		right_key(t_cui *cui, t_sh *sh);
 int		up_key(t_cui *cui, t_sh *sh);
 int		down_key(t_cui *cui, t_sh *sh);
 void	change_line(t_cui *cui, t_sh *sh, char *line);
-
-/*
-** Analyzer
-*/
-
-int		ft_analyzer(t_sh *sh);
-char	**ft_lexer(t_sh *sh);
-t_bool	ft_parser(char **tokens);
-void	ft_syntax_tree(t_sh *sh);
-void	analyzer_destructor(t_sh *sh);
-
-char	***ft_split_cmds(char **tokens);
-char	*insert_spaces(char *str);
-t_byte	is_operator(char *str, int i);
-int		is_redirection(char *token);
-t_bool	valid_position(char **tokens, int i);
-
-/*
-** Evaluator
-*/
-
-void	ft_exit(t_sh *sh);
 
 /*
 ** structures

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:30:40 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 19:56:49 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:52:18 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_bool	valid_position(char **tokens, int i)
 	if (!tokens[i + 1])
 		return (FALSE);
 	if (is_operator(tokens[i], 0) == PIPE
-		&& (i == 0 || is_operator(tokens[i - 1], 0) == PIPE))
+		&& (i == 0 || is_operator(tokens[i - 1], 0) != 127))
 		return (FALSE);
 	else if (is_redirection(tokens[i]) && i != 0
 		&& is_redirection(tokens[i - 1]))
