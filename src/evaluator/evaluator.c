@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/30 21:09:35 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/30 21:15:05 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	(*create_pipes(int n))[2]
 	pipes = ft_calloc(sizeof(int [2]), n);
 	if (!pipes)
 		return (NULL);
+	id = 0;
 	while (id < n)
 	{
 		if (pipe(pipes[id]) == -1)
@@ -39,10 +40,13 @@ int	(*create_pipes(int n))[2]
 // - Create processes and execute commands
 // - Close pipes
 // - Wait for processes to finish
+// TMP:
+// - free pipes not in a destructor
 void	ft_evaluator(t_sh *sh)
 {
 	sh->cl.pipes = create_pipes(sh->cl.n_cmds - 1);
 	if (!sh->cl.pipes)
 		exit_error(strerror(errno), sh);
+	free(sh->cl.pipes);
 	ft_debug();
 }
