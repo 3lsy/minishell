@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 15:29:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/28 16:29:25 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/30 20:53:17 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,15 @@ void	ft_syntax_tree(t_sh *sh)
 
 	last = NULL;
 	i = 0;
-	while (sh->cmds[i])
+	while (sh->cl.cmds[i])
 	{
 		tmp = new_cmd();
 		if (!tmp)
 			exit_error(strerror(errno), sh);
-		extract_cmd_arrays(sh->cmds[i], tmp, 0, 0);
+		extract_cmd_arrays(sh->cl.cmds[i], tmp, 0, 0);
 		tmp->bin = tmp->av[0];
-		append_cmd(&sh->ast, &last, tmp);
+		append_cmd(&sh->cl.ast, &last, tmp);
 		i++;
 	}
+	sh->cl.n_cmds = i;
 }

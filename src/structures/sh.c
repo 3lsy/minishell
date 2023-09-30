@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 21:07:46 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/26 20:40:17 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/30 20:56:00 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,23 @@
 t_sh	*ft_sh(void)
 {
 	static t_sh	x = {
-		.exit_status = 0,
-		.tokens = NULL,
-		.cmds = NULL,
-		.ast = NULL,
-		.ev = NULL,
-		.ec = 0,
-		.keys = {NULL},
 		.cui = {
-		.line = NULL,
-		.line_size = 0,
-		.cursor = 0,
-		.history_cursor = NULL,
-		.tmp_line = NULL,
 		.term_buffer = {0},
+		.line_size = 0, .cursor = 0,
+		.history_cursor = NULL, .line = NULL, .tmp_line = NULL,
 		.prompt = {
-		.username = {0},
-		.hostname = {0},
-		.cwd = {0},
 		.symbol = '$',
+		.username = {0}, .hostname = {0}, .cwd = {0},
 	},
 	},
+		.cl = {
+		.ast = NULL, .tokens = NULL, .cmds = NULL,
+		.n_cmds = 0, .exit_status = 0,
+		.pipes = NULL, .child_pids = NULL,
+	},
+		.ec = 0,
+		.keys = {NULL}, .history_path = {0},
+		.history = NULL, .ev = NULL,
 	};
 
 	return (&x);

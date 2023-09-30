@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 11:21:43 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/30 20:59:33 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,17 @@ typedef struct s_cui
 	t_prompt		prompt;
 }	t_cui;
 
+typedef struct s_cmds
+{
+	t_ast		*ast;
+	char		**tokens;
+	char		***cmds;
+	int			n_cmds;
+	int			(*pipes)[2];
+	pid_t		*child_pids;
+	t_byte		exit_status;
+}	t_cmds;
+
 /*
 ** SH
 ** - line: user input
@@ -176,19 +187,18 @@ typedef struct s_cui
 ** - ev: environment variables
 ** - cui: command user interface
 ** - exit_status: exit status
+** - cl: command line
 */
+
 typedef struct t_sh
 {
 	t_cui		cui;
-	t_ast		*ast;
-	char		**tokens;
-	char		***cmds;
-	t_history	*history;
-	char		history_path[PATH_MAX + 1];
-	char		**ev;
+	t_cmds		cl;
 	int			ec;
 	char		*keys[K24_SIZE];
-	t_byte		exit_status;
+	char		**ev;
+	t_history	*history;
+	char		history_path[PATH_MAX + 1];
 }	t_sh;
 
 #endif

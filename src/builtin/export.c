@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:17:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 18:05:57 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/09/30 20:53:39 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_export(int ac, char **av, __attribute__((unused)) char **ev, t_sh *sh)
 {
 	int	i;
 
-	sh->exit_status = EXIT_SUCCESS;
+	sh->cl.exit_status = EXIT_SUCCESS;
 	if (ac > 1)
 	{
 		i = 1;
@@ -90,7 +90,7 @@ int	ft_export(int ac, char **av, __attribute__((unused)) char **ev, t_sh *sh)
 			{
 				ft_printf("minishell: export: `%s': not a valid identifier\n",
 					av[i]);
-				sh->exit_status = EXIT_FAILURE;
+				sh->cl.exit_status = EXIT_FAILURE;
 			}
 			else if (!ft_setenv(av[i], sh))
 				exit_error(strerror(errno), sh);
@@ -99,5 +99,5 @@ int	ft_export(int ac, char **av, __attribute__((unused)) char **ev, t_sh *sh)
 	}
 	else
 		print_declarations(sh);
-	return (sh->exit_status);
+	return (sh->cl.exit_status);
 }
