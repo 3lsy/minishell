@@ -6,8 +6,14 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 21:11:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/30 21:11:42 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/04 12:04:50 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_execute(t_sh *sh)
+{
+	(void)sh;
+	return (0);
+}

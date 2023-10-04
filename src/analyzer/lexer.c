@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:34:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 19:55:29 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/03 23:38:59 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ char	**ft_lexer(t_sh *sh)
 	char	**line;
 
 	sh->cui.line = insert_spaces(sh->cui.line);
+	if (!sh->cui.line)
+		exit_error(strerror(errno), sh);
+	sh->cui.line = expand_line(sh->cui.line, sh);
+	ft_printf("Expanded line: %s\n", sh->cui.line);
 	if (!sh->cui.line)
 		exit_error(strerror(errno), sh);
 	line = ft_split_args(sh->cui.line);

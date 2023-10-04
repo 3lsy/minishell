@@ -6,7 +6,7 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/09/27 19:27:32 by echavez-         ###   ########.fr        #
+#    Updated: 2023/10/02 23:20:38 by echavez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ DIRRED      :=  $(DIRSRC)/redirections/
 DIRS        :=  $(DIRSRC) $(DIRAN) $(DIREVAL) $(DIRINT) $(DIRBLT) $(DIRSGL) $(DIRSTR) $(DIRRED)
 
 SRC         =   main.c debug.c # remove debug.c when done
-ANZER       =   analyzer.c lexer.c parser.c syntax_matrix.c syntax_tree.c
+ANZER       =   analyzer.c lexer.c parser.c syntax_matrix.c syntax_tree.c expand.c
 EVAL        =   evaluator.c
 INTER       =   interface.c prompt.c readline.c events.c notatty.c
 BUILT       =   echo.c exit.c pwd.c env.c
