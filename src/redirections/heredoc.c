@@ -6,13 +6,13 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:33:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/08 20:15:06 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:23:32 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	heredoc_prompt(t_sh *sh, char *delimiter, int *pipe)
+static void	heredoc_prompt(char *delimiter, int *pipe)
 {
 	char	*line;
 
@@ -42,11 +42,11 @@ static void	heredoc_prompt(t_sh *sh, char *delimiter, int *pipe)
 
 void	heredoc(t_sh *sh, char *delimeter)
 {
-	int	pipe[2];
+	int	pipe_fd[2];
 
-	if (pipe(pipe) < 0)
+	if (pipe(pipe_fd) < 0)
 		exit_error(strerror(errno), sh);
-	heredoc_prompt(sh, delimeter, pipe);
-	dup2(pipe[0], STDIN_FILENO);
-	close(pipe[1]);
+	heredoc_prompt(delimeter, pipe_fd);
+	dup2(pipe_fd[0], STDIN_FILENO);
+	close(pipe_fd[1]);
 }

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 01:14:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 20:35:23 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:05:34 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void	notatty(t_sh *sh)
 		line = ft_get_next_line(STDIN_FILENO);
 	}
 	sh->cui.line = NULL;
-	ft_exit(sh);
+	ft_exit(0, NULL, NULL, sh);
 }

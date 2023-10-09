@@ -6,13 +6,14 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:34:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/24 17:31:50 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:08:18 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(int ac, char **av, __attribute__((unused)) char **ev)
+int	ft_echo(int ac, char **av, __attribute__((unused)) char **ev,
+		__attribute__((unused)) t_sh *sh)
 {
 	int	i;
 	int	n_flag;

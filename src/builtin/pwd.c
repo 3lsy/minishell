@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 22:22:19 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/22 22:33:50 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:02:37 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 */
 int	ft_pwd(__attribute__((unused)) int ac,
 			__attribute__((unused)) char **av,
-			__attribute__((unused)) char **ev)
+			__attribute__((unused)) char **ev,
+			__attribute__((unused)) t_sh *sh)
 {
 	char	*pwd;
 

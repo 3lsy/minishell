@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 17:34:46 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:17:48 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define HISTSIZE 1000
 # define TRUE 1
 # define FALSE 0
+# define NONE 0
 # define PCOLOR1 "\e[1;38;2;78;154;6m"
 # define PCOLOR2 "\e[1;38;2;52;101;164m"
 # define PEND "\e[0m"
