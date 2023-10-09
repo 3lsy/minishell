@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:29:03 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/08 19:34:46 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:16:37 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	input_redirection(t_sh *sh, char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		sh->exit_status = 1;
+		sh->cl.exit_status = 1;
 	else
 	{
 		dup2(fd, STDIN_FILENO);

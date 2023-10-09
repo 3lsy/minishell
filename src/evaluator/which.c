@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:51:33 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/08 19:49:01 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:18:48 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 ** @path: path to search in
 */
 
-char	*which(char *cmd, char **ev, char *cmd_path)
+char	*ft_which(char *cmd, char **ev, char *cmd_path)
 {
 	char	**vpath;
 	char	*tmpath;
 	int		i;
 
-	if (is_builtin(cmd) || !ev[k24("PATH")])
+	if (is_builtin(cmd) >= 0 || !ev[k24("PATH")])
 		return (NULL);
 	vpath = ft_split(ev[k24("PATH")], ':');
 	i = 0;
@@ -44,21 +44,21 @@ char	*which(char *cmd, char **ev, char *cmd_path)
 	return (NULL);
 }
 
-t_bool	is_builtin(char *cmd)
+t_byte	is_builtin(char *cmd)
 {
 	int			i;
 	const char	*builtins[] = {
 		"echo", "cd", "pwd",
 		"export", "unset", "env",
-		"exit", "cd", NULL
+		"exit", NULL
 	};
 
 	i = 0;
 	while (builtins[i])
 	{
 		if (ft_strcmp((char *)builtins[i], cmd) == 0)
-			return (TRUE);
+			return (i);
 		i++;
 	}
-	return (FALSE);
+	return (-1);
 }

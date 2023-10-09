@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 13:14:03 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:18:38 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 {
 	pid_t	pid;
 
-	if (is_builtin(cmd->bin))
+	if (is_builtin(cmd->bin) >= 0)
 	{
 		redirect_io(sh, id, cmd);
-		ft_execute_builtin(sh, id, cmd);
-		reset_io(sh, id, cmd);
+		ft_execute_builtin(sh, cmd);
+		reset_io(sh);
 	}
 	else
 	{
@@ -65,10 +65,30 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 		else if (pid == 0)
 		{
 			redirect_io(sh, id, cmd);
-			ft_execute(sh, id, cmd);
+			ft_execute(sh, cmd);
 		}
 		else
 			sh->cl.child_pids[id] = pid;
+	}
+}
+
+void	evaluator_destructor(t_sh *sh)
+{
+	int	i;
+
+	i = 0;
+	while (i < sh->cl.n_cmds - 1)
+	{
+		close(sh->cl.pipes[i][0]);
+		close(sh->cl.pipes[i][1]);
+		i++;
+	}
+	free(sh->cl.pipes);
+	i = 0;
+	while (i < sh->cl.n_cmds)
+	{
+		waitpid(sh->cl.child_pids[i], (int *)&sh->cl.exit_status, 0);
+		i++;
 	}
 }
 
@@ -96,6 +116,6 @@ void	ft_evaluator(t_sh *sh)
 		cmd = cmd->next;
 		i++;
 	}
-	free(sh->cl.pipes);
+	evaluator_destructor(sh);
 	ft_debug();
 }

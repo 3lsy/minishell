@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/06 19:21:43 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:34:46 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,7 @@ typedef struct s_cmds
 	int			n_cmds;
 	int			(*pipes)[2];
 	pid_t		*child_pids;
-	char		*input;
-	char		*output;
+	int			saved_stdout;
 	t_byte		exit_status;
 }	t_cmds;
 
@@ -202,5 +201,11 @@ typedef struct t_sh
 	t_history	*history;
 	char		history_path[PATH_MAX + 1];
 }	t_sh;
+
+/*
+** builtin type functions
+*/
+
+typedef int		(*t_builtin)(int, char **, char **, t_sh *);
 
 #endif
