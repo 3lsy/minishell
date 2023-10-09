@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:47:07 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 19:04:56 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:35:40 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 */
 
 void	ft_evaluator(t_sh *sh);
-t_byte	is_builtin(char *cmd);
+int		is_builtin(char *cmd);
 char	*ft_which(char *cmd, char **ev, char *cmd_path);
 void	ft_execute(t_sh *sh, t_ast *cmd);
 void	ft_execute_builtin(t_sh *sh, t_ast *cmd);

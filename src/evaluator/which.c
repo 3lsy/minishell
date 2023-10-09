@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:51:33 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 19:04:45 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:37:06 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ char	*ft_which(char *cmd, char **ev, char *cmd_path)
 		cmd_path = ft_strjoin(tmpath, cmd, 0);
 		if (!cmd_path)
 			return (NULL);
-		ft_freejoin(&tmpath);
+		free(tmpath);
 		if (access(cmd_path, F_OK) == 0)
 			return (cmd_path);
-		ft_freejoin(&cmd_path);
+		free(cmd_path);
 	}
 	return (NULL);
 }
 
-t_byte	is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
 	int			i;
 	const char	*builtins[] = {

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 18:18:38 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:14:14 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 			exit_error(strerror(errno), sh);
 		else if (pid == 0)
 		{
-			redirect_io(sh, id, cmd);
+			//redirect_io(sh, id, cmd);
 			ft_execute(sh, cmd);
 		}
 		else
@@ -74,7 +74,8 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 
 void	evaluator_destructor(t_sh *sh)
 {
-	int	i;
+	int		i;
+	t_ast	*cmd;
 
 	i = 0;
 	while (i < sh->cl.n_cmds - 1)
@@ -83,13 +84,19 @@ void	evaluator_destructor(t_sh *sh)
 		close(sh->cl.pipes[i][1]);
 		i++;
 	}
-	free(sh->cl.pipes);
+	if (sh->cl.pipes)
+		free(sh->cl.pipes);
+	sh->cl.pipes = NULL;
+	cmd = sh->cl.ast;
 	i = 0;
-	while (i < sh->cl.n_cmds)
+	while (cmd)
 	{
-		waitpid(sh->cl.child_pids[i], (int *)&sh->cl.exit_status, 0);
+		if (is_builtin(cmd->bin) < 0)
+			waitpid(sh->cl.child_pids[i], (int *)&sh->cl.exit_status, 0);
+		cmd = cmd->next;
 		i++;
 	}
+	free(sh->cl.child_pids);
 }
 
 // TODO:
@@ -97,9 +104,6 @@ void	evaluator_destructor(t_sh *sh)
 // - Create processes and execute commands
 // - Close pipes
 // - Wait for processes to finish
-// TMP:
-// - free pipes not in a destructor
-
 void	ft_evaluator(t_sh *sh)
 {
 	int		i;
@@ -107,6 +111,9 @@ void	ft_evaluator(t_sh *sh)
 
 	sh->cl.pipes = create_pipes(sh->cl.n_cmds - 1);
 	if (!sh->cl.pipes)
+		exit_error(strerror(errno), sh);
+	sh->cl.child_pids = ft_calloc(sizeof(pid_t), sh->cl.n_cmds);
+	if (!sh->cl.child_pids)
 		exit_error(strerror(errno), sh);
 	i = 0;
 	cmd = sh->cl.ast;
@@ -117,5 +124,5 @@ void	ft_evaluator(t_sh *sh)
 		i++;
 	}
 	evaluator_destructor(sh);
-	ft_debug();
+	// ft_debug();
 }

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/08 20:27:26 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:08:12 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	unset_term(t_sh *sh);
 void	reset_cmdline(t_cui *cui);
 
 void	init_prompt(t_prompt *prompt, char **ev);
+void	update_prompt(t_prompt *prompt, char **ev);
 void	ft_prompt(t_cui *cui);
 void	ft_readline(t_cui *cui, t_sh *sh);
 
