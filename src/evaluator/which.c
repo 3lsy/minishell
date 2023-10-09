@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:51:33 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/08 19:49:01 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:19:08 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** @path: path to search in
 */
 
-char	*which(char *cmd, char **ev, char *cmd_path)
+char	*ft_which(char *cmd, char **ev, char *cmd_path)
 {
 	char	**vpath;
 	char	*tmpath;

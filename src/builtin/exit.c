@@ -6,13 +6,16 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 00:07:24 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/30 20:53:39 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:15:33 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit(t_sh *sh)
+int	ft_exit(__attribute__((unused)) int ac,
+			__attribute__((unused)) char **av,
+			__attribute__((unused)) char **ev,
+			t_sh *sh)
 {
 	t_byte	status;
 

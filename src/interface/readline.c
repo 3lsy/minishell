@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/22 20:20:16 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:23:38 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	key_event(char *e, t_cui *cui, t_sh *sh)
 	if (ft_strcmp(e, CTRL_D) == 0 && !cui->line_size)
 	{
 		ft_printf("\n");
-		ft_exit(sh);
+		ft_exit(0, NULL, NULL. sh);
 	}
 	else if (ft_strcmp(e, DEL) == 0)
 		delete_key(cui, sh);
