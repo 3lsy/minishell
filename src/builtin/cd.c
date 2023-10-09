@@ -1,31 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eval.h                                             :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 01:47:07 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/08 19:34:05 by echavez-         ###   ########.fr       */
+/*   Created: 2023/10/08 18:39:32 by echavez-          #+#    #+#             */
+/*   Updated: 2023/10/08 20:14:53 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EVAL_H
-# define EVAL_H
+#include "minishell.h"
 
-# include "libraries.h"
-
-/*
-** Evaluator
-*/
-
-void	ft_evaluator(t_sh *sh);
-t_bool	is_builtin(char *cmd);
-
-/*
-** Builtins
-*/
-
-void	ft_exit(t_sh *sh);
-
-#endif
+void	ft_cd(void)
+{
+}

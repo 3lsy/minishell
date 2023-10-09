@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:17:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/30 20:53:39 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/08 20:26:29 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	valid_name(char *str)
 static int	ft_setenv(char *arg, t_sh *sh)
 {
 	char	*key;
-	char	*value;
 	char	*tmp;
 
 	tmp = ft_strchr(arg, '=');
