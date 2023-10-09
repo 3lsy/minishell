@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/08 20:05:55 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:14:03 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	(*create_pipes(int n))[2]
 ** - Output redirection
 ** Reset input and output redirection for builtin commands.
 */
-int	execute_cmd(t_sh *sh, int id, t_ast *cmd)
+void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 {
 	pid_t	pid;
 
@@ -68,7 +68,7 @@ int	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 			ft_execute(sh, id, cmd);
 		}
 		else
-			sh->cl.pids[id] = pid;
+			sh->cl.child_pids[id] = pid;
 	}
 }
 
@@ -82,15 +82,18 @@ int	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 
 void	ft_evaluator(t_sh *sh)
 {
-	int	i;
+	int		i;
+	t_ast	*cmd;
 
 	sh->cl.pipes = create_pipes(sh->cl.n_cmds - 1);
 	if (!sh->cl.pipes)
 		exit_error(strerror(errno), sh);
 	i = 0;
-	while (i < sh->cl.n_cmds)
+	cmd = sh->cl.ast;
+	while (cmd)
 	{
-		execute_cmd(sh, i, sh->cl.cmds[i]);
+		execute_cmd(sh, i, cmd);
+		cmd = cmd->next;
 		i++;
 	}
 	free(sh->cl.pipes);
