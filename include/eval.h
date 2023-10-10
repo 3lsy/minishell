@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:47:07 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 19:35:40 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:28:20 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	*ft_which(char *cmd, char **ev, char *cmd_path);
 void	ft_execute(t_sh *sh, t_ast *cmd);
 void	ft_execute_builtin(t_sh *sh, t_ast *cmd);
 char	**convert_hashmap_to_ev(t_sh *sh);
+void	evaluator_destructor(t_sh *sh);
 
 /*
 ** Builtins

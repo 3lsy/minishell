@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 20:14:14 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:25:40 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,12 @@ void	evaluator_destructor(t_sh *sh)
 	free(sh->cl.child_pids);
 }
 
-// TODO:
 // - Create pipes
 // - Create processes and execute commands
 // - Close pipes
 // - Wait for processes to finish
+// TODO:
+// exit_error checked
 void	ft_evaluator(t_sh *sh)
 {
 	int		i;

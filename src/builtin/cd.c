@@ -6,12 +6,14 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:39:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 19:06:22 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:38:27 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//TODO:
+//exit_error checked
 int	change_dir(char *dir, t_sh *sh)
 {
 	if (!dir)
@@ -26,11 +28,11 @@ int	change_dir(char *dir, t_sh *sh)
 	sh->ev[k24("OLDPWD")] = ft_strdup(sh->ev[k24("PWD")]);
 	if (!sh->ev[k24("OLDPWD")])
 		exit_error(strerror(errno), sh);
+	insert_key(ft_strdup("OLDPWD"), sh);
 	free(sh->ev[k24("PWD")]);
 	sh->ev[k24("PWD")] = getcwd(NULL, 0);
 	if (!sh->ev[k24("PWD")])
 		exit_error(strerror(errno), sh);
-	insert_key(ft_strdup("OLDPWD"), sh);
 	insert_key(ft_strdup("PWD"), sh);
 	return (EXIT_SUCCESS);
 }
