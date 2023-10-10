@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sh_name="bash"
+sh_name="minishell"
 usage='\033cPress Ctrl+C to quit'
 echo -e "$usage"
 while true; do
