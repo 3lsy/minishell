@@ -6,11 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/10 18:25:40 by echavez-         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/10 18:24:14 by echavez-         ###   ########.fr       */
->>>>>>> 86e24b475ddd31ebeb48edaa7ab0ec10e9d58f3d
+/*   Updated: 2023/10/10 18:31:29 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +39,6 @@ void	evaluator_destructor(t_sh *sh)
 	free(sh->cl.child_pids);
 }
 
-<<<<<<< HEAD
-=======
 int	(*create_pipes(int n))[2]
 {
 	int	(*pipes)[2];
@@ -116,7 +110,6 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 }
 
 // TODO:
->>>>>>> 86e24b475ddd31ebeb48edaa7ab0ec10e9d58f3d
 // - Create pipes
 // - Create processes and execute commands
 // - Close pipes
