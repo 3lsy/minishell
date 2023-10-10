@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 18:31:29 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 20:09:27 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	evaluator_destructor(t_sh *sh)
 		i++;
 	}
 	free(sh->cl.child_pids);
+	sh->cl.child_pids = NULL;
 }
 
 int	(*create_pipes(int n))[2]
