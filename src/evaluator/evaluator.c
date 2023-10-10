@@ -6,71 +6,11 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 20:14:14 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:24:14 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_debug(void);
-
-int	(*create_pipes(int n))[2]
-{
-	int	(*pipes)[2];
-	int	id;
-
-	pipes = ft_calloc(sizeof(int [2]), n);
-	if (!pipes)
-		return (NULL);
-	id = 0;
-	while (id < n)
-	{
-		if (pipe(pipes[id]) == -1)
-		{
-			free(pipes);
-			return (NULL);
-		}
-		id++;
-	}
-	return (pipes);
-}
-
-/*
-** If the command is a builtin, no fork is needed.
-** If the command is not a builtin, fork and execute.
-** To define where the input and output will be redirected,
-** we have to redirect first define where the input and output
-** will be redirected, in this order of priority:
-** - Pipe input
-** - Pipe output
-** - Input redirection
-** - Output redirection
-** Reset input and output redirection for builtin commands.
-*/
-void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
-{
-	pid_t	pid;
-
-	if (is_builtin(cmd->bin) >= 0)
-	{
-		redirect_io(sh, id, cmd);
-		ft_execute_builtin(sh, cmd);
-		reset_io(sh);
-	}
-	else
-	{
-		pid = fork();
-		if (pid == -1)
-			exit_error(strerror(errno), sh);
-		else if (pid == 0)
-		{
-			//redirect_io(sh, id, cmd);
-			ft_execute(sh, cmd);
-		}
-		else
-			sh->cl.child_pids[id] = pid;
-	}
-}
 
 void	evaluator_destructor(t_sh *sh)
 {
@@ -99,6 +39,76 @@ void	evaluator_destructor(t_sh *sh)
 	free(sh->cl.child_pids);
 }
 
+int	(*create_pipes(int n))[2]
+{
+	int	(*pipes)[2];
+	int	id;
+
+	pipes = ft_calloc(sizeof(int [2]), n);
+	if (!pipes)
+		return (NULL);
+	id = 0;
+	while (id < n)
+	{
+		if (pipe(pipes[id]) == -1)
+		{
+			free(pipes);
+			return (NULL);
+		}
+		id++;
+	}
+	return (pipes);
+}
+
+void	parent_exec(t_sh *sh, int id, pid_t pid)
+{
+	sh->cl.child_pids[id] = pid;
+	g_sigint = pid;
+	waitpid(pid, (int *)&sh->cl.exit_status, 0);
+	sh->cl.exit_status = WEXITSTATUS(sh->cl.exit_status);
+}
+
+/*
+** If the command is a builtin, no fork is needed.
+** If the command is not a builtin, fork and execute.
+** To define where the input and output will be redirected,
+** we have to redirect first define where the input and output
+** will be redirected, in this order of priority:
+** - Pipe input
+** - Pipe output
+** - Input redirection
+** - Output redirection
+** Reset input and output redirection for builtin commands.
+*/
+void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
+{
+	pid_t	pid;
+
+	if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term_backup) == -1)
+		exit_error("Could not set the termios attributes.", sh);
+	if (is_builtin(cmd->bin) >= 0)
+	{
+		redirect_io(sh, id, cmd);
+		ft_execute_builtin(sh, cmd);
+		reset_io(sh);
+	}
+	else
+	{
+		pid = fork();
+		if (pid == -1)
+			exit_error(strerror(errno), sh);
+		else if (pid == 0)
+		{
+			redirect_io(sh, id, cmd);
+			ft_execute(sh, cmd);
+		}
+		else
+			parent_exec(sh, id, pid);
+	}
+	if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term) == -1)
+		exit_error("Could not set the termios attributes.", sh);
+}
+
 // TODO:
 // - Create pipes
 // - Create processes and execute commands
@@ -115,6 +125,8 @@ void	ft_evaluator(t_sh *sh)
 	sh->cl.child_pids = ft_calloc(sizeof(pid_t), sh->cl.n_cmds);
 	if (!sh->cl.child_pids)
 		exit_error(strerror(errno), sh);
+	signal(SIGINT, ft_sigchild);
+	signal(SIGQUIT, ft_sigchild);
 	i = 0;
 	cmd = sh->cl.ast;
 	while (cmd)
@@ -123,6 +135,6 @@ void	ft_evaluator(t_sh *sh)
 		cmd = cmd->next;
 		i++;
 	}
+	ft_signals();
 	evaluator_destructor(sh);
-	// ft_debug();
 }

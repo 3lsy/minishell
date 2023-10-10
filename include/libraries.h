@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 19:17:48 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:10:17 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@
 # define PCOLOR1 "\e[1;38;2;78;154;6m"
 # define PCOLOR2 "\e[1;38;2;52;101;164m"
 # define PEND "\e[0m"
+
+/*
+** Signals
+*/
+
+# define CTRLC 1
 
 /*
 ** Error messages
@@ -92,7 +98,7 @@
 # define DBL_L 4
 # define DBL_R 5
 
-extern t_byte	g_sigint;
+extern int	g_sigint;
 
 /*
 ** Redirection
