@@ -6,15 +6,14 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:34:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 18:25:02 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:30:00 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // TODO:
-// After inserting spaces, expand env variables and $?
-// Then, split the line into tokens
+// exit_error checked
 char	**ft_lexer(t_sh *sh)
 {
 	char	**line;

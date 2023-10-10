@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 19:59:09 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 20:03:15 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 // - Create processes and execute commands
 // - Close pipes
 // - Wait for processes to finish
+// TODO:
+// exit_error checked
 void	ft_evaluator(t_sh *sh)
 {
 	int		i;

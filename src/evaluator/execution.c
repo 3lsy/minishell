@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 21:11:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 18:56:53 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 20:03:21 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_execute(t_sh *sh, t_ast *cmd)
 	char	*cmd_path;
 	char	**ev;
 
+	if (!cmd->bin)
+		return ;
 	cmd_path = ft_which(cmd->bin, sh->ev, NULL);
 	if (cmd_path)
 	{

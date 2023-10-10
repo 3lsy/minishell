@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:17:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 17:58:10 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:15:59 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	print_declarations(t_sh *sh)
 	}
 }
 
+//TODO:
+//exit_error checked
 int	ft_export(int ac, char **av, __attribute__((unused)) char **ev, t_sh *sh)
 {
 	int	i;

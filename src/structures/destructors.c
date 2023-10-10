@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:49:31 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/30 20:52:45 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:27:33 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	free_env(t_sh *sh)
 
 void	ft_destructor(t_sh *sh)
 {
+	evaluator_destructor(sh);
+	analyzer_destructor(sh);
 	unset_term(sh);
 	save_history(sh);
 	if (sh->cl.tokens)

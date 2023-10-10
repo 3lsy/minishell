@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:51:33 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 14:32:20 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:45:26 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	is_builtin(char *cmd)
 	};
 
 	i = 0;
-	while (builtins[i])
+	while (cmd && builtins[i])
 	{
 		if (ft_strcmp((char *)builtins[i], cmd) == 0)
 			return (i);
