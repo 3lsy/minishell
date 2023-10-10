@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 21:11:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 17:46:53 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:56:53 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,12 @@ void	ft_execute(t_sh *sh, t_ast *cmd)
 	if (cmd_path)
 	{
 		ev = convert_hashmap_to_ev(sh);
-		sh->cl.exit_status = execve(cmd_path, cmd->av, ev);
+		execve(cmd_path, cmd->av, ev);
 		free_ev(ev);
 	}
 	else
 		ft_fprintf(STDERR_FILENO, "minishell: %s: command not found\n",
 			cmd->bin);
 	free(cmd_path);
-	sh->cl.exit_status = 127;
-	perror("minishell");
-	exit(sh->cl.exit_status);
+	exit(EXIT_FAILURE * 127);
 }

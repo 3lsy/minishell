@@ -6,11 +6,20 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 18:24:14 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:59:09 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	kill_children(pid_t *child_pids)
+{
+	int	i;
+
+	i = 0;
+	while (child_pids[i])
+		kill(child_pids[i++], SIGTERM);
+}
 
 void	evaluator_destructor(t_sh *sh)
 {
@@ -60,11 +69,21 @@ int	(*create_pipes(int n))[2]
 	return (pipes);
 }
 
+// rm  waitpid(pid, (int *)&sh->cl.exit_status, 0);
+// waitpid for closing main process (to avoid zombie processes)
 void	parent_exec(t_sh *sh, int id, pid_t pid)
 {
 	sh->cl.child_pids[id] = pid;
 	g_sigint = pid;
-	waitpid(pid, (int *)&sh->cl.exit_status, 0);
+	if (id == (sh->cl.n_cmds - 1))
+	{
+		waitpid(pid, (int *)&sh->cl.exit_status, 0);
+		kill_children(sh->cl.child_pids);
+	}
+	if (id > 0)
+		close(sh->cl.pipes[id - 1][0]);
+	if (id < (sh->cl.n_cmds - 1))
+		close(sh->cl.pipes[id][1]);
 	sh->cl.exit_status = WEXITSTATUS(sh->cl.exit_status);
 }
 
