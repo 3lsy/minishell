@@ -6,20 +6,21 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:34:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/24 17:31:50 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:52:29 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(int ac, char **av, __attribute__((unused)) char **ev)
+int	ft_echo(int ac, char **av, __attribute__((unused)) char **ev,
+		__attribute__((unused)) t_sh *sh)
 {
 	int	i;
 	int	n_flag;
 
 	i = 1;
 	n_flag = 0;
-	while (ac > 1 && !ft_strcmp(av[1], "-n"))
+	while (ac > i && !ft_strcmp(av[i], "-n"))
 	{
 		n_flag = 1;
 		i++;

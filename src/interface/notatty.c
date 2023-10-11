@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 01:14:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 20:35:23 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:09:13 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	notatty(t_sh *sh)
 	{
 		sh->cui.line = line;
 		sh->cui.line_size = ft_strlen(line);
+		update_prompt(&sh->cui.prompt, sh->ev);
 		ft_prompt(&sh->cui);
 		ft_printf("%s\n", line);
 		if (sh->cui.line && (!sh->history
@@ -33,5 +34,5 @@ void	notatty(t_sh *sh)
 		line = ft_get_next_line(STDIN_FILENO);
 	}
 	sh->cui.line = NULL;
-	ft_exit(sh);
+	ft_exit(0, NULL, NULL, sh);
 }

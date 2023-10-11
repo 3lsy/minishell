@@ -6,16 +6,22 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:16:25 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 18:03:45 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:44:46 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+**	We send a strdup to the key
+**  so we have to protect it from leaks here.
+*/
 void	insert_key(char *key, t_sh *sh)
 {
 	int	i;
 
+	if (!key)
+		exit_error(strerror(errno), sh);
 	i = 0;
 	while (sh->keys[i])
 	{
@@ -32,7 +38,7 @@ void	insert_key(char *key, t_sh *sh)
 ** in a hash table or hash map of size 16777213.
 */
 
-static char	*k24_insert(char **ev, char *str)
+char	*k24_insert(char **ev, char *str)
 {
 	char	*key;
 	char	*value;

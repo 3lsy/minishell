@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/28 11:42:49 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:09:40 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	unset_term(t_sh *sh);
 void	reset_cmdline(t_cui *cui);
 
 void	init_prompt(t_prompt *prompt, char **ev);
+void	update_prompt(t_prompt *prompt, char **ev);
 void	ft_prompt(t_cui *cui);
 void	ft_readline(t_cui *cui, t_sh *sh);
 
@@ -65,6 +66,7 @@ void	ft_destructor(t_sh *sh);
 void	save_history(t_sh *sh);
 void	free_ev(char **ev);
 void	insert_key(char *key, t_sh *sh);
+char	*k24_insert(char **ev, char *str);
 
 /*
 ** signal
@@ -72,5 +74,7 @@ void	insert_key(char *key, t_sh *sh);
 
 void	ft_signals(void);
 void	ft_sigint(int sig);
+void	ft_sigchild(int sig);
+void	ft_empty(__attribute__((unused)) int sig);
 
 #endif

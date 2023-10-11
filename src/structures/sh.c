@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 21:07:46 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/30 20:56:00 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:09:35 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_sh	*ft_sh(void)
 	},
 		.cl = {
 		.ast = NULL, .tokens = NULL, .cmds = NULL,
-		.n_cmds = 0, .exit_status = 0,
+		.n_cmds = 0, .exit_status = 0, .saved_stdout = 1,
 		.pipes = NULL, .child_pids = NULL,
 	},
 		.ec = 0,

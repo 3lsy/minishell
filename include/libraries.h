@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/30 20:59:33 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:10:17 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,16 @@
 # define HISTSIZE 1000
 # define TRUE 1
 # define FALSE 0
+# define NONE 0
 # define PCOLOR1 "\e[1;38;2;78;154;6m"
 # define PCOLOR2 "\e[1;38;2;52;101;164m"
 # define PEND "\e[0m"
+
+/*
+** Signals
+*/
+
+# define CTRLC 1
 
 /*
 ** Error messages
@@ -91,7 +98,7 @@
 # define DBL_L 4
 # define DBL_R 5
 
-extern t_byte	g_sigint;
+extern int	g_sigint;
 
 /*
 ** Redirection
@@ -177,6 +184,7 @@ typedef struct s_cmds
 	int			n_cmds;
 	int			(*pipes)[2];
 	pid_t		*child_pids;
+	int			saved_stdout;
 	t_byte		exit_status;
 }	t_cmds;
 
@@ -200,5 +208,11 @@ typedef struct t_sh
 	t_history	*history;
 	char		history_path[PATH_MAX + 1];
 }	t_sh;
+
+/*
+** builtin type functions
+*/
+
+typedef int		(*t_builtin)(int, char **, char **, t_sh *);
 
 #endif

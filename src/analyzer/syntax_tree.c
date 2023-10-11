@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 15:29:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/30 20:53:17 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:31:43 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ static void	append_cmd(t_ast **start, t_ast **last, t_ast *new)
 	}
 }
 
+// TODO:
+// exit_error checked
 void	ft_syntax_tree(t_sh *sh)
 {
 	int		i;

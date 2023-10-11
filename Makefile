@@ -6,7 +6,7 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/10/02 23:20:38 by echavez-         ###   ########.fr        #
+#    Updated: 2023/10/09 13:01:21 by echavez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,12 @@ DIRS        :=  $(DIRSRC) $(DIRAN) $(DIREVAL) $(DIRINT) $(DIRBLT) $(DIRSGL) $(DI
 
 SRC         =   main.c debug.c # remove debug.c when done
 ANZER       =   analyzer.c lexer.c parser.c syntax_matrix.c syntax_tree.c expand.c
-EVAL        =   evaluator.c
+EVAL        =   evaluator.c execution.c which.c
 INTER       =   interface.c prompt.c readline.c events.c notatty.c
-BUILT       =   echo.c exit.c pwd.c env.c
+BUILT       =   echo.c exit.c pwd.c env.c cd.c export.c unset.c
 SIGNL       =   signal.c
 STRCT       =   sh.c ast.c ev.c history.c history_file.c destructors.c
-REDIR       =   
+REDIR       =   redirect.c input_redirection.c output_redirection.c append_output.c heredoc.c
 
 SRCS        :=  $(SRC) $(ANZER) $(EVAL) $(INTER) $(BUILT) $(SIGNL) $(STRCT) $(REDIR)
 

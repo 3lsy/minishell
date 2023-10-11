@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 19:53:40 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:03:53 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ static void	ft_minishell(t_sh *sh)
 	while (TRUE)
 	{
 		reset_cmdline(&sh->cui);
+		update_prompt(&sh->cui.prompt, sh->ev);
 		ft_prompt(&sh->cui);
 		ft_readline(&sh->cui, sh);
-		if (!sh->cui.line || g_sigint)
+		if (!sh->cui.line || g_sigint == CTRLC)
 			continue ;
 		if (!sh->history || ft_strcmp(sh->cui.line, sh->history->line))
 			save_line_history(sh, sh->cui.line);
