@@ -6,7 +6,11 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/12 20:03:43 by echavez-         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/12 17:14:19 by echavez-         ###   ########.fr       */
+>>>>>>> 65c0172d1da69debe67321a3b95b2aa9235108c0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +87,7 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 		ft_execute_builtin(sh, cmd);
 		reset_io(sh);
 	}
-	else
+	else if (is_builtin(cmd->bin) < 0)
 	{
 		pid = fork();
 		if (pid == -1)

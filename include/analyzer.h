@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:46:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/02 23:19:34 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:25:36 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	analyzer_destructor(t_sh *sh);
 
 char	***ft_split_cmds(char **tokens);
 char	*insert_spaces(char *str);
+void	clear_quotes(char **line);
 char	*expand_line(char *line, t_sh *sh);
 t_byte	is_operator(char *str, int i);
 int		is_redirection(char *token);

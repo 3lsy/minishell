@@ -6,7 +6,11 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:34:50 by echavez-          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/12 20:19:20 by echavez-         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/12 17:20:15 by echavez-         ###   ########.fr       */
+>>>>>>> 65c0172d1da69debe67321a3b95b2aa9235108c0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +78,7 @@ int	redirect_io(t_sh *sh, int id, t_ast *cmd)
 	g_sigint = 0;
 	ft_signals(HEREDOC);
 	redirect_input(sh, id, cmd);
-	if (g_sigint == CTRLC)
+	if (g_sigint == CTRLC || cmd->bin == NULL)
 	{
 		g_sigint = sig_bkp;
 		ft_signals(EXEC);

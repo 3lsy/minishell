@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:34:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/12 18:12:00 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:33:09 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	**ft_lexer(t_sh *sh)
 		ft_fprintf(STDERR_FILENO, ERR_UNC_QUOTE);
 		return (NULL);
 	}
+	clear_quotes(line);
 	return (line);
 }
 
@@ -79,4 +80,52 @@ char	*insert_spaces(char *str)
 		i++;
 	}
 	return (str);
+}
+
+char	*clear_token(char **line, char quote, int i, int *j)
+{
+	char	*tmp;
+
+	line[i][*j] = '\0';
+	tmp = ft_strjoin(line[i], &line[i][(*j) + 1], 0);
+	if (!tmp)
+		return (NULL);
+	free(line[i]);
+	line[i] = tmp;
+	while (line[i][*j] && line[i][*j] != quote)
+		(*j)++;
+	line[i][*j] = '\0';
+	tmp = ft_strjoin(line[i], &line[i][(*j) + 1], 0);
+	if (!tmp)
+		return (NULL);
+	free(line[i]);
+	return (tmp);
+}
+
+void	clear_quotes(char **line)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+	char	quote;
+
+	i = 0;
+	while (line[i])
+	{
+		j = 0;
+		while (line[i][j])
+		{
+			if (line[i][j] == '\'' || line[i][j] == '\"')
+			{
+				quote = line[i][j];
+				tmp = clear_token(line, quote, i, &j);
+				if (!tmp)
+					return ;
+				line[i] = tmp;
+			}
+			if (line[i][j] && line[i][j] != '\'' && line[i][j] != '\"')
+				j++;
+		}
+		i++;
+	}
 }
