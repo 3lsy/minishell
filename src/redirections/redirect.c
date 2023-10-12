@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:34:50 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/11 20:00:49 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:20:15 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,14 @@ void	redirect_output(t_sh *sh, int id, t_ast *cmd)
 
 int	redirect_io(t_sh *sh, int id, t_ast *cmd)
 {
-	if (is_builtin(cmd->bin) < 0)
-		redirect_input(sh, id, cmd);
-	else
-		sh->cl.saved_stdout = dup(STDOUT_FILENO);
+	sh->cl.saved_stdout = dup(STDOUT_FILENO);
+	redirect_input(sh, id, cmd);
 	redirect_output(sh, id, cmd);
-	if (g_sigint < 0)
+	if (g_sigint < 0 || cmd->bin == NULL)
+	{
+		reset_io(sh);
 		return (FALSE);
+	}
 	return (TRUE);
 }
 
