@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 17:10:17 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:20:53 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@
 */
 
 # define CTRLC 1
+# define CUI 101
+# define EXEC	 102
+# define HEREDOC 103
+# define UNSET 104
 
 /*
 ** Error messages
@@ -213,6 +217,6 @@ typedef struct t_sh
 ** builtin type functions
 */
 
-typedef int		(*t_builtin)(int, char **, char **, t_sh *);
+typedef int	(*t_builtin)(int, char **, char **, t_sh *);
 
 #endif

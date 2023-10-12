@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 17:09:40 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:02:58 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ char	*k24_insert(char **ev, char *str);
 ** signal
 */
 
-void	ft_signals(void);
+void	ft_signals(int setting);
 void	ft_sigint(int sig);
-void	ft_sigchild(int sig);
-void	ft_empty(__attribute__((unused)) int sig);
+void	ft_sigcmd(int sig);
+void	ft_signals_exec(void);
 
 #endif

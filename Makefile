@@ -6,23 +6,23 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/10/12 14:14:52 by echavez-         ###   ########.fr        #
+#    Updated: 2023/10/12 18:18:08 by echavez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME        =   minishell                   # Name of the binary
+NAME        =   minishell                            # Name of the binary
 
-#****************** INC *******************#
+#****************** INC *******************          #
 # General
-INC         =   ./include/                  # Project header files drectory
+INC         =   ./include/                           # Project header files drectory
 
 # Libft
-LIB         =   ./libft/                    # Library to include
-LIB_H       =   ./libft/                    # Library header files directory
+LIB         =   ./libft/                             # Library to include
+LIB_H       =   ./libft/                             # Library header files directory
 
-INCLUDE     =   -O3 -I $(LIB_H) -I $(INC)   # Header files
+INCLUDE     =   -O3 -I $(LIB_H) -I $(INC)            # Header files
 
-LIB_INC     =   -L$(LIB_H) -lft -lcurses    # Include library
+LIB_INC     =   -L$(LIB_H) -lft -lcurses -lreadline  # Include library
 
 #****************** SRC *******************#
 
