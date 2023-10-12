@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 17:03:53 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:52:52 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int ac, __attribute__((unused)) char **av, char **ev)
 			notatty(sh);
 		init_termcap(sh);
 		init_termios(sh);
-		ft_signals();
+		ft_signals(CUI);
 		ft_minishell(sh);
 		return (0);
 	}

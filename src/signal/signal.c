@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:34:50 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/12 14:02:17 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:35:00 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	g_sigint = NONE;
 */
 void	ft_sigint(__attribute__((unused)) int sig)
 {
-	(void)sig;
 	ft_printf("^C");
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	g_sigint = CTRLC;
@@ -36,28 +35,28 @@ void	ft_sigint(__attribute__((unused)) int sig)
 ** -1 : signal received from parent process, to kill heredoc redirection.
 ** < -1: signal received from child process, to kill heredoc redirection.
 **/
-void	ft_sigchild(int sig)
+void	ft_sigcmd(int sig)
 {
-	if (g_sigint > 0)
-		kill(g_sigint, sig);
-	else if (g_sigint < 0)
-	{
-		kill(-g_sigint, sig);
-		g_sigint *= -1;
-	}
 	if (sig == SIGINT)
 	{
-		g_sigint *= -1;
-		if (g_sigint == 0)
-			g_sigint = -1;
+		ft_printf("^C");
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	}
 	else if (sig == SIGQUIT)
 		ft_printf("Quit (core dumped)\n");
+	if (g_sigint != 0)
+		kill(g_sigint, sig);
 }
 
-void	ft_empty(__attribute__((unused)) int sig)
+void	ft_sighd(int sig)
 {
+	if (sig == SIGINT)
+	{
+		g_sigint = CTRLC;
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	}
+	else if (sig == SIGQUIT)
+		ft_printf("Quit (core dumped)\n");
 }
 
 /*
@@ -67,10 +66,31 @@ void	ft_empty(__attribute__((unused)) int sig)
 ** 3. CTRL + Z
 */
 
-void	ft_signals(void)
+void	ft_signals(int setting)
 {
-	g_sigint = NONE;
-	signal(SIGINT, ft_sigint);
-	signal(SIGQUIT, ft_empty);
-	signal(SIGTSTP, ft_empty);
+	if (setting == CUI)
+	{
+		g_sigint = NONE;
+		signal(SIGINT, ft_sigint);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGTSTP, SIG_IGN);
+	}
+	else if (setting == EXEC)
+	{
+		signal(SIGINT, ft_sigcmd);
+		signal(SIGQUIT, ft_sigcmd);
+		signal(SIGTSTP, SIG_IGN);
+	}
+	else if (setting == HEREDOC)
+	{
+		signal(SIGINT, ft_sighd);
+		signal(SIGQUIT, ft_sighd);
+		signal(SIGTSTP, SIG_IGN);
+	}
+	else if (setting == UNSET)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGTSTP, SIG_IGN);
+	}
 }

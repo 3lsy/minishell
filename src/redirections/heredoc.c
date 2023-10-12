@@ -6,48 +6,42 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:33:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/11 19:41:42 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:19:37 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <readline/readline.h>
 
-static void	heredoc_prompt(char *delimiter, int *pipe)
+static int	heredoc_prompt(char *delimiter, int *pipe)
 {
 	char	*line;
 
-	ft_printf("> ");
-	line = ft_get_next_line(0);
-	while (line)
+	line = readline("> ");
+	while (line != NULL)
 	{
-		if (ft_strcmp(line, delimiter) == 0 || g_sigint < 0)
+		if (ft_strcmp(line, delimiter) == 0 || g_sigint == CTRLC)
 		{
-			ft_get_next_line(-503);
-			break ;
+			free(line);
+			return (g_sigint == NONE);
 		}
 		ft_fprintf(pipe[1], "%s\n", line);
 		free(line);
-		ft_printf("> ");
-		line = ft_get_next_line(0);
+		line = readline("> ");
 	}
 	free(line);
+	return (0);
 }
-
-/*
-** Here document redirection: <<
-** Opens a simple prompt to take input from the user, until the user types
-** the delimiter. The input is then redirected to the command's STDIN.
-** Using a pipe to send the input to the command.
-*/
 
 void	heredoc(t_sh *sh, char *delimeter)
 {
 	int	pipe_fd[2];
+	int	eof;
 
 	if (pipe(pipe_fd) < 0)
 		exit_error(strerror(errno), sh);
-	heredoc_prompt(delimeter, pipe_fd);
-	if (g_sigint < 0)
+	eof = heredoc_prompt(delimeter, pipe_fd);
+	if (g_sigint == CTRLC || !eof)
 	{
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
