@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:33:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 19:23:32 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:41:42 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	heredoc_prompt(char *delimiter, int *pipe)
 	line = ft_get_next_line(0);
 	while (line)
 	{
-		if (ft_strcmp(line, delimiter) == 0)
+		if (ft_strcmp(line, delimiter) == 0 || g_sigint < 0)
 		{
 			ft_get_next_line(-503);
 			break ;
@@ -47,6 +47,12 @@ void	heredoc(t_sh *sh, char *delimeter)
 	if (pipe(pipe_fd) < 0)
 		exit_error(strerror(errno), sh);
 	heredoc_prompt(delimeter, pipe_fd);
+	if (g_sigint < 0)
+	{
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		return ;
+	}
 	dup2(pipe_fd[0], STDIN_FILENO);
 	close(pipe_fd[1]);
 }

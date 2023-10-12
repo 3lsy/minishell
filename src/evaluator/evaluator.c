@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 20:13:28 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:16:22 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,6 @@ void	kill_children(pid_t *child_pids)
 	i = 0;
 	while (child_pids[i])
 		kill(child_pids[i++], SIGTERM);
-}
-
-void	evaluator_destructor(t_sh *sh)
-{
-	int		i;
-	t_ast	*cmd;
-
-	i = 0;
-	while (i < sh->cl.n_cmds - 1)
-	{
-		close(sh->cl.pipes[i][0]);
-		close(sh->cl.pipes[i][1]);
-		i++;
-	}
-	if (sh->cl.pipes)
-		free(sh->cl.pipes);
-	sh->cl.pipes = NULL;
-	cmd = sh->cl.ast;
-	i = 0;
-	while (cmd)
-	{
-		if (is_builtin(cmd->bin) < 0)
-			waitpid(sh->cl.child_pids[i], (int *)&sh->cl.exit_status, 0);
-		cmd = cmd->next;
-		i++;
-	}
-	free(sh->cl.child_pids);
-	sh->cl.child_pids = NULL;
 }
 
 int	(*create_pipes(int n))[2]
@@ -104,11 +76,8 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 {
 	pid_t	pid;
 
-	if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term_backup) == -1)
-		exit_error("Could not set the termios attributes.", sh);
-	if (is_builtin(cmd->bin) >= 0)
+	if (is_builtin(cmd->bin) >= 0 && redirect_io(sh, id, cmd) == TRUE)
 	{
-		redirect_io(sh, id, cmd);
 		ft_execute_builtin(sh, cmd);
 		reset_io(sh);
 	}
@@ -117,16 +86,13 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 		pid = fork();
 		if (pid == -1)
 			exit_error(strerror(errno), sh);
-		else if (pid == 0)
-		{
-			redirect_io(sh, id, cmd);
+		else if (pid == 0 && redirect_io(sh, id, cmd) == TRUE)
 			ft_execute(sh, cmd);
-		}
-		else
+		else if (pid != 0)
 			parent_exec(sh, id, pid);
+		else
+			exit(sh->cl.exit_status);
 	}
-	if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term) == -1)
-		exit_error("Could not set the termios attributes.", sh);
 }
 
 // TODO:
@@ -147,8 +113,7 @@ void	ft_evaluator(t_sh *sh)
 	sh->cl.child_pids = ft_calloc(sizeof(pid_t), sh->cl.n_cmds);
 	if (!sh->cl.child_pids)
 		exit_error(strerror(errno), sh);
-	signal(SIGINT, ft_sigchild);
-	signal(SIGQUIT, ft_sigchild);
+	eval_set_context(sh);
 	i = 0;
 	cmd = sh->cl.ast;
 	while (cmd)
@@ -157,6 +122,5 @@ void	ft_evaluator(t_sh *sh)
 		cmd = cmd->next;
 		i++;
 	}
-	ft_signals();
 	evaluator_destructor(sh);
 }
