@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:34:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 18:57:38 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:12:51 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_option(char *option)
 	int	i;
 
 	if (option[0] != '-')
-		return  (FALSE);
+		return (FALSE);
 	i = 1;
 	while (option[i])
 	{

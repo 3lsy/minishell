@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 21:11:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 17:59:06 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:20:58 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_execute_builtin(t_sh *sh, t_ast *cmd)
 	char			**ev;
 
 	ev = convert_hashmap_to_ev(sh);
-	sh->cl.exit_status = bt[is_builtin(cmd->bin)](cmd->ac, cmd->av, sh->ev, sh);
+	sh->cl.exit_status = bt[is_builtin(cmd->bin)](cmd->ac, cmd->av, ev, sh);
 	free_ev(ev);
 }
 

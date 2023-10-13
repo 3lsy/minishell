@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:16:25 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 16:09:21 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:17:47 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,23 @@ char	**convert_hashmap_to_ev(t_sh *sh)
 {
 	char	**ev;
 	int		i;
+	int		x;
 
 	ev = ft_calloc(sizeof(char **), sh->ec + 1);
 	if (!ev)
 		return (NULL);
 	ev[sh->ec] = NULL;
 	i = 0;
+	x = 0;
 	while (i < sh->ec)
 	{
-		if (!sh->ev[k24(sh->keys[i])])
+		if (!sh->ev[k24(sh->keys[i])] || !sh->ev[k24(sh->keys[i])])
+		{
+			i++;
 			continue ;
-		ev[i] = join_key_value(sh->keys[i], sh->ev[k24(sh->keys[i])]);
-		if (!ev[i])
+		}
+		ev[x++] = join_key_value(sh->keys[i], sh->ev[k24(sh->keys[i])]);
+		if (!ev[x - 1])
 		{
 			free_ev(ev);
 			return (NULL);
