@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:16:25 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 19:25:45 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:56:46 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	insert_key(char *key, t_sh *sh)
 	while (sh->keys[i])
 	{
 		if (!ft_strcmp(sh->keys[i], key))
+		{
+			free(key);
 			return ;
+		}
 		i++;
 	}
 	sh->keys[i] = key;

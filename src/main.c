@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 16:02:58 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:59:23 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	ft_minishell(t_sh *sh)
 		if (ft_analyzer(sh) != EXIT_FAILURE)
 			ft_evaluator(sh);
 		analyzer_destructor(sh);
+		evaluator_destructor(sh);
 	}
 	ft_destructor(sh);
 }

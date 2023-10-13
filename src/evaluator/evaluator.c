@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 18:20:53 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:59:06 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,4 @@ void	ft_evaluator(t_sh *sh)
 		cmd = cmd->next;
 		i++;
 	}
-	evaluator_destructor(sh);
 }

@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'src/**'
+      - 'tests/**'
       - 'include/**'
       - 'libft/**'
       - 'libft'
@@ -31,10 +32,7 @@ jobs:
         run: |
           for cmd in tests/cmds/*/*.sh; do
             echo "Testing $cmd..."
-            valmessage=$(cat $cmd | valgrind \
-              --leak-check=full \
-              --show-leak-kinds=all \
-              ./minishell 2>&1 || true)
+            valmessage=$(cat $cmd | ./minishell_valgrind 2>&1 || true)
             echo "$valmessage"
             leaks=$(echo "$valmessage" | grep 'no leaks are possible' || true)
             if [ ! -z "$leaks" ]; then

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:49:31 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 17:20:57 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:04:21 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	ft_destructor(t_sh *sh)
 		free(sh->cui.line);
 	if (sh->cui.tmp_line)
 		free(sh->cui.tmp_line);
+	if (!sh->cui.interactive)
+		ft_get_next_line(-503);
 }
 
 static __attribute__((destructor)) void	main_destructor(void)
