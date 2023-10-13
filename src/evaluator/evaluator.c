@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 17:41:26 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 18:20:53 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 {
 	pid_t	pid;
 
+	cmd->status = 0;
 	if (is_builtin(cmd->bin) >= 0)
 	{
 		if (redirect_io(sh, id, cmd) == FALSE || cmd->status > 0)
