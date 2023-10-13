@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   context.c                                          :+:      :+:    :+:   */
+/*   evaluator_destructor.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 14:11:08 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 17:16:45 by echavez-         ###   ########.fr       */
+/*   Created: 2023/10/13 17:18:05 by echavez-          #+#    #+#             */
+/*   Updated: 2023/10/13 17:42:58 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	eval_set_context(t_sh *sh)
+void	evaluator_destructor(t_sh *sh)
 {
-	if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term_backup) == -1)
-		exit_error("Could not set the termios attributes.");
-	ft_signals(EXEC);
-}
+	int		i;
+	t_ast	*cmd;
 
-void	eval_unset_context(t_sh *sh)
-{
-	if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term) == -1)
-		exit_error("Could not set the termios attributes.");
-	ft_signals(CUI);
+	eval_unset_context(sh);
+	if (sh->cl.pipes)
+		free(sh->cl.pipes);
+	sh->cl.pipes = NULL;
+	cmd = sh->cl.ast;
+	i = 0;
+	while (cmd)
+	{
+		if (is_builtin(cmd->bin) < 0)
+			waitpid(sh->cl.child_pids[i], &sh->cl.exit_status, 0);
+		cmd = cmd->next;
+		i++;
+	}
+	free(sh->cl.child_pids);
+	sh->cl.child_pids = NULL;
 }

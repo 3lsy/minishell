@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 16:59:51 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:41:26 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,12 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 	}
 }
 
-// TODO:
-// - Create pipes
-// - Create processes and execute commands
-// - Close pipes
-// - Wait for processes to finish
-// TODO:
-// exit_error checked
+/*
+** Create pipes and child_pids arrays.
+** Execute commands.
+** Wait for all child processes to finish.
+** Free pipes and child_pids arrays.
+*/
 void	ft_evaluator(t_sh *sh)
 {
 	int		i;

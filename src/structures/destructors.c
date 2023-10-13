@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:49:31 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 16:04:58 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:20:57 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,19 @@ void	free_env(t_sh *sh)
 	free(sh->ev);
 }
 
+void	free_ev(char **ev)
+{
+	int	i;
+
+	i = 0;
+	while (ev[i])
+	{
+		free(ev[i]);
+		i++;
+	}
+	free(ev);
+}
+
 void	ft_destructor(t_sh *sh)
 {
 	evaluator_destructor(sh);
@@ -59,19 +72,6 @@ void	ft_destructor(t_sh *sh)
 		free(sh->cui.line);
 	if (sh->cui.tmp_line)
 		free(sh->cui.tmp_line);
-}
-
-void	free_ev(char **ev)
-{
-	int	i;
-
-	i = 0;
-	while (ev[i])
-	{
-		free(ev[i]);
-		i++;
-	}
-	free(ev);
 }
 
 static __attribute__((destructor)) void	main_destructor(void)
