@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:16:25 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 19:17:47 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:25:45 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,16 +108,14 @@ char	**convert_hashmap_to_ev(t_sh *sh)
 	x = 0;
 	while (i < sh->ec)
 	{
-		if (!sh->ev[k24(sh->keys[i])] || !sh->ev[k24(sh->keys[i])])
+		if (sh->ev[k24(sh->keys[i])] && sh->ev[k24(sh->keys[i])])
 		{
-			i++;
-			continue ;
-		}
-		ev[x++] = join_key_value(sh->keys[i], sh->ev[k24(sh->keys[i])]);
-		if (!ev[x - 1])
-		{
-			free_ev(ev);
-			return (NULL);
+			ev[x++] = join_key_value(sh->keys[i], sh->ev[k24(sh->keys[i])]);
+			if (!ev[x - 1])
+			{
+				free_ev(ev);
+				return (NULL);
+			}
 		}
 		i++;
 	}
