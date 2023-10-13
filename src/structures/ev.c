@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:16:25 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 18:44:46 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:09:21 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	insert_key(char *key, t_sh *sh)
 	int	i;
 
 	if (!key)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	i = 0;
 	while (sh->keys[i])
 	{
@@ -64,14 +64,14 @@ void	init_env(t_sh *sh, char **ev)
 
 	sh->ev = ft_calloc(K24_SIZE, sizeof(char *));
 	if (!sh->ev)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	ft_memset(sh->keys, 0, K24_SIZE);
 	i = 0;
 	while (*ev)
 	{
 		sh->keys[i++] = k24_insert(sh->ev, *ev);
 		if (!sh->keys[i - 1])
-			exit_error(strerror(errno), sh);
+			exit_error(strerror(errno));
 		ev++;
 	}
 	sh->ec = i;

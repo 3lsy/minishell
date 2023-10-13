@@ -6,13 +6,13 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 21:07:46 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 16:09:35 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:04:08 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_sh	*ft_sh(void)
+t_sh	*ft_sh(int action)
 {
 	static t_sh	x = {
 		.cui = {
@@ -34,5 +34,7 @@ t_sh	*ft_sh(void)
 		.history = NULL, .ev = NULL,
 	};
 
+	if (action == DESTRUCTOR)
+		ft_destructor(&x);
 	return (&x);
 }

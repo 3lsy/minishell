@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:01:29 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 16:46:08 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:08:23 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	delete_key(t_cui *cui, t_sh *sh)
 	cui->line[cui->cursor] = '\0';
 	tmp = ft_strjoin(cui->line, cui->line + cui->cursor + 1, 0);
 	if (!tmp)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	free(cui->line);
 	cui->line = tmp;
 	cui->line_size--;

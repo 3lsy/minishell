@@ -6,47 +6,91 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:33:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/12 20:19:37 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:09:07 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <readline/readline.h>
 
-static int	heredoc_prompt(char *delimiter, int *pipe)
+static void	heredoc_prompt(char *delimiter, int *pipe)
 {
 	char	*line;
 
 	line = readline("> ");
 	while (line != NULL)
 	{
-		if (ft_strcmp(line, delimiter) == 0 || g_sigint == CTRLC)
+		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
-			return (g_sigint == NONE);
+			close(pipe[1]);
+			exit(EXIT_SUCCESS);
 		}
 		ft_fprintf(pipe[1], "%s\n", line);
 		free(line);
 		line = readline("> ");
 	}
 	free(line);
-	return (0);
+	close(pipe[1]);
+	exit(CTRLD);
 }
 
-void	heredoc(t_sh *sh, char *delimeter)
+static void	execute_in_context(int *pipe_fd, char *delimeter)
 {
-	int	pipe_fd[2];
-	int	eof;
+	int	sig_bkp;
 
-	if (pipe(pipe_fd) < 0)
-		exit_error(strerror(errno), sh);
-	eof = heredoc_prompt(delimeter, pipe_fd);
-	if (g_sigint == CTRLC || !eof)
+	sig_bkp = g_sigint;
+	g_sigint = 0;
+	ft_signals(HEREDOC);
+	close(pipe_fd[0]);
+	heredoc_prompt(delimeter, pipe_fd);
+	g_sigint = sig_bkp;
+	ft_signals(EXEC);
+}
+
+static void	heredoc_error(char *delimeter, t_sh *sh)
+{
+	ft_printf("minishell: warning: here-document delimited by end-of-file ");
+	ft_printf("(wanted `%s')\n", delimeter);
+	sh->cl.exit_status = 1;
+}
+
+static int	parent_heredoc(t_sh *sh, int *pipe_fd, pid_t pid, char *delimeter)
+{
+	int		status;
+
+	close(pipe_fd[1]);
+	waitpid(pid, &sh->cl.exit_status, 0);
+	status = WEXITSTATUS(sh->cl.exit_status);
+	if (status == CTRLD)
+		heredoc_error(delimeter, sh);
+	if (status != EXIT_SUCCESS)
 	{
 		close(pipe_fd[0]);
-		close(pipe_fd[1]);
-		return ;
+		return (status);
 	}
-	dup2(pipe_fd[0], STDIN_FILENO);
-	close(pipe_fd[1]);
+	return (EXIT_SUCCESS);
+}
+
+int	heredoc(t_sh *sh, char *delimeter, int isbuiltin)
+{
+	int		pipe_fd[2];
+	pid_t	pid;
+	int		status;
+
+	if (pipe(pipe_fd) < 0)
+		exit_error(strerror(errno));
+	pid = fork();
+	if (pid < 0)
+		exit_error(strerror(errno));
+	if (pid == 0)
+		execute_in_context(pipe_fd, delimeter);
+	status = parent_heredoc(sh, pipe_fd, pid, delimeter);
+	if (status == EXIT_SUCCESS)
+	{
+		if (isbuiltin)
+			close(pipe_fd[0]);
+		else
+			dup2(pipe_fd[0], STDIN_FILENO);
+	}
+	return (status);
 }

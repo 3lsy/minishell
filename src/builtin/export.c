@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:17:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 18:15:59 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:07:58 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_export(int ac, char **av, __attribute__((unused)) char **ev, t_sh *sh)
 				exit_status = EXIT_FAILURE;
 			}
 			else if (!ft_setenv(av[i], sh))
-				exit_error(strerror(errno), sh);
+				exit_error(strerror(errno));
 			i++;
 		}
 	}

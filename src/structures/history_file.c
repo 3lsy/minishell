@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:24:27 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/18 17:27:24 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:09:26 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	save_history(t_sh *sh)
 	fd = open(sh->history_path, O_CREAT | O_WRONLY | O_TRUNC,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	line = ft_write_history(sh->history, fd, 1);
 	if (line)
 		ft_fprintf(fd, "%s\n", line);

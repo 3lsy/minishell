@@ -6,11 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/12 20:03:43 by echavez-         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/12 17:14:19 by echavez-         ###   ########.fr       */
->>>>>>> 65c0172d1da69debe67321a3b95b2aa9235108c0
+/*   Updated: 2023/10/13 16:10:02 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +78,7 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 
 	if (is_builtin(cmd->bin) >= 0)
 	{
-		if (redirect_io(sh, id, cmd) == FALSE)
+		if (redirect_io(sh, id, cmd) == FALSE || cmd->status > 0)
 			return ;
 		ft_execute_builtin(sh, cmd);
 		reset_io(sh);
@@ -91,8 +87,10 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 	{
 		pid = fork();
 		if (pid == -1)
-			exit_error(strerror(errno), sh);
-		else if (pid == 0 && redirect_io(sh, id, cmd) == TRUE)
+			exit_error(strerror(errno));
+		else if (pid == 0
+			&& redirect_io(sh, id, cmd) == TRUE
+			&& cmd->status == 0)
 			ft_execute(sh, cmd);
 		else if (pid != 0)
 			parent_exec(sh, id, pid);
@@ -115,10 +113,10 @@ void	ft_evaluator(t_sh *sh)
 
 	sh->cl.pipes = create_pipes(sh->cl.n_cmds - 1);
 	if (!sh->cl.pipes)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	sh->cl.child_pids = ft_calloc(sizeof(pid_t), sh->cl.n_cmds);
 	if (!sh->cl.child_pids)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	eval_set_context(sh);
 	signal(SIGINT, SIG_IGN);
 	i = 0;

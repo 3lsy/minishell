@@ -22,3 +22,9 @@
    ...
    fun:tgetstr_sp
 }
+{
+   minishell/readline
+   Memcheck:Leak
+   ...
+   fun:readline
+}

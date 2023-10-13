@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:35:37 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 12:49:55 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:09:49 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	save_line_history(t_sh *sh, char *line)
 
 	history_node = create_history_node();
 	if (!history_node)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	history_node->line = ft_strdup(line);
 	if (!history_node->line)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	history_node->next = sh->history;
 	if (sh->history)
 		sh->history->prev = history_node;
@@ -68,7 +68,7 @@ void	load_history(t_sh *sh, int fd)
 		{
 			free(line);
 			ft_get_next_line(-503);
-			exit_error("History: Line is not printable", sh);
+			exit_error("History: Line is not printable");
 		}
 		free(line);
 		line = ft_get_next_line(fd);
@@ -104,5 +104,5 @@ void	init_history(t_sh *sh, char **ev)
 		}
 	}
 	else
-		exit_error("HOME environmental variable is not set", sh);
+		exit_error("HOME environmental variable is not set");
 }

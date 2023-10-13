@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:47:07 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/12 14:14:35 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:33:54 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int		ft_cd(int ac, char **av, char **ev, t_sh *sh);
 
 int		redirect_io(t_sh *sh, int id, t_ast *cmd);
 void	reset_io(t_sh *sh);
-void	append_output(t_sh *sh, char *filename);
-void	heredoc(t_sh *sh, char *delimeter);
-void	input_redirection(t_sh *sh, char *filename);
-void	output_redirection(t_sh *sh, char *filename);
+int		append_output(char *filename);
+int		heredoc(t_sh *sh, char *delimeter, int isbuiltin);
+int		input_redirection(t_sh *sh, char *filename, int isbuiltin);
+int		output_redirection(char *filename);
 
 #endif

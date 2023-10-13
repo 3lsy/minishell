@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/12 20:20:53 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:03:39 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <termios.h>
 # include <errno.h>
 # include <limits.h>
+# include <readline/readline.h>
 
 # include "libft.h"
 # include <term.h> 
@@ -36,6 +37,8 @@
 # define TRUE 1
 # define FALSE 0
 # define NONE 0
+# define INIT 0
+# define DESTRUCTOR 1
 # define PCOLOR1 "\e[1;38;2;78;154;6m"
 # define PCOLOR2 "\e[1;38;2;52;101;164m"
 # define PEND "\e[0m"
@@ -46,9 +49,10 @@
 
 # define CTRLC 1
 # define CUI 101
-# define EXEC	 102
+# define EXEC 102
 # define HEREDOC 103
 # define UNSET 104
+# define CTRLD 201
 
 /*
 ** Error messages
@@ -131,6 +135,7 @@ typedef struct s_redir
 typedef struct s_ast
 {
 	char			*bin;
+	int				status;
 	int				ac;
 	char			**av;
 	t_redir			*redir;
@@ -189,7 +194,7 @@ typedef struct s_cmds
 	int			(*pipes)[2];
 	pid_t		*child_pids;
 	int			saved_stdout;
-	t_byte		exit_status;
+	int			exit_status;
 }	t_cmds;
 
 /*

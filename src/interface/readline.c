@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 19:05:28 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:09:01 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	write_input(char c, t_cui *cui, t_sh *sh)
 	ft_printf("%c", c);
 	ft_strinsert(&cui->line, c, cui->cursor);
 	if (!cui->line)
-		exit_error("Could not allocate memory.", sh);
+		exit_error("Could not allocate memory.");
 	term_set(CLEAR_RIGHT, sh->cui.term_buffer);
 	term_set(STORE_CURSOR, sh->cui.term_buffer);
 	ft_printf("%s", cui->line + cui->cursor + 1);
@@ -76,7 +76,7 @@ void	ft_readline(t_cui *cui, t_sh *sh)
 	{
 		len = read(STDIN_FILENO, buf, MAX_CODE_SIZE);
 		if (len == -1)
-			exit_error(strerror(errno), sh);
+			exit_error(strerror(errno));
 		buf[len] = 0;
 		if (len > 1 || !ft_isprint(buf[0]))
 			key_event(buf, cui, sh);
@@ -99,7 +99,7 @@ void	change_line(t_cui *cui, t_sh *sh, char *line)
 		ft_printf("%s", line);
 		cui->line = ft_strdup(line);
 		if (!cui->line)
-			exit_error(strerror(errno), sh);
+			exit_error(strerror(errno));
 		cui->line_size = ft_strlen(line);
 	}
 	cui->cursor = cui->line_size;

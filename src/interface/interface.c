@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:10:23 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 17:39:44 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:08:43 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	init_termcap(t_sh *sh)
 
 	termtype = getenv("TERM");
 	if (termtype == NULL)
-		exit_error("Specify a terminal type with 'setenv TERM <term>'.", sh);
+		exit_error("Specify a terminal type with 'setenv TERM <term>'.");
 	connect = tgetent(sh->cui.term_buffer, termtype);
 	if (connect < 0)
-		exit_error("Could not access the termcap data base.", sh);
+		exit_error("Could not access the termcap data base.");
 	if (connect == 0)
-		exit_error("Terminal type is not defined.", sh);
+		exit_error("Terminal type is not defined.");
 }
 
 void	init_termios(t_sh *sh)
@@ -37,14 +37,14 @@ void	init_termios(t_sh *sh)
 	if (isatty(STDIN_FILENO))
 	{
 		if (tcgetattr(STDIN_FILENO, &sh->cui.term) == -1)
-			exit_error("Could not get the current termios attributes.", sh);
+			exit_error("Could not get the current termios attributes.");
 		if (tcgetattr(STDIN_FILENO, &sh->cui.term_backup) == -1)
-			exit_error("Could not get the current termios attributes.", sh);
+			exit_error("Could not get the current termios attributes.");
 		sh->cui.term.c_lflag &= ~(ICANON | ECHO);
 		sh->cui.term.c_cc[VMIN] = 1;
 		sh->cui.term.c_cc[VTIME] = 0;
 		if (tcsetattr(STDIN_FILENO, TCSADRAIN, &sh->cui.term) == -1)
-			exit_error("Could not set the termios attributes.", sh);
+			exit_error("Could not set the termios attributes.");
 	}
 }
 

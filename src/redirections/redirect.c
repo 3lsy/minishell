@@ -6,51 +6,11 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:34:50 by echavez-          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/12 20:19:20 by echavez-         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/12 17:20:15 by echavez-         ###   ########.fr       */
->>>>>>> 65c0172d1da69debe67321a3b95b2aa9235108c0
+/*   Updated: 2023/10/13 15:36:49 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	redirect_input(t_sh *sh, int id, t_ast *cmd)
-{
-	int	i;
-
-	if (id > 0)
-		dup2(sh->cl.pipes[id - 1][0], STDIN_FILENO);
-	i = 0;
-	while (cmd->redir[i].id != NONE)
-	{
-		if (cmd->redir[i].id == SGL_L)
-			input_redirection(sh, cmd->redir[i].file);
-		else if (cmd->redir[i].id == DBL_L)
-			heredoc(sh, cmd->redir[i].file);
-		if (g_sigint == CTRLC)
-			break ;
-		i++;
-	}
-}
-
-void	redirect_output(t_sh *sh, int id, t_ast *cmd)
-{
-	int	i;
-
-	if (id < (sh->cl.n_cmds - 1))
-		dup2(sh->cl.pipes[id][1], STDOUT_FILENO);
-	i = 0;
-	while (cmd->redir[i].id != NONE)
-	{
-		if (cmd->redir[i].id == SGL_R)
-			output_redirection(sh, cmd->redir[i].file);
-		else if (cmd->redir[i].id == DBL_R)
-			append_output(sh, cmd->redir[i].file);
-		i++;
-	}
-}
 
 void	terminate_last_process(t_sh *sh)
 {
@@ -66,27 +26,68 @@ void	terminate_last_process(t_sh *sh)
 }
 
 /*
+** cmd->status is to see if the command will be executed
+** the return value of the function is to see if 
+** it will continue to the next command or not
+*/
+int	redirect_input(t_sh *sh, int id, t_ast *cmd)
+{
+	int	i;
+	int	status;
+
+	if (id > 0)
+		dup2(sh->cl.pipes[id - 1][0], STDIN_FILENO);
+	i = 0;
+	while (cmd->redir[i].id != NONE)
+	{
+		if (cmd->redir[i].id == SGL_L)
+			cmd->status += input_redirection(sh, cmd->redir[i].file,
+					is_builtin(cmd->bin) >= 0);
+		else if (cmd->redir[i].id == DBL_L)
+		{
+			status = heredoc(sh, cmd->redir[i].file,
+					is_builtin(cmd->bin) >= 0);
+			if (status == CTRLC)
+			{
+				terminate_last_process(sh);
+				return (FALSE);
+			}
+			cmd->status += status;
+		}
+		i++;
+	}
+	return (TRUE);
+}
+
+void	redirect_output(t_sh *sh, int id, t_ast *cmd)
+{
+	int	i;
+
+	if (id < (sh->cl.n_cmds - 1))
+		dup2(sh->cl.pipes[id][1], STDOUT_FILENO);
+	i = 0;
+	while (cmd->redir[i].id != NONE)
+	{
+		if (cmd->redir[i].id == SGL_R)
+			cmd->status += output_redirection(cmd->redir[i].file);
+		else if (cmd->redir[i].id == DBL_R)
+			cmd->status += append_output(cmd->redir[i].file);
+		i++;
+	}
+}
+
+/*
 ** No builtin command reads from STDIN, so we don't need to redirect it.
 */
 
 int	redirect_io(t_sh *sh, int id, t_ast *cmd)
 {
-	int	sig_bkp;
+	int	status;
 
 	sh->cl.saved_stdout = dup(STDOUT_FILENO);
-	sig_bkp = g_sigint;
-	g_sigint = 0;
-	ft_signals(HEREDOC);
-	redirect_input(sh, id, cmd);
-	if (g_sigint == CTRLC || cmd->bin == NULL)
-	{
-		g_sigint = sig_bkp;
-		ft_signals(EXEC);
-		terminate_last_process(sh);
+	status = redirect_input(sh, id, cmd);
+	if (status == FALSE || cmd->bin == NULL)
 		return (FALSE);
-	}
-	g_sigint = sig_bkp;
-	ft_signals(EXEC);
 	redirect_output(sh, id, cmd);
 	return (TRUE);
 }

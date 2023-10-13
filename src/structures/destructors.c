@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:49:31 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 20:12:17 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:04:58 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,9 @@ void	free_ev(char **ev)
 		i++;
 	}
 	free(ev);
+}
+
+static __attribute__((destructor)) void	main_destructor(void)
+{
+	ft_sh(DESTRUCTOR);
 }

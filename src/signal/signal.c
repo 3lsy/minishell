@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:34:50 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/12 20:35:00 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:19:59 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	ft_sigcmd(int sig)
 
 void	ft_sighd(int sig)
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT && g_sigint != CTRLC)
 	{
-		g_sigint = CTRLC;
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		ft_printf("\n");
+		exit(CTRLC);
 	}
 	else if (sig == SIGQUIT)
 		ft_printf("Quit (core dumped)\n");

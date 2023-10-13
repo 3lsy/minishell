@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/12 20:02:58 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:07:08 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** main
 */
 
-void	exit_error(char *e, t_sh *sh);
+void	exit_error(char *e);
 
 /*
 ** interface
@@ -57,7 +57,7 @@ void	change_line(t_cui *cui, t_sh *sh, char *line);
 t_ast	*new_cmd(void);
 t_redir	new_redir(char *redir, char *file);
 
-t_sh	*ft_sh(void);
+t_sh	*ft_sh(int action);
 void	init_env(t_sh *sh, char **ev);
 void	init_history(t_sh *sh, char **ev);
 void	free_history(t_history **history);

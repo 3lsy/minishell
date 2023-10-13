@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:29:03 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 14:41:18 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:17:10 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,22 @@
 ** If the file doesn't exist, exit status is 1.
 */
 
-void	input_redirection(t_sh *sh, char *filename)
+int	input_redirection(t_sh *sh, char *filename, int isbuiltin)
 {
 	int	fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
+	{
 		sh->cl.exit_status = 1;
+		perror("minishell");
+		return (EXIT_FAILURE);
+	}
 	else
 	{
-		dup2(fd, STDIN_FILENO);
+		if (!isbuiltin)
+			dup2(fd, STDIN_FILENO);
 		close(fd);
 	}
+	return (EXIT_SUCCESS);
 }

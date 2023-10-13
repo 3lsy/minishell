@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 15:29:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/10 17:31:43 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:07:27 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	extract_cmd_arrays(char **tokens, t_ast *cmd, int r, int a)
 	cmd->redir = ft_calloc(sizeof(t_redir), count_redir(tokens) + 1);
 	if (!cmd->redir)
 		return ;
+	cmd->status = 0;
 	cmd->ac = count_tokens(tokens) - count_redir(tokens) * 2;
 	cmd->av = ft_calloc(sizeof(char *), cmd->ac + 1);
 	if (!cmd->av)
@@ -94,7 +95,7 @@ void	ft_syntax_tree(t_sh *sh)
 	{
 		tmp = new_cmd();
 		if (!tmp)
-			exit_error(strerror(errno), sh);
+			exit_error(strerror(errno));
 		extract_cmd_arrays(sh->cl.cmds[i], tmp, 0, 0);
 		tmp->bin = tmp->av[0];
 		append_cmd(&sh->cl.ast, &last, tmp);

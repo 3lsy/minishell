@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 21:42:28 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/30 20:53:04 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:02:52 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_debug(void)
 {
 	t_sh	*sh;
 
-	sh = ft_sh();
+	sh = ft_sh(INIT);
 	ft_printf("sh->cl.tokens:\n");
 	print_tokens(sh->cl.tokens);
 	ft_printf("sh->cl.cmds:\n");

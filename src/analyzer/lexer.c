@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:34:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/12 20:33:09 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:07:20 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ char	**ft_lexer(t_sh *sh)
 
 	sh->cui.line = insert_spaces(sh->cui.line);
 	if (!sh->cui.line)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	sh->cui.line = expand_line(sh->cui.line, sh);
 	// ft_printf("Expanded line: %s\n", sh->cui.line);
 	if (!sh->cui.line)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	line = ft_split_args(sh->cui.line);
 	if (!line && errno != EINVAL)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	else if (!line)
 	{
 		ft_fprintf(STDERR_FILENO, ERR_UNC_QUOTE);
