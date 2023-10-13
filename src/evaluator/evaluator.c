@@ -6,18 +6,18 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 16:10:02 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:59:51 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	kill_children(pid_t *child_pids)
+void	kill_children(pid_t *child_pids, int n)
 {
 	int	i;
 
 	i = 0;
-	while (child_pids[i])
+	while (i < n)
 		kill(child_pids[i++], SIGTERM);
 }
 
@@ -42,7 +42,6 @@ int	(*create_pipes(int n))[2]
 	return (pipes);
 }
 
-// rm  waitpid(pid, (int *)&sh->cl.exit_status, 0);
 // waitpid for closing main process (to avoid zombie processes)
 void	parent_exec(t_sh *sh, int id, pid_t pid)
 {
@@ -50,8 +49,8 @@ void	parent_exec(t_sh *sh, int id, pid_t pid)
 	g_sigint = pid;
 	if (id == (sh->cl.n_cmds - 1))
 	{
-		waitpid(pid, (int *)&sh->cl.exit_status, 0);
-		kill_children(sh->cl.child_pids);
+		waitpid(pid, &sh->cl.exit_status, 0);
+		kill_children(sh->cl.child_pids, sh->cl.n_cmds);
 	}
 	if (id > 0)
 		close(sh->cl.pipes[id - 1][0]);
