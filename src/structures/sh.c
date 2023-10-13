@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 21:07:46 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 16:04:08 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 18:35:55 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_sh	*ft_sh(int action)
 	static t_sh	x = {
 		.cui = {
 		.term_buffer = {0},
-		.line_size = 0, .cursor = 0,
+		.line_size = 0, .cursor = 0, .interactive = 1,
 		.history_cursor = NULL, .line = NULL, .tmp_line = NULL,
 		.prompt = {
 		.symbol = '$',

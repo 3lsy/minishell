@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 01:14:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 20:09:13 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 18:36:35 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	notatty(t_sh *sh)
 {
 	char	*line;
 
+	sh->cui.interactive = 0;
 	line = ft_get_next_line(STDIN_FILENO);
 	while (line)
 	{

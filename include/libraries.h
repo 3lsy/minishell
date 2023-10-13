@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 16:03:39 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 18:35:16 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ typedef struct s_cui
 	size_t			cursor;
 	t_history		*history_cursor;
 	char			*tmp_line;
+	int				interactive;
 
 	char			term_buffer[2048];
 	struct termios	term;
