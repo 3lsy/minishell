@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 21:07:46 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 18:35:55 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:05:09 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_sh	*ft_sh(int action)
 	},
 		.ec = 0,
 		.keys = {NULL}, .history_path = {0},
-		.history = NULL, .ev = NULL,
+		.history = NULL, .ev = NULL, .plain_ev = NULL,
 	};
 
 	if (action == DESTRUCTOR)

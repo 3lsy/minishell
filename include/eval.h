@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:47:07 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 15:33:54 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:12:02 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int		ft_pwd(__attribute__((unused)) int ac,
 			__attribute__((unused)) t_sh *sh);
 int		ft_unset(int ac, char **av, char **ev, t_sh *sh);
 int		ft_cd(int ac, char **av, char **ev, t_sh *sh);
+
+void	update_plain_ev(t_sh *sh);
 
 /*
 ** Redirections

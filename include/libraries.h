@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 18:35:16 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:04:49 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ typedef struct t_sh
 	int			ec;
 	char		*keys[K24_SIZE];
 	char		**ev;
+	char		**plain_ev;
 	t_history	*history;
 	char		history_path[PATH_MAX + 1];
 }	t_sh;
