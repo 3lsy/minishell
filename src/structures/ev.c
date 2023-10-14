@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:16:25 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/14 18:57:50 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/14 19:13:02 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ char	*k24_insert(char **ev, char *str)
 
 	tmp = ft_strchr(str, '=');
 	key = ft_substr(str, 0, tmp - str);
-	ft_printf("k24_insert: %s\n", key);
 	if (!key)
 		return (NULL);
 	value = ft_strdup(tmp + 1);
