@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/14 17:04:49 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/29 09:39:53 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@
 # define RIGHT_ARROW "\x1b\x5b\x43"
 # define UP_ARROW "\x1b\x5b\x41"
 # define DOWN_ARROW "\x1b\x5b\x42"
+# define CTRL_LEFT "\x1b\x5b\x31\x3b\x35\x44"
+# define CTRL_RIGHT "\x1b\x5b\x31\x3b\x35\x43"
+# define HOME "\x1b\x5b\x48"
+# define END "\x1b\x5b\x46"
 
 /*
 ** Terminal Capabilities
