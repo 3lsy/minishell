@@ -6,11 +6,18 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:17:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/14 18:06:08 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:03:35 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	update_plain_ev(t_sh *sh)
+{
+	if (sh->plain_ev)
+		free_ev(sh->plain_ev);
+	sh->plain_ev = convert_hashmap_to_ev(sh);
+}
 
 /*
 ** Names are case-sensitive.
@@ -47,15 +54,14 @@ static int	ft_setenv(char *arg, t_sh *sh)
 	if (!tmp)
 	{
 		insert_key(ft_strdup(arg), sh);
+		update_plain_ev(sh);
 		return (1);
 	}
-	key = ft_substr(arg, 0, tmp - arg);
+	key = k24_insert(sh->ev, arg);
 	if (!key)
 		return (0);
 	insert_key(key, sh);
-	sh->keys[sh->ec] = k24_insert(sh->ev, arg);
-	if (!sh->keys[sh->ec])
-		return (0);
+	update_plain_ev(sh);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/10/13 17:19:40 by echavez-         ###   ########.fr        #
+#    Updated: 2023/10/29 09:34:46 by echavez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ DIRS        :=  $(DIRSRC) $(DIRAN) $(DIREVAL) $(DIRINT) $(DIRBLT) $(DIRSGL) $(DI
 SRC         =   main.c debug.c # remove debug.c when done
 ANZER       =   analyzer.c lexer.c parser.c syntax_matrix.c syntax_tree.c expand.c analyzer_destructor.c
 EVAL        =   evaluator.c execution.c which.c context.c evaluator_destructor.c
-INTER       =   interface.c prompt.c readline.c events.c notatty.c
+INTER       =   interface.c prompt.c readline.c events.c skip_events.c notatty.c
 BUILT       =   echo.c exit.c pwd.c env.c cd.c export.c unset.c
 SIGNL       =   signal.c
 STRCT       =   sh.c ast.c ev.c history.c history_file.c destructors.c

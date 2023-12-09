@@ -6,11 +6,61 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:16:25 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 19:56:46 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/14 19:13:02 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*join_key_value(char *key, char *value)
+{
+	char	*tmp;
+	char	*str;
+
+	tmp = ft_strjoin(key, "=", 0);
+	if (!tmp)
+		return (NULL);
+	if (!value)
+		str = tmp;
+	else
+	{
+		str = ft_strjoin(tmp, value, 0);
+		free(tmp);
+	}
+	return (str);
+}
+
+/*
+** Every key with an empty value is ignored.
+** They are the keys that were exported wihtout any value.
+*/
+char	**convert_hashmap_to_ev(t_sh *sh)
+{
+	char	**ev;
+	int		i;
+	int		x;
+
+	ev = ft_calloc(sizeof(char **), sh->ec + 1);
+	if (!ev)
+		return (NULL);
+	ev[sh->ec] = NULL;
+	i = 0;
+	x = 0;
+	while (i < sh->ec)
+	{
+		if (sh->ev[k24(sh->keys[i])] && sh->ev[k24(sh->keys[i])])
+		{
+			ev[x++] = join_key_value(sh->keys[i], sh->ev[k24(sh->keys[i])]);
+			if (!ev[x - 1])
+			{
+				free_ev(ev);
+				return (NULL);
+			}
+		}
+		i++;
+	}
+	return (ev);
+}
 
 /*
 **	We send a strdup to the key
@@ -78,49 +128,5 @@ void	init_env(t_sh *sh, char **ev)
 		ev++;
 	}
 	sh->ec = i;
-}
-
-char	*join_key_value(char *key, char *value)
-{
-	char	*tmp;
-	char	*str;
-
-	tmp = ft_strjoin(key, "=", 0);
-	if (!tmp)
-		return (NULL);
-	str = ft_strjoin(tmp, value, 0);
-	free(tmp);
-	return (str);
-}
-
-/*
-** Every key with an empty value is ignored.
-** They are the keys that were exported wihtout any value.
-*/
-char	**convert_hashmap_to_ev(t_sh *sh)
-{
-	char	**ev;
-	int		i;
-	int		x;
-
-	ev = ft_calloc(sizeof(char **), sh->ec + 1);
-	if (!ev)
-		return (NULL);
-	ev[sh->ec] = NULL;
-	i = 0;
-	x = 0;
-	while (i < sh->ec)
-	{
-		if (sh->ev[k24(sh->keys[i])] && sh->ev[k24(sh->keys[i])])
-		{
-			ev[x++] = join_key_value(sh->keys[i], sh->ev[k24(sh->keys[i])]);
-			if (!ev[x - 1])
-			{
-				free_ev(ev);
-				return (NULL);
-			}
-		}
-		i++;
-	}
-	return (ev);
+	sh->plain_ev = convert_hashmap_to_ev(sh);
 }

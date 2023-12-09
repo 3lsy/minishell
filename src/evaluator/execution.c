@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 21:11:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 19:20:58 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:18:18 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,21 @@ void	ft_execute_builtin(t_sh *sh, t_ast *cmd)
 		ft_export, ft_unset, ft_env,
 		ft_exit
 	};
-	char			**ev;
 
-	ev = convert_hashmap_to_ev(sh);
-	sh->cl.exit_status = bt[is_builtin(cmd->bin)](cmd->ac, cmd->av, ev, sh);
-	free_ev(ev);
+	sh->cl.exit_status = bt[is_builtin(cmd->bin)](
+			cmd->ac, cmd->av, sh->plain_ev, sh
+			);
 }
 
 void	ft_execute(t_sh *sh, t_ast *cmd)
 {
 	char	*cmd_path;
-	char	**ev;
 
 	if (!cmd->bin)
 		return ;
 	cmd_path = ft_which(cmd->bin, sh->ev, NULL);
 	if (cmd_path)
-	{
-		ev = convert_hashmap_to_ev(sh);
-		execve(cmd_path, cmd->av, ev);
-		free_ev(ev);
-	}
+		execve(cmd_path, cmd->av, sh->plain_ev);
 	else
 		ft_fprintf(STDERR_FILENO, "minishell: %s: command not found\n",
 			cmd->bin);
