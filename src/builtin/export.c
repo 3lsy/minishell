@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:17:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 18:50:35 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:06:08 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static int	ft_setenv(char *arg, t_sh *sh)
 	if (!key)
 		return (0);
 	insert_key(key, sh);
-	free(key);
 	sh->keys[sh->ec] = k24_insert(sh->ev, arg);
 	if (!sh->keys[sh->ec])
 		return (0);
