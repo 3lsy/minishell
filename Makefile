@@ -6,23 +6,23 @@
 #    By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 11:47:33 by echavez-          #+#    #+#              #
-#    Updated: 2023/09/27 11:22:38 by echavez-         ###   ########.fr        #
+#    Updated: 2023/10/29 09:34:46 by echavez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME        =   minishell                   # Name of the binary
+NAME        =   minishell                            # Name of the binary
 
-#****************** INC *******************#
+#****************** INC *******************          #
 # General
-INC         =   ./include/                  # Project header files drectory
+INC         =   ./include/                           # Project header files drectory
 
 # Libft
-LIB         =   ./libft/                    # Library to include
-LIB_H       =   ./libft/                    # Library header files directory
+LIB         =   ./libft/                             # Library to include
+LIB_H       =   ./libft/                             # Library header files directory
 
-INCLUDE     =   -O3 -I $(LIB_H) -I $(INC)   # Header files
+INCLUDE     =   -O3 -I $(LIB_H) -I $(INC)            # Header files
 
-LIB_INC     =   -L$(LIB_H) -lft -lcurses    # Include library
+LIB_INC     =   -L$(LIB_H) -lft -lcurses -lreadline  # Include library
 
 #****************** SRC *******************#
 
@@ -33,18 +33,20 @@ DIRINT		:=  $(DIRSRC)/interface/
 DIRBLT      :=  $(DIRSRC)/builtin/
 DIRSGL      :=  $(DIRSRC)/signal/
 DIRSTR      :=  $(DIRSRC)/structures/
+DIRRED      :=  $(DIRSRC)/redirections/
 
-DIRS        :=  $(DIRSRC) $(DIRAN) $(DIREVAL) $(DIRINT) $(DIRBLT) $(DIRSGL) $(DIRSTR)
+DIRS        :=  $(DIRSRC) $(DIRAN) $(DIREVAL) $(DIRINT) $(DIRBLT) $(DIRSGL) $(DIRSTR) $(DIRRED)
 
 SRC         =   main.c debug.c # remove debug.c when done
-ANZER       =   analyzer.c lexer.c parser.c syntax_matrix.c syntax_tree.c
-EVAL        =   evaluator.c
-INTER       =   interface.c prompt.c readline.c events.c notatty.c
-BUILT       =   echo.c exit.c pwd.c env.c
+ANZER       =   analyzer.c lexer.c parser.c syntax_matrix.c syntax_tree.c expand.c analyzer_destructor.c
+EVAL        =   evaluator.c execution.c which.c context.c evaluator_destructor.c
+INTER       =   interface.c prompt.c readline.c events.c skip_events.c notatty.c
+BUILT       =   echo.c exit.c pwd.c env.c cd.c export.c unset.c
 SIGNL       =   signal.c
 STRCT       =   sh.c ast.c ev.c history.c history_file.c destructors.c
+REDIR       =   redirect.c input_redirection.c output_redirection.c append_output.c heredoc.c
 
-SRCS        :=  $(SRC) $(ANZER) $(EVAL) $(INTER) $(BUILT) $(SIGNL) $(STRCT)
+SRCS        :=  $(SRC) $(ANZER) $(EVAL) $(INTER) $(BUILT) $(SIGNL) $(STRCT) $(REDIR)
 
 #***************** DEPS ******************#
 

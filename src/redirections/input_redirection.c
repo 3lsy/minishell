@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analyzer.c                                         :+:      :+:    :+:   */
+/*   input_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 17:20:25 by echavez-         ###   ########.fr       */
+/*   Created: 2023/09/27 19:29:03 by echavez-          #+#    #+#             */
+/*   Updated: 2023/10/13 15:17:10 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_analyzer(t_sh *sh)
+/*
+** Input redirection: <
+** Takes the content of a file and redirects it to the command's STDIN.
+** If the file doesn't exist, exit status is 1.
+*/
+
+int	input_redirection(t_sh *sh, char *filename, int isbuiltin)
 {
-	sh->cl.tokens = ft_lexer(sh);
-	if (!sh->cl.tokens)
+	int	fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+	{
+		sh->cl.exit_status = 1;
+		perror("minishell");
 		return (EXIT_FAILURE);
-	if (ft_parser(sh->cl.tokens) == FALSE)
-		return (EXIT_FAILURE);
-	sh->cl.cmds = ft_split_cmds(sh->cl.tokens);
-	if (!sh->cl.cmds)
-		return (EXIT_FAILURE);
-	ft_syntax_tree(sh);
+	}
+	else
+	{
+		if (!isbuiltin)
+			dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
 	return (EXIT_SUCCESS);
 }

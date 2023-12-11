@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:11:08 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/22 20:47:13 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:07:35 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ void	init_prompt(t_prompt *prompt, char **ev)
 	reduce_path(prompt->cwd, ev);
 	if (ft_strcmp(prompt->username, "root") == 0)
 		prompt->symbol = '#';
+}
+
+void	update_prompt(t_prompt *prompt, char **ev)
+{
+	getcwd(prompt->cwd, PATH_MAX);
+	reduce_path(prompt->cwd, ev);
 }
 
 void	ft_prompt(t_cui *cui)

@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   evaluator_destructor.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 00:07:24 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 16:06:50 by echavez-         ###   ########.fr       */
+/*   Created: 2023/10/13 17:18:05 by echavez-          #+#    #+#             */
+/*   Updated: 2023/10/13 17:42:58 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit(__attribute__((unused)) int ac,
-			__attribute__((unused)) char **av,
-			__attribute__((unused)) char **ev,
-			t_sh *sh)
+void	evaluator_destructor(t_sh *sh)
 {
-	ft_printf("exit\n");
-	exit(sh->cl.exit_status);
-}
+	int		i;
+	t_ast	*cmd;
 
-void	exit_error(char *e)
-{
-	ft_fprintf(STDERR_FILENO, "minishell: %s\n", e);
-	exit(EXIT_FAILURE);
+	eval_unset_context(sh);
+	if (sh->cl.pipes)
+		free(sh->cl.pipes);
+	sh->cl.pipes = NULL;
+	cmd = sh->cl.ast;
+	i = 0;
+	while (cmd)
+	{
+		if (is_builtin(cmd->bin) < 0)
+			waitpid(sh->cl.child_pids[i], &sh->cl.exit_status, 0);
+		cmd = cmd->next;
+		i++;
+	}
+	free(sh->cl.child_pids);
+	sh->cl.child_pids = NULL;
 }

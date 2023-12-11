@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/22 20:20:16 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/29 09:41:20 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	write_input(char c, t_cui *cui, t_sh *sh)
 	ft_printf("%c", c);
 	ft_strinsert(&cui->line, c, cui->cursor);
 	if (!cui->line)
-		exit_error("Could not allocate memory.", sh);
+		exit_error("Could not allocate memory.");
 	term_set(CLEAR_RIGHT, sh->cui.term_buffer);
 	term_set(STORE_CURSOR, sh->cui.term_buffer);
 	ft_printf("%s", cui->line + cui->cursor + 1);
@@ -47,7 +47,7 @@ void	key_event(char *e, t_cui *cui, t_sh *sh)
 	if (ft_strcmp(e, CTRL_D) == 0 && !cui->line_size)
 	{
 		ft_printf("\n");
-		ft_exit(sh);
+		ft_exit(0, NULL, NULL, sh);
 	}
 	else if (ft_strcmp(e, DEL) == 0)
 		delete_key(cui, sh);
@@ -59,6 +59,14 @@ void	key_event(char *e, t_cui *cui, t_sh *sh)
 		up_key(cui, sh);
 	else if (ft_strcmp(e, DOWN_ARROW) == 0)
 		down_key(cui, sh);
+	else if (ft_strcmp(e, CTRL_LEFT) == 0)
+		ctrl_left(cui, sh);
+	else if (ft_strcmp(e, CTRL_RIGHT) == 0)
+		ctrl_right(cui, sh);
+	else if (ft_strcmp(e, HOME) == 0)
+		home_key(cui, sh);
+	else if (ft_strcmp(e, END) == 0)
+		end_key(cui, sh);
 	else if (ft_isprintable(e))
 		paste_str(e, cui, sh);
 }
@@ -76,7 +84,7 @@ void	ft_readline(t_cui *cui, t_sh *sh)
 	{
 		len = read(STDIN_FILENO, buf, MAX_CODE_SIZE);
 		if (len == -1)
-			exit_error(strerror(errno), sh);
+			exit_error(strerror(errno));
 		buf[len] = 0;
 		if (len > 1 || !ft_isprint(buf[0]))
 			key_event(buf, cui, sh);
@@ -99,7 +107,7 @@ void	change_line(t_cui *cui, t_sh *sh, char *line)
 		ft_printf("%s", line);
 		cui->line = ft_strdup(line);
 		if (!cui->line)
-			exit_error(strerror(errno), sh);
+			exit_error(strerror(errno));
 		cui->line_size = ft_strlen(line);
 	}
 	cui->cursor = cui->line_size;

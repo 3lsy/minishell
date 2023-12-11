@@ -6,11 +6,35 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:34:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 20:09:08 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 18:21:28 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TODO:
+// exit_error checked
+char	**ft_lexer(t_sh *sh)
+{
+	char	**line;
+
+	sh->cui.line = insert_spaces(sh->cui.line);
+	if (!sh->cui.line)
+		exit_error(strerror(errno));
+	sh->cui.line = expand_line(sh->cui.line, sh);
+	if (!sh->cui.line)
+		exit_error(strerror(errno));
+	line = ft_split_args(sh->cui.line);
+	if (!line && errno != EINVAL)
+		exit_error(strerror(errno));
+	else if (!line)
+	{
+		ft_fprintf(STDERR_FILENO, ERR_UNC_QUOTE);
+		return (NULL);
+	}
+	clear_quotes(line);
+	return (line);
+}
 
 t_byte	is_operator(char *str, int i)
 {
@@ -57,23 +81,50 @@ char	*insert_spaces(char *str)
 	return (str);
 }
 
-// TODO:
-// After inserting spaces, expand env variables and $?
-// Then, split the line into tokens
-char	**ft_lexer(t_sh *sh)
+char	*clear_token(char **line, char quote, int i, int *j)
 {
-	char	**line;
+	char	*tmp;
 
-	sh->cui.line = insert_spaces(sh->cui.line);
-	if (!sh->cui.line)
-		exit_error(strerror(errno), sh);
-	line = ft_split_args(sh->cui.line);
-	if (!line && errno != EINVAL)
-		exit_error(strerror(errno), sh);
-	else if (!line)
-	{
-		ft_fprintf(STDERR_FILENO, ERR_UNC_QUOTE);
+	line[i][*j] = '\0';
+	tmp = ft_strjoin(line[i], &line[i][(*j) + 1], 0);
+	if (!tmp)
 		return (NULL);
+	free(line[i]);
+	line[i] = tmp;
+	while (line[i][*j] && line[i][*j] != quote)
+		(*j)++;
+	line[i][*j] = '\0';
+	tmp = ft_strjoin(line[i], &line[i][(*j) + 1], 0);
+	if (!tmp)
+		return (NULL);
+	free(line[i]);
+	return (tmp);
+}
+
+void	clear_quotes(char **line)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+	char	quote;
+
+	i = 0;
+	while (line[i])
+	{
+		j = 0;
+		while (line[i][j])
+		{
+			if (line[i][j] == '\'' || line[i][j] == '\"')
+			{
+				quote = line[i][j];
+				tmp = clear_token(line, quote, i, &j);
+				if (!tmp)
+					return ;
+				line[i] = tmp;
+			}
+			if (line[i][j] && line[i][j] != '\'' && line[i][j] != '\"')
+				j++;
+		}
+		i++;
 	}
-	return (line);
 }

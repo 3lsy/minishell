@@ -1,29 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   analyzer_destructor.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 15:09:26 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 19:23:50 by echavez-         ###   ########.fr       */
+/*   Created: 2023/10/13 17:20:12 by echavez-          #+#    #+#             */
+/*   Updated: 2023/10/13 17:20:33 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(__attribute__((unused)) int ac,
-			__attribute__((unused)) char **av, char **ev,
-			__attribute__((unused)) t_sh *sh)
+static void	free_ast(t_ast **ast)
+{
+	t_ast	*tmp;
+
+	while (*ast)
+	{
+		tmp = *ast;
+		*ast = (*ast)->next;
+		free(tmp->av);
+		free(tmp->redir);
+		free(tmp);
+	}
+	*ast = NULL;
+}
+
+void	analyzer_destructor(t_sh *sh)
 {
 	int	i;
 
-	i = 0;
-	while (i < sh->ec)
+	if (sh->cl.tokens)
+		ft_free_split(&sh->cl.tokens);
+	if (sh->cl.cmds)
 	{
-		if (ev[i])
-			ft_printf("%s\n", ev[i]);
-		i++;
+		i = 0;
+		while (sh->cl.cmds[i])
+		{
+			free(sh->cl.cmds[i]);
+			i++;
+		}
+		free(sh->cl.cmds);
+		sh->cl.cmds = NULL;
 	}
-	return (EXIT_SUCCESS);
+	if (sh->cl.ast)
+		free_ast(&sh->cl.ast);
 }

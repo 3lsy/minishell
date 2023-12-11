@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 01:09:52 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:27:00 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** main
 */
 
-void	exit_error(char *e, t_sh *sh);
+void	exit_error(char *e);
 
 /*
 ** interface
@@ -37,6 +37,7 @@ void	unset_term(t_sh *sh);
 void	reset_cmdline(t_cui *cui);
 
 void	init_prompt(t_prompt *prompt, char **ev);
+void	update_prompt(t_prompt *prompt, char **ev);
 void	ft_prompt(t_cui *cui);
 void	ft_readline(t_cui *cui, t_sh *sh);
 
@@ -46,26 +47,11 @@ int		left_key(t_cui *cui, t_sh *sh);
 int		right_key(t_cui *cui, t_sh *sh);
 int		up_key(t_cui *cui, t_sh *sh);
 int		down_key(t_cui *cui, t_sh *sh);
+int		ctrl_left(t_cui *cui, t_sh *sh);
+int		ctrl_right(t_cui *cui, t_sh *sh);
+int		home_key(t_cui *cui, t_sh *sh);
+int		end_key(t_cui *cui, t_sh *sh);
 void	change_line(t_cui *cui, t_sh *sh, char *line);
-
-/*
-** Analyzer
-*/
-
-void	ft_analyzer(t_sh *sh);
-char	**ft_lexer(t_sh *sh);
-t_bool	ft_parser(char **tokens);
-void	ft_syntax_tree(t_sh *sh);
-char	***ft_split_cmds(char **tokens);
-
-t_byte	is_operator(char *str, int i);
-int		is_redirection(char *token);
-
-/*
-** Evaluator
-*/
-
-void	ft_exit(t_sh *sh);
 
 /*
 ** structures
@@ -75,7 +61,7 @@ void	ft_exit(t_sh *sh);
 t_ast	*new_cmd(void);
 t_redir	new_redir(char *redir, char *file);
 
-t_sh	*ft_sh(void);
+t_sh	*ft_sh(int action);
 void	init_env(t_sh *sh, char **ev);
 void	init_history(t_sh *sh, char **ev);
 void	free_history(t_history **history);
@@ -84,12 +70,15 @@ void	ft_destructor(t_sh *sh);
 void	save_history(t_sh *sh);
 void	free_ev(char **ev);
 void	insert_key(char *key, t_sh *sh);
+char	*k24_insert(char **ev, char *str);
 
 /*
 ** signal
 */
 
-void	ft_signals(void);
+void	ft_signals(int setting);
 void	ft_sigint(int sig);
+void	ft_sigcmd(int sig);
+void	ft_signals_exec(void);
 
 #endif

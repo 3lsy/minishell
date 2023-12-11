@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 11:21:43 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/29 09:39:53 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <termios.h>
 # include <errno.h>
 # include <limits.h>
+# include <readline/readline.h>
 
 # include "libft.h"
 # include <term.h> 
@@ -35,9 +36,23 @@
 # define HISTSIZE 1000
 # define TRUE 1
 # define FALSE 0
+# define NONE 0
+# define INIT 0
+# define DESTRUCTOR 1
 # define PCOLOR1 "\e[1;38;2;78;154;6m"
 # define PCOLOR2 "\e[1;38;2;52;101;164m"
 # define PEND "\e[0m"
+
+/*
+** Signals
+*/
+
+# define CTRLC 1
+# define CUI 101
+# define EXEC 102
+# define HEREDOC 103
+# define UNSET 104
+# define CTRLD 201
 
 /*
 ** Error messages
@@ -59,6 +74,10 @@
 # define RIGHT_ARROW "\x1b\x5b\x43"
 # define UP_ARROW "\x1b\x5b\x41"
 # define DOWN_ARROW "\x1b\x5b\x42"
+# define CTRL_LEFT "\x1b\x5b\x31\x3b\x35\x44"
+# define CTRL_RIGHT "\x1b\x5b\x31\x3b\x35\x43"
+# define HOME "\x1b\x5b\x48"
+# define END "\x1b\x5b\x46"
 
 /*
 ** Terminal Capabilities
@@ -91,7 +110,7 @@
 # define DBL_L 4
 # define DBL_R 5
 
-extern t_byte	g_sigint;
+extern int	g_sigint;
 
 /*
 ** Redirection
@@ -120,6 +139,7 @@ typedef struct s_redir
 typedef struct s_ast
 {
 	char			*bin;
+	int				status;
 	int				ac;
 	char			**av;
 	t_redir			*redir;
@@ -162,12 +182,25 @@ typedef struct s_cui
 	size_t			cursor;
 	t_history		*history_cursor;
 	char			*tmp_line;
+	int				interactive;
 
 	char			term_buffer[2048];
 	struct termios	term;
 	struct termios	term_backup;
 	t_prompt		prompt;
 }	t_cui;
+
+typedef struct s_cmds
+{
+	t_ast		*ast;
+	char		**tokens;
+	char		***cmds;
+	int			n_cmds;
+	int			(*pipes)[2];
+	pid_t		*child_pids;
+	int			saved_stdout;
+	int			exit_status;
+}	t_cmds;
 
 /*
 ** SH
@@ -176,19 +209,25 @@ typedef struct s_cui
 ** - ev: environment variables
 ** - cui: command user interface
 ** - exit_status: exit status
+** - cl: command line
 */
+
 typedef struct t_sh
 {
 	t_cui		cui;
-	t_ast		*ast;
-	char		**tokens;
-	char		***cmds;
-	t_history	*history;
-	char		history_path[PATH_MAX + 1];
-	char		**ev;
+	t_cmds		cl;
 	int			ec;
 	char		*keys[K24_SIZE];
-	t_byte		exit_status;
+	char		**ev;
+	char		**plain_ev;
+	t_history	*history;
+	char		history_path[PATH_MAX + 1];
 }	t_sh;
+
+/*
+** builtin type functions
+*/
+
+typedef int	(*t_builtin)(int, char **, char **, t_sh *);
 
 #endif

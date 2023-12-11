@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:01:29 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/21 16:46:08 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/29 09:48:11 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	delete_key(t_cui *cui, t_sh *sh)
 	cui->line[cui->cursor] = '\0';
 	tmp = ft_strjoin(cui->line, cui->line + cui->cursor + 1, 0);
 	if (!tmp)
-		exit_error(strerror(errno), sh);
+		exit_error(strerror(errno));
 	free(cui->line);
 	cui->line = tmp;
 	cui->line_size--;
@@ -85,3 +85,10 @@ int	down_key(t_cui *cui, t_sh *sh)
 	}
 	return (1);
 }
+
+// void	ctrl_l(t_cui *cui, t_sh *sh)
+// {
+// 	term_set(CLEAR_SCREEN, sh->cui.term_buffer);
+// 	ft_prompt(cui);
+// 	ft_printf("%s", cui->line);
+// }

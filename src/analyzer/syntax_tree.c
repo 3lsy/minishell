@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 15:29:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/27 11:20:51 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:07:27 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	extract_cmd_arrays(char **tokens, t_ast *cmd, int r, int a)
 	cmd->redir = ft_calloc(sizeof(t_redir), count_redir(tokens) + 1);
 	if (!cmd->redir)
 		return ;
+	cmd->status = 0;
 	cmd->ac = count_tokens(tokens) - count_redir(tokens) * 2;
 	cmd->av = ft_calloc(sizeof(char *), cmd->ac + 1);
 	if (!cmd->av)
@@ -66,21 +67,39 @@ void	extract_cmd_arrays(char **tokens, t_ast *cmd, int r, int a)
 	}
 }
 
+static void	append_cmd(t_ast **start, t_ast **last, t_ast *new)
+{
+	if (!*start)
+	{
+		*start = new;
+		*last = new;
+	}
+	else
+	{
+		(*last)->next = new;
+		*last = new;
+	}
+}
+
+// TODO:
+// exit_error checked
 void	ft_syntax_tree(t_sh *sh)
 {
 	int		i;
 	t_ast	*tmp;
+	t_ast	*last;
 
+	last = NULL;
 	i = 0;
-	while (sh->cmds[i])
+	while (sh->cl.cmds[i])
 	{
 		tmp = new_cmd();
 		if (!tmp)
-			exit_error(strerror(errno), sh);
-		extract_cmd_arrays(sh->cmds[i], tmp, 0, 0);
+			exit_error(strerror(errno));
+		extract_cmd_arrays(sh->cl.cmds[i], tmp, 0, 0);
 		tmp->bin = tmp->av[0];
-		tmp->next = sh->ast;
-		sh->ast = tmp;
+		append_cmd(&sh->cl.ast, &last, tmp);
 		i++;
 	}
+	sh->cl.n_cmds = i;
 }

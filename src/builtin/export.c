@@ -6,11 +6,18 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:17:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/23 18:05:57 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:43:23 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	update_plain_ev(t_sh *sh)
+{
+	if (sh->plain_ev)
+		free_ev(sh->plain_ev);
+	sh->plain_ev = convert_hashmap_to_ev(sh);
+}
 
 /*
 ** Names are case-sensitive.
@@ -41,23 +48,20 @@ int	valid_name(char *str)
 static int	ft_setenv(char *arg, t_sh *sh)
 {
 	char	*key;
-	char	*value;
 	char	*tmp;
 
 	tmp = ft_strchr(arg, '=');
 	if (!tmp)
 	{
 		insert_key(ft_strdup(arg), sh);
+		update_plain_ev(sh);
 		return (1);
 	}
-	key = ft_substr(arg, 0, tmp - arg);
+	key = k24_insert(sh->ev, arg);
 	if (!key)
 		return (0);
 	insert_key(key, sh);
-	free(key);
-	sh->keys[sh->ec] = k24_insert(sh->ev, arg);
-	if (!sh->keys[sh->ec])
-		return (0);
+	update_plain_ev(sh);
 	return (1);
 }
 
@@ -76,11 +80,14 @@ void	print_declarations(t_sh *sh)
 	}
 }
 
+//TODO:
+//exit_error checked
 int	ft_export(int ac, char **av, __attribute__((unused)) char **ev, t_sh *sh)
 {
 	int	i;
+	int	exit_status;
 
-	sh->exit_status = EXIT_SUCCESS;
+	exit_status = EXIT_SUCCESS;
 	if (ac > 1)
 	{
 		i = 1;
@@ -90,14 +97,14 @@ int	ft_export(int ac, char **av, __attribute__((unused)) char **ev, t_sh *sh)
 			{
 				ft_printf("minishell: export: `%s': not a valid identifier\n",
 					av[i]);
-				sh->exit_status = EXIT_FAILURE;
+				exit_status = EXIT_FAILURE;
 			}
 			else if (!ft_setenv(av[i], sh))
-				exit_error(strerror(errno), sh);
+				exit_error(strerror(errno));
 			i++;
 		}
 	}
 	else
 		print_declarations(sh);
-	return (sh->exit_status);
+	return (exit_status);
 }

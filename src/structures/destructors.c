@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:49:31 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/24 17:46:22 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:16:05 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,18 @@ void	free_env(t_sh *sh)
 	int	i;
 
 	i = 0;
-	while (sh->keys[i])
+	while (i < sh->ec && sh->keys[i])
 	{
-		free(sh->ev[k24(sh->keys[i])]);
-		sh->ev[k24(sh->keys[i])] = NULL;
+		if (sh->keys[i])
+		{
+			free(sh->ev[k24(sh->keys[i])]);
+			sh->ev[k24(sh->keys[i])] = NULL;
+		}
 		free(sh->keys[i]);
 		sh->keys[i] = NULL;
 		i++;
 	}
 	free(sh->ev);
-}
-
-void	ft_destructor(t_sh *sh)
-{
-	unset_term(sh);
-	save_history(sh);
-	if (sh->tokens)
-		ft_free_split(&sh->tokens);
-	if (sh->ev)
-		free_env(sh);
-	if (sh->history)
-		free_history(&sh->history);
-	if (sh->ast)
-		free(sh->ast);
-	if (sh->tokens)
-		ft_free_split(&sh->tokens);
-	if (sh->cui.line)
-		free(sh->cui.line);
-	if (sh->cui.tmp_line)
-		free(sh->cui.tmp_line);
 }
 
 void	free_ev(char **ev)
@@ -75,5 +58,31 @@ void	free_ev(char **ev)
 		free(ev[i]);
 		i++;
 	}
-	free(ev);
+	if (ev)
+		free(ev);
+}
+
+void	ft_destructor(t_sh *sh)
+{
+	evaluator_destructor(sh);
+	analyzer_destructor(sh);
+	unset_term(sh);
+	save_history(sh);
+	if (sh->ev)
+		free_env(sh);
+	if (sh->plain_ev)
+		free_ev(sh->plain_ev);
+	if (sh->history)
+		free_history(&sh->history);
+	if (sh->cui.line)
+		free(sh->cui.line);
+	if (sh->cui.tmp_line)
+		free(sh->cui.tmp_line);
+	if (!sh->cui.interactive)
+		ft_get_next_line(-503);
+}
+
+static __attribute__((destructor)) void	main_destructor(void)
+{
+	ft_sh(DESTRUCTOR);
 }
