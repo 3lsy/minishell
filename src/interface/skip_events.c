@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 09:11:58 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/29 09:42:26 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:26:24 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ctrl_left(t_cui *cui, t_sh *sh)
 	return (i);
 }
 
-int ctrl_right(t_cui *cui, t_sh *sh)
+int	ctrl_right(t_cui *cui, t_sh *sh)
 {
 	int	i;
 
