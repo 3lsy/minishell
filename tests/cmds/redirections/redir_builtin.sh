@@ -1,1 +1,1 @@
-echo < /dev/random | echo hola | less
+echo < /etc/hosts | echo hola | less
