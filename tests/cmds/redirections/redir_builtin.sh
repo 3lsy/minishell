@@ -1,1 +1,1 @@
-echo < /etc/hosts | echo hola | less
+echo < /etc/h0sts | echo hola | cat
