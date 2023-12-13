@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smile <smile@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:34:50 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 14:19:59 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:32:57 by smile            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ void	ft_sigint(__attribute__((unused)) int sig)
 void	ft_sigcmd(int sig)
 {
 	if (sig == SIGINT)
-	{
-		ft_printf("^C");
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	}
+		ft_printf("^C\n");
 	else if (sig == SIGQUIT)
 		ft_printf("Quit (core dumped)\n");
 	if (g_sigint != 0)

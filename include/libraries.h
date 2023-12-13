@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libraries.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smile <smile@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/29 09:39:53 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:16:52 by smile            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,6 @@ typedef struct s_cmds
 	int			n_cmds;
 	int			(*pipes)[2];
 	pid_t		*child_pids;
-	int			saved_stdout;
 	int			exit_status;
 }	t_cmds;
 

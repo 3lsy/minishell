@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smile <smile@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:34:50 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 18:05:19 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:19:12 by smile            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,9 @@ int	redirect_io(t_sh *sh, int id, t_ast *cmd)
 {
 	int	status;
 
-	sh->cl.saved_stdout = dup(STDOUT_FILENO);
 	status = redirect_input(sh, id, cmd);
 	if (status == FALSE || cmd->bin == NULL)
 		return (FALSE);
 	redirect_output(sh, id, cmd);
 	return (TRUE);
-}
-
-void	reset_io(t_sh *sh)
-{
-	dup2(sh->cl.saved_stdout, STDOUT_FILENO);
-	close(sh->cl.saved_stdout);
 }

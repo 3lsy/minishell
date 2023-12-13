@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smile <smile@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 21:07:46 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/14 17:05:09 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:17:06 by smile            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_sh	*ft_sh(int action)
 	},
 		.cl = {
 		.ast = NULL, .tokens = NULL, .cmds = NULL,
-		.n_cmds = 0, .exit_status = 0, .saved_stdout = 1,
+		.n_cmds = 0, .exit_status = 0,
 		.pipes = NULL, .child_pids = NULL,
 	},
 		.ec = 0,
