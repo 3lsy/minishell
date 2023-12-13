@@ -6,7 +6,7 @@
 /*   By: smile <smile@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/13 17:14:43 by smile            ###   ########.fr       */
+/*   Updated: 2023/12/13 17:35:39 by smile            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	parent_exec(t_sh *sh, int id, pid_t pid)
 }
 
 /*
-** If the command is a builtin, no fork is needed.
-** If the command is not a builtin, fork and execute.
 ** To define where the input and output will be redirected,
 ** we have to redirect first define where the input and output
 ** will be redirected, in this order of priority:
