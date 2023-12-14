@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 21:45:30 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/13 19:57:12 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:12:34 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ int	expand_env_var(char **line, int i, char **ev, int j)
 	tmp = ft_strjoin(*line, *line + j, 0);
 	if (!tmp)
 		return (-1);
-	if (value)
-		ft_strinserts(&tmp, value, i);
+	ft_strinserts(&tmp, value, i);
 	if (!tmp)
 		return (-1);
 	free(*line);

@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:34:50 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/13 19:57:39 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:34:05 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_sigint(__attribute__((unused)) int sig)
 void	ft_sigcmd(int sig)
 {
 	if (sig == SIGINT)
-		ft_printf("^C\n");
+		ft_printf("\n");
 	else if (sig == SIGQUIT)
 		ft_printf("Quit (core dumped)\n");
 	if (g_sigint != 0)
