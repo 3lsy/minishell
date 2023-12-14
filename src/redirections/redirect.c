@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:34:50 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/13 19:57:21 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:16:09 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,16 @@ int	redirect_io(t_sh *sh, int id, t_ast *cmd)
 {
 	int	status;
 
+	sh->cl.saved_stdout = dup(STDOUT_FILENO);
 	status = redirect_input(sh, id, cmd);
 	if (status == FALSE || cmd->bin == NULL)
 		return (FALSE);
 	redirect_output(sh, id, cmd);
 	return (TRUE);
+}
+
+void	reset_io(t_sh *sh)
+{
+	dup2(sh->cl.saved_stdout, STDOUT_FILENO);
+	close(sh->cl.saved_stdout);
 }

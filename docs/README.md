@@ -205,6 +205,8 @@ The evaluator takes the **Command AST**, launch the appropriate executable on a 
   | `env`             | No options or arguments |
   | `exit`            | No options        |
 
+![image](https://github.com/3lsy/minishell/assets/35022933/d887b83f-54b8-4873-9c82-3ec3d275851e)
+
 ### Entity Relationship Diagram
 
 ```mermaid

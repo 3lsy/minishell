@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 21:45:30 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/13 19:57:12 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:35:27 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,27 @@ int	expand_exit_status(char **line, int i, int exit_status)
 {
 	char	*status;
 	char	*tmp;
+	int		status_len;
 
 	status = ft_itoa(exit_status);
 	if (!status)
 		return (-1);
+	status_len = ft_strlen(status);
 	(*line)[i] = '\0';
 	(*line)[i + 1] = '\0';
 	tmp = ft_strjoin(*line, *line + i + 2, 0);
 	if (!tmp)
+	{
+		free(status);
 		return (-1);
+	}
 	ft_strinserts(&tmp, status, i);
+	free(status);
 	if (!tmp)
 		return (-1);
 	free(*line);
 	*line = tmp;
-	return (i + ft_strlen(status));
+	return (i + status_len);
 }
 
 int	expand_env_var(char **line, int i, char **ev, int j)
@@ -67,8 +73,7 @@ int	expand_env_var(char **line, int i, char **ev, int j)
 	tmp = ft_strjoin(*line, *line + j, 0);
 	if (!tmp)
 		return (-1);
-	if (value)
-		ft_strinserts(&tmp, value, i);
+	ft_strinserts(&tmp, value, i);
 	if (!tmp)
 		return (-1);
 	free(*line);

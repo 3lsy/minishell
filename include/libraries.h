@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 15:09:43 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:01:30 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ typedef struct s_cmds
 	int			n_cmds;
 	int			(*pipes)[2];
 	pid_t		*child_pids;
+	int			saved_stdout;
 	int			exit_status;
 }	t_cmds;
 
