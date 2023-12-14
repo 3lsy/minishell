@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 02:08:58 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:31:39 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,29 @@ void	paste_str(char *str, t_cui *cui, t_sh *sh)
 */
 void	key_event(char *e, t_cui *cui, t_sh *sh)
 {
+	const t_ev	ev[10] = {
+	{DEL, delete_key}, {LEFT_ARROW, left_key}, {RIGHT_ARROW, right_key},
+	{UP_ARROW, up_key}, {DOWN_ARROW, down_key}, {CTRL_LEFT, ctrl_left},
+	{CTRL_RIGHT, ctrl_right}, {CTRL_L, ctrl_l}, {HOME, home_key},
+	{END, end_key},
+	};
+	int			i;
+
+	i = 0;
+	while (i < 10)
+	{
+		if (ft_strcmp(e, ev[i].key) == 0)
+		{
+			ev[i].event(cui, sh);
+			return ;
+		}
+		i++;
+	}
 	if (ft_strcmp(e, CTRL_D) == 0 && !cui->line_size)
 	{
 		ft_printf("\n");
 		ft_exit(0, NULL, NULL, sh);
 	}
-	else if (ft_strcmp(e, DEL) == 0)
-		delete_key(cui, sh);
-	else if (ft_strcmp(e, LEFT_ARROW) == 0)
-		left_key(cui, sh);
-	else if (ft_strcmp(e, RIGHT_ARROW) == 0)
-		right_key(cui, sh);
-	else if (ft_strcmp(e, UP_ARROW) == 0)
-		up_key(cui, sh);
-	else if (ft_strcmp(e, DOWN_ARROW) == 0)
-		down_key(cui, sh);
-	else if (ft_strcmp(e, CTRL_LEFT) == 0)
-		ctrl_left(cui, sh);
-	else if (ft_strcmp(e, CTRL_RIGHT) == 0)
-		ctrl_right(cui, sh);
-	else if (ft_strcmp(e, CTRL_L) == 0)
-		ctrl_l(cui, sh);
-	else if (ft_strcmp(e, HOME) == 0)
-		home_key(cui, sh);
-	else if (ft_strcmp(e, END) == 0)
-		end_key(cui, sh);
 	else if (ft_isprintable(e))
 		paste_str(e, cui, sh);
 }

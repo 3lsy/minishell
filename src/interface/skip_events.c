@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 09:11:58 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 02:00:19 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:04:41 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	end_key(t_cui *cui, t_sh *sh)
 	return (i);
 }
 
-void	ctrl_l(t_cui *cui, t_sh *sh)
+int	ctrl_l(t_cui *cui, t_sh *sh)
 {
 	int	i;
 
@@ -87,4 +87,5 @@ void	ctrl_l(t_cui *cui, t_sh *sh)
 		term_set(LEFT_CURSOR, sh->cui.term_buffer);
 		i++;
 	}
+	return (i);
 }

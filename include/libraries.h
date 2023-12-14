@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 02:03:55 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:09:43 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ typedef struct s_cmds
 ** - cl: command line
 */
 
-typedef struct t_sh
+typedef struct s_sh
 {
 	t_cui		cui;
 	t_cmds		cl;
@@ -230,5 +230,12 @@ typedef struct t_sh
 */
 
 typedef int	(*t_builtin)(int, char **, char **, t_sh *);
+typedef int	(*t_event)(t_cui *, t_sh *);
+
+typedef struct s_ev
+{
+	char	*key;
+	t_event	event;
+}	t_ev;
 
 #endif

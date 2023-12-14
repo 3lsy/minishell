@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 02:03:00 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:21:19 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		ctrl_left(t_cui *cui, t_sh *sh);
 int		ctrl_right(t_cui *cui, t_sh *sh);
 int		home_key(t_cui *cui, t_sh *sh);
 int		end_key(t_cui *cui, t_sh *sh);
-void	ctrl_l(t_cui *cui, t_sh *sh);
+int		ctrl_l(t_cui *cui, t_sh *sh);
 void	change_line(t_cui *cui, t_sh *sh, char *line);
 
 /*
