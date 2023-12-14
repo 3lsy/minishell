@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 15:31:39 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:52:54 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void	key_event(char *e, t_cui *cui, t_sh *sh)
 	{DEL, delete_key}, {LEFT_ARROW, left_key}, {RIGHT_ARROW, right_key},
 	{UP_ARROW, up_key}, {DOWN_ARROW, down_key}, {CTRL_LEFT, ctrl_left},
 	{CTRL_RIGHT, ctrl_right}, {CTRL_L, ctrl_l}, {HOME, home_key},
-	{END, end_key},
-	};
+	{END, end_key}};
 	int			i;
 
 	i = 0;

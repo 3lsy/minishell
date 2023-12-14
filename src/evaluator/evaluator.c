@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/13 21:19:39 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:04:10 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 	{
 		if (redirect_io(sh, id, cmd) == TRUE || cmd->status == 0)
 			ft_execute_builtin(sh, cmd);
+		reset_io(sh);
 	}
 	else if (is_builtin(cmd->bin) < 0)
 	{
@@ -57,7 +58,8 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 			&& cmd->status == 0)
 			ft_execute(sh, cmd);
 	}
-	exit(sh->cl.exit_status);
+	if (sh->cl.n_cmds > 1 || is_builtin(cmd->bin) < 0)
+		exit(sh->cl.exit_status);
 }
 
 /*

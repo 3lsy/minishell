@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 21:08:52 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/13 21:49:07 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:19:26 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	launcher(t_sh *sh)
 	cmd = sh->cl.ast;
 	while (cmd)
 	{
-		if (i == 0 && !cmd->next && ft_strcmp(cmd->bin, "exit") == 0)
+		if (i == 0 && !cmd->next && is_builtin(cmd->bin) >= 0)
 			execute_cmd(sh, i, cmd);
 		else
 			launch_child(sh, i, cmd);
