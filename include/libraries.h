@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/29 09:39:53 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:09:43 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@
 # define MAX_CODE_SIZE 6
 
 # define CTRL_D "\x4"
+# define CTRL_L "\x0c"
 # define DEL "\x7f"
 # define LEFT_ARROW "\x1b\x5b\x44"
 # define RIGHT_ARROW "\x1b\x5b\x43"
@@ -90,6 +91,7 @@
 # define STORE_CURSOR "sc"
 # define RESTORE_CURSOR "rc"
 # define DELETE_CHAR "dc"
+# define CLEAR_SCREEN "cl"
 
 /*
 ** Token types
@@ -198,7 +200,6 @@ typedef struct s_cmds
 	int			n_cmds;
 	int			(*pipes)[2];
 	pid_t		*child_pids;
-	int			saved_stdout;
 	int			exit_status;
 }	t_cmds;
 
@@ -212,7 +213,7 @@ typedef struct s_cmds
 ** - cl: command line
 */
 
-typedef struct t_sh
+typedef struct s_sh
 {
 	t_cui		cui;
 	t_cmds		cl;
@@ -229,5 +230,12 @@ typedef struct t_sh
 */
 
 typedef int	(*t_builtin)(int, char **, char **, t_sh *);
+typedef int	(*t_event)(t_cui *, t_sh *);
+
+typedef struct s_ev
+{
+	char	*key;
+	t_event	event;
+}	t_ev;
 
 #endif

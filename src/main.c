@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 19:59:23 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 01:52:28 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	ft_minishell(t_sh *sh)
 {
 	while (TRUE)
 	{
+		if (g_sigint == CTRLC)
+			sh->cl.exit_status = 130;
 		reset_cmdline(&sh->cui);
 		update_prompt(&sh->cui.prompt, sh->ev);
 		ft_prompt(&sh->cui);

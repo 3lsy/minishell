@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:34:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/13 18:21:28 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:57:31 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*insert_spaces(char *str)
 	i = 0;
 	while (str && str[i])
 	{
+		i = skip_quote(str, i, 0);
 		token = is_operator(str, i);
 		if (token != 127)
 		{

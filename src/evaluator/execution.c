@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 21:11:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/14 17:18:18 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:57:18 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ void	ft_execute(t_sh *sh, t_ast *cmd)
 
 	if (!cmd->bin)
 		return ;
+	if (ft_strchr(cmd->bin, '/'))
+	{
+		execve(cmd->bin, cmd->av, sh->plain_ev);
+		ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n",
+			cmd->bin, strerror(errno));
+		exit(EXIT_FAILURE * 127);
+	}
 	cmd_path = ft_which(cmd->bin, sh->ev, NULL);
 	if (cmd_path)
 		execve(cmd_path, cmd->av, sh->plain_ev);

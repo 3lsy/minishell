@@ -6,16 +6,22 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 21:45:30 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/03 23:39:57 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:57:12 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	skip_single_quotes(char *line, int i)
+int	skip_quote(char *line, int i, char q)
 {
+	if (!line[i])
+		return (i);
+	if (q == 0 && (line[i] == '\'' || line[i] == '\"'))
+		q = line[i];
+	if (line[i] != q)
+		return (i);
 	i++;
-	while (line[i] && line[i] != '\'')
+	while (line[i] && line[i] != q)
 		i++;
 	return (i);
 }
@@ -47,8 +53,8 @@ int	expand_env_var(char **line, int i, char **ev, int j)
 	char	*value;
 	char	*tmp;
 
-	while ((*line)[j] && (*line)[j] != ' ' &&
-			(*line)[j] != '\'' && (*line)[j] != '\"')
+	while ((*line)[j] && (*line)[j] != ' ' && ft_isalnum((*line)[j])
+			&& (*line)[j] != '\'' && (*line)[j] != '\"')
 		j++;
 	if (!(*line)[i + 1])
 		return (i);
@@ -79,7 +85,7 @@ char	*expand_line(char *line, t_sh *sh)
 	while (line[i])
 	{
 		if (line[i] == '\'')
-			i = skip_single_quotes(line, i);
+			i = skip_quote(line, i, '\'');
 		if (line[i] == '$' && line[i + 1] == '?')
 		{
 			i = expand_exit_status(&line, i, sh->cl.exit_status);
