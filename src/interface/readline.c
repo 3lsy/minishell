@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:48:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/29 09:41:20 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 02:08:58 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	key_event(char *e, t_cui *cui, t_sh *sh)
 		ctrl_left(cui, sh);
 	else if (ft_strcmp(e, CTRL_RIGHT) == 0)
 		ctrl_right(cui, sh);
+	else if (ft_strcmp(e, CTRL_L) == 0)
+		ctrl_l(cui, sh);
 	else if (ft_strcmp(e, HOME) == 0)
 		home_key(cui, sh);
 	else if (ft_strcmp(e, END) == 0)

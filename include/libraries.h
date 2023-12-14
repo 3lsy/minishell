@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:00:55 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/13 21:08:01 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/14 02:03:55 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@
 # define MAX_CODE_SIZE 6
 
 # define CTRL_D "\x4"
+# define CTRL_L "\x0c"
 # define DEL "\x7f"
 # define LEFT_ARROW "\x1b\x5b\x44"
 # define RIGHT_ARROW "\x1b\x5b\x43"
@@ -90,6 +91,7 @@
 # define STORE_CURSOR "sc"
 # define RESTORE_CURSOR "rc"
 # define DELETE_CHAR "dc"
+# define CLEAR_SCREEN "cl"
 
 /*
 ** Token types
