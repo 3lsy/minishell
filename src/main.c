@@ -6,16 +6,12 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 01:42:32 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 01:52:28 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:57:34 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** if (ft_analyzer(sh) != EXIT_FAILURE)
-**    ft_parser(sh);
-*/
 static void	ft_minishell(t_sh *sh)
 {
 	while (TRUE)
