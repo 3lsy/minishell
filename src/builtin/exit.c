@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 00:07:24 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/15 15:57:32 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:06:22 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_islong(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
 		i++;
 	if (ft_strlen(str + i) > 19)
 		return (FALSE);
