@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:17:51 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/11 16:43:23 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:03:09 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int	ft_export(int ac, char **av, __attribute__((unused)) char **ev, t_sh *sh)
 		{
 			if (!valid_name(av[i]))
 			{
-				ft_printf("minishell: export: `%s': not a valid identifier\n",
+				ft_fprintf(STDERR_FILENO,
+					"minishell: export: `%s': not a valid identifier\n",
 					av[i]);
 				exit_status = EXIT_FAILURE;
 			}
