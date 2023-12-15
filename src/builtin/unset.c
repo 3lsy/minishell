@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 18:08:59 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/11 16:46:43 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:30:50 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	unset_key(char *key, t_sh *sh)
 				sh->keys[i - 1] = sh->keys[i];
 				i++;
 			}
-			sh->keys[i] = NULL;
+			sh->keys[i - 1] = NULL;
 			update_plain_ev(sh);
 			break ;
 		}
