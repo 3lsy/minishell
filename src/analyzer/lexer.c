@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:34:42 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 18:17:10 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:30:29 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**ft_lexer(t_sh *sh)
 	return (line);
 }
 
-t_byte	is_operator(char *str, int i)
+t_byte	lexer_is_operator(char *str, int i)
 {
 	if (!str || !str[i])
 		return (127);
@@ -62,7 +62,7 @@ char	*insert_spaces(char *str)
 	while (str && str[i])
 	{
 		i = skip_quote(str, i, 0);
-		token = is_operator(str, i);
+		token = lexer_is_operator(str, i);
 		if (token != 127)
 		{
 			ft_strinsert(&str, ' ', i++);

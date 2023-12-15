@@ -6,11 +6,28 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:30:40 by echavez-          #+#    #+#             */
-/*   Updated: 2023/09/28 11:52:18 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:32:23 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_byte	is_operator(char *str, int i)
+{
+	if (!str || !str[i])
+		return (127);
+	if (ft_strcmp(str, ">>") == 0)
+		return (DBL_R);
+	else if (ft_strcmp(str, ">") == 0)
+		return (SGL_R);
+	else if (ft_strcmp(str, "<<") == 0)
+		return (DBL_L);
+	else if (ft_strcmp(str, "<") == 0)
+		return (SGL_L);
+	else if (ft_strcmp(str, "|") == 0)
+		return (PIPE);
+	return (127);
+}
 
 t_bool	ft_parser(char **tokens)
 {
