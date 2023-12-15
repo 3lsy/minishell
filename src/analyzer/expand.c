@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 21:45:30 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 19:35:27 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 17:17:14 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	expand_env_var(char **line, int i, char **ev, int j)
 		return (-1);
 	free(*line);
 	*line = tmp;
-	return (i + ft_strlen(value));
+	return (i + ft_strlen(value) - 1);
 }
 
 // expand env variables and $? that is not inside single quotes

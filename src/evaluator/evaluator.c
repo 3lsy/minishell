@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:04:10 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 18:04:10 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 17:13:43 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	execute_cmd(t_sh *sh, int id, t_ast *cmd)
 	cmd->status = 0;
 	if (is_builtin(cmd->bin) >= 0)
 	{
-		if (redirect_io(sh, id, cmd) == TRUE || cmd->status == 0)
+		if (redirect_io(sh, id, cmd) == TRUE && cmd->status == 0)
 			ft_execute_builtin(sh, cmd);
 		reset_io(sh);
 	}
