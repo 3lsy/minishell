@@ -6,11 +6,19 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 21:11:35 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/13 19:57:18 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:53:23 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_dir(const char *path)
+{
+	struct stat	path_stat;
+
+	stat(path, &path_stat);
+	return (S_ISDIR(path_stat.st_mode));
+}
 
 /*
 ** Launch the corresponding builtin command.
@@ -36,10 +44,16 @@ void	ft_execute(t_sh *sh, t_ast *cmd)
 		return ;
 	if (ft_strchr(cmd->bin, '/'))
 	{
+		if (is_dir(cmd->bin))
+		{
+			ft_fprintf(STDERR_FILENO, "minishell: %s: Is a directory\n",
+				cmd->bin);
+			exit(EXIT_FAILURE * 126);
+		}
 		execve(cmd->bin, cmd->av, sh->plain_ev);
 		ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n",
 			cmd->bin, strerror(errno));
-		exit(EXIT_FAILURE * 127);
+		exit(EXIT_FAILURE * 126);
 	}
 	cmd_path = ft_which(cmd->bin, sh->ev, NULL);
 	if (cmd_path)
