@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:16:25 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/11 16:36:04 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:55:19 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ char	*k24_insert(char **ev, char *str)
 	{
 		free(key);
 		return (NULL);
+	}
+	if (ev[k24(key)])
+	{
+		free(ev[k24(key)]);
+		ev[k24(key)] = NULL;
 	}
 	ev[k24(key)] = value;
 	return (key);

@@ -6,11 +6,21 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:11:08 by echavez-          #+#    #+#             */
-/*   Updated: 2023/10/09 20:07:35 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:35:20 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	home_len(char *home)
+{
+	int	len;
+
+	len = ft_strlen(home);
+	while (len > 0 && home[len - 1] == '/')
+		len--;
+	return (len);
+}
 
 void	reduce_path(char *path, char **ev)
 {
@@ -21,7 +31,7 @@ void	reduce_path(char *path, char **ev)
 	home = ev[k24("HOME")];
 	if (home)
 	{
-		len_home = ft_strlen(home);
+		len_home = home_len(home);
 		if (ft_strncmp(path, home, len_home) == 0)
 		{
 			len_path = ft_strlen(path) - len_home + 1;
