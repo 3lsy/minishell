@@ -6,7 +6,7 @@
 /*   By: echavez- <echavez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:34:50 by echavez-          #+#    #+#             */
-/*   Updated: 2023/12/14 19:16:09 by echavez-         ###   ########.fr       */
+/*   Updated: 2023/12/15 17:08:32 by echavez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	redirect_input(t_sh *sh, int id, t_ast *cmd)
 	i = 0;
 	while (cmd->redir[i].id != NONE)
 	{
-		if (cmd->redir[i].id == SGL_L)
+		if (cmd->redir[i].id == SGL_L && cmd->status == 0)
 			cmd->status += input_redirection(sh, cmd->redir[i].file,
 					is_builtin(cmd->bin) >= 0);
 		else if (cmd->redir[i].id == DBL_L)
