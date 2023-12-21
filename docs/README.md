@@ -3,6 +3,8 @@
   <img src = "https://github.com/3lsy/minishell/assets/107457733/ab36bb69-86f6-4a46-ac1e-04b160dc9f9a" width = 50> 
 </h1>
 
+ <img src = "minishell.gif" > 
+
 ## Design
 There are two main components on a shell:
 - **Analyzer**
